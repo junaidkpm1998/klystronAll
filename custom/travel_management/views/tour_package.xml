@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_tour_package" model="ir.actions.act_window">
+        <field name="name">Travel Management Tour Package</field>
+        <field name="res_model">tour.package</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+    <record id="view_task_calendar" model="ir.ui.view">
+        <field name="name">tour.package.calendar</field>
+        <field name="model">tour.package</field>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <calendar date_start="end_date" string="Tasks" mode="month" color="customer_id" event_limit="5"
+                      hide_time="true" js_class="project_calendar" event_open_popup="true" quick_add="false">
+                <field name="customer_id"/>
+                <field name="quotation_date"/>
+                <field name="source_location"/>
+                <field name="dest_location"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </calendar>
+        </field>
+    </record>
+    <record id="tour_package_tree" model="ir.ui.view">
+        <field name="name">tour.package.tree</field>
+        <field name="model">tour.package</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="customer_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="tour_package_form" model="ir.ui.view">
+        <field name="name">tour.package.form</field>
+        <field name="model">tour.package</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="quotation_date"/>
+                            <field name="source_location"/>
+                            <field name="dest_location"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="no_of_travellers"/>
+                            <field name="facilities" widget="many2many_tags"/>
+                            <field name="vehicle_typesa"/>
+                            <field name="vehicle"/>
+                        </group>
+
+
+                    </group>
+                    <notebook>
+                        <page name="estimation" string="Estimation">
+                            <field name="estimation" string="Estimation">
+                                <tree editable="bottom">
+                                    <field name="service"/>
+                                    <field name="quantity"/>
+                                    <field name="amount"/>
+                                    <field name="sub_total"/>
+                                    <!--                                    <field name="total_amount"/>-->
+
+                                </tree>
+
+                            </field>
+                            <group>
+                                <group class="oe_subtotal_footer oe_right">
+
+                                    <field name="total_amount" string="Total Amount"/>
+
+                                </group>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

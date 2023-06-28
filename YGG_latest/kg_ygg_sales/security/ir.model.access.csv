@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kg_sale_order,kg_sale_order,model_kg_sale_order,base.group_user,1,1,1,1
+access_kg_sale_order_line,kg_sale_order_line,model_kg_sale_order_line,base.group_user,1,1,1,1
+access_corporate_category,corporate_category,model_corporate_category,base.group_user,1,1,1,1

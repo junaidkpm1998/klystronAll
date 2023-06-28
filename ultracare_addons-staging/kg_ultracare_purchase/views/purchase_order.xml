@@ -1,0 +1,193 @@
+<odoo>
+    <data>
+
+        <!--        Hide product menu in Purchase module-->
+        <menuitem id="purchase.menu_procurement_partner_contact_form" active="False"/>
+
+        <record id="kg_001_purchase_order_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.kg001.ultracare</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_stock.purchase_order_view_form_inherit"/>
+            <field name="arch" type="xml">
+                <field name="effective_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="kg_002_purchase_order_line_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.line.kg001.ultracare</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase_requisition.purchase_order_line_compare_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="is_select" invisible="1"/>
+                </xpath>
+                <button name="action_choose" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_select', '=', False)]}</attribute>
+                </button>
+
+                <button name='action_clear_quantities' position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_select', '=', False)]}
+                    </attribute>
+                </button>
+            </field>
+        </record>
+
+        <record id="purchase_order_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.kg.ultracare</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="creating_date" widget="date"/>
+                    <field name="kg_is_alternative" invisible="1"/>
+                    <field name="gm_approve_exceeds" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="after">
+                    <page name="approvals" string="Approve Information" invisible="1">
+                        <group>
+                            <group>
+                                <field name="finance_approve" readonly="1"/>
+                                <field name="finance_approve_date" readonly="1" widget="date"/>
+                            </group>
+                            <group>
+                                <field name="operation_approve" readonly="1"/>
+                                <field name="operation_approve_date" readonly="1" widget="date"/>
+                            </group>
+                            <group/>
+                            <group/>
+                            <group>
+                                <field name="director_approve" readonly="1"/>
+                                <field name="director_approve_date" readonly="1" widget="date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']"
+                       position="after">
+                    <field name="is_select" widget="boolean_toggle"/>
+
+                </xpath>
+
+                <xpath expr="//field[@name='tax_totals']" position="after">
+                    <field name="selected_total"/>
+                </xpath>
+
+                <xpath expr="//field[@name='fiscal_position_id']" position="after">
+                    <field name="approval_status" readonly="1" force_save="1"/>
+                    <field name="is_user" invisible="1" force_save="1"/>
+                    <field name="is_invoice" force_save="1" invisible="1"/>
+                    <field name="is_approved" force_save="1" invisible="1"/>
+                    <field name="is_done" force_save="1" invisible="1"/>
+                    <field name="finance_approve" readonly="1"/>
+                    <field name="operation_approve" readonly="1"/>
+                    <field name="director_approve" readonly="1"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="after">
+                    <page name="attachment" string="Attachments">
+                        <group>
+                            <field name="attachment">
+                                <tree editable="bottom">
+                                    <field name="document_name" string="Document Name" required="1"/>
+                                    <field name="doc_attachment_partner" widget="many2many_binary"
+                                           string="Attachments"/>
+                                    <field name="expiry" required="0"/>
+                                    <field name="override_doc" widget="boolean_toggle"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//sheet/div[@name='button_box']" position="after">
+                    <widget name="web_ribbon" title="Waiting for approval from Finance" bg_color="bg-info"
+                            attrs="{'invisible': [('approval_status', '!=', 'waiting')]}"/>
+                    <widget name="web_ribbon" title="Waiting for approval from Operations" bg_color="bg-info"
+                            attrs="{'invisible': [('approval_status', '!=', 'finance_approve')]}"/>
+                    <widget name="web_ribbon" title="Waiting for approval from Managing Director" bg_color="bg-info"
+                            attrs="{'invisible': [('approval_status', '!=', 'operations_approve')]}"/>
+                    <widget name="web_ribbon" title="Your Order is Approved" bg_color="bg-success"
+                            attrs="{'invisible': [('approval_status', '!=', 'approved')]}"/>
+                    <widget name="web_ribbon" title="Your Order is Rejected" bg_color="bg-danger"
+                            attrs="{'invisible': [('approval_status', '!=', 'rejected')]}"/>
+                </xpath>
+                <xpath expr="//form//header//button[@name='button_confirm']" position="before">
+                    <button name="action_finance_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('approval_status', '!=', 'waiting')]}"
+                            string=" Finance Approve"
+                            type="object"/>
+                    <button name="action_operation_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('approval_status', '!=', 'finance_approve')]}"
+                            string="Operations Approve"
+                            type="object"/>
+                    <button name="action_director_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|',('approval_status', '!=', 'operations_approve'),('gm_approve_exceeds','!=',True)]}"
+                            string="Director Approve"
+                            type="object"/>
+                    <button name="action_request_approval"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('is_invoice','=',False)]}"
+                            string="Request For Approval"
+                            type="object"/>
+                    <button name="action_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('is_done','=',False)]}"
+                            string="Approve"
+                            type="object"/>
+                    <button name="action_reject"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('approval_status', 'in', ('approved','rejected',False))]}"
+                            string="Reject"
+                            type="object"/>
+                    <button name="kg_purchase_order_report" class="oe_highlight" string="PURCHASE ORDER REPORT"
+                            type="object" attrs="{'invisible': [('state','!=','purchase')]}"/>
+                </xpath>
+                <field name="date_approve" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_planned" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+        <record id="action_multi_vendor" model="ir.actions.server">
+            <field name="name">Send Multiple</field>
+            <field name="model_id" ref="model_purchase_order"/>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.action_multi_vendor()
+            </field>
+        </record>
+        <record id="kg_inherit_purchase_order_list_view" model="ir.ui.view">
+            <field name="name">Purchase Order List View Inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="before">
+                    <field name="payment_term_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_purchase_order_line_compare" model="ir.ui.view">
+            <field name="name">Purchase Order Line Compare View Inherit</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase_requisition.purchase_order_line_compare_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/button[@name='action_choose']" position="replace">
+                    <button name="action_choose" string="Choose" type="object" class="o_clear_qty_buttons"
+                            icon="fa-bullseye"
+                            attrs="{'invisible': ['|',('product_qty', '&lt;=', 0.0), ('state','=','cancel')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

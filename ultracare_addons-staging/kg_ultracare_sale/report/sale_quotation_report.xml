@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sales_statement_documents">
+        <t t-call="web.html_container">
+            <style>
+                .table-borderless td,
+                .table-borderless th {
+                border: 0;
+                }
+            </style>
+            <div class="header">
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td width="72%" align="left">
+                            <b>
+                                <span t-esc="company_id"/>
+                            </b>
+                        </td>
+                        <td width="10%" align="left">
+                            <b>
+                                <span>
+                                    Date
+                                </span>
+                            </b>
+                        </td>
+                        <td width="3%" align="center">
+                            <b>
+                                <span>:</span>
+                            </b>
+                        </td>
+                        <td width="15%" align="left">
+                            <b>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                            </b>
+                        </td>
+
+                    </tr>
+                    <tr width="100%">
+                        <td width="72%" align="left">
+                            <b>
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                            </b>
+                            <b>
+                                <span t-esc="company_zip"/>
+                            </b>
+                            <t t-if="company_state">
+                                <b>
+                                    <span t-esc="company_state"/>,
+                                </b>
+                            </t>
+                            <t t-if="company_country">
+                                <b>
+                                    <span t-esc="company_country"/>
+                                </b>
+                            </t>
+                        </td>
+                        <td width="10%" align="left">
+                            <b>
+                                <span>
+                                    Page No
+                                </span>
+                            </b>
+                        </td>
+                        <td width="3%" align="center">
+                            <b>
+                                <span>:</span>
+                            </b>
+                        </td>
+                        <td width="15%" align="left">
+                            <b>
+                                <span class="page"/>
+                            </b>
+                        </td>
+                    </tr>
+                </table>
+                <div class="oe_structure"/>
+                <div class="row">
+                    <center style="font-size:15px;">
+                        <u>
+                            <b>SALES QUOTATION (Sales Quot,)</b>
+                        </u>
+                    </center>
+                </div>
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td>
+                            <b>
+                                <span>From:
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    To:
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                <thead>
+                    <tr width="100%">
+                        <td style="font-size:10" align="center">
+                            <b>Order No</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Order Date</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Reference</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Customer Code &amp; Name</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Item Code</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Item Description</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Unit</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Qty</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Rate</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Amount</b>
+                        </td>
+                        <td style="font-size:10" align="center">
+                            <b>Remarks</b>
+                        </td>
+
+
+                    </tr>
+                    <tr style="border-bottom: 1px solid black;;;width:100%">
+                        <td style="border-bottom: 1px solid black;" colspan="11"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                </thead>
+
+                <t t-foreach="data" t-as="data">
+                    <tr width="100%">
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="data['order_no']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="data['order_date']" t-options="{'widget':'date','format':'dd-MM-yyyy'}"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="data['ref']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="11%">
+                            <span t-esc="data['customer_code']"/>
+                            <span t-esc="data['customer_name']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="8%">
+                            <span t-esc="data['product_item_code']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="25%">
+                            <span t-esc="data['product_description']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="data['unit']"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="'{:,.2f}'.format(data['quantity'])"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="'{:,.2f}'.format(data['rate'])"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%">
+                            <span t-esc="'{:,.2f}'.format(data['amount'])"/>
+                        </td>
+                        <td style="font-size:10" align="center" width="7%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                    <tr width="100%">
+                        <td colspan="11"/>
+                    </tr>
+                </t>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="6"/>
+                    <td style="font-size:10">
+                        <span>
+                            <b>
+                                Group Total
+                            </b>
+                        </span>
+                    </td>
+                    <td colspan="2" style="font-size:10">
+                        <span>
+                            <b>
+                                <span t-esc="grand_qty"/>
+                            </b>
+                        </span>
+                    </td>
+                    <td style="font-size:10" align="center">
+                        <span>
+                            <b>
+                                <span t-esc="grand_amount"/>
+                            </b>
+                        </span>
+                    </td>
+                    <td/>
+                </tr>
+
+                <tr style="border-bottom: 1px solid black;;;width:100%">
+                    <td style="border-bottom: 1px solid black;" colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr>
+                    <td colspan="2" style="font-size:10">
+                        <span>
+                            <b>
+                                Run Date :
+                            </b>
+                        </span>
+                    </td>
+                    <td style="font-size:10">
+                        <b>
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                        </b>
+                    </td>
+                    <td colspan="2" style="font-size:10" align="left"/>
+                    <td style="font-size:10">
+                        <span>
+                            <b>
+                                Grand Total
+                            </b>
+                        </span>
+                    </td>
+                    <td colspan="2" style="font-size:10">
+                        <span>
+                            <b>
+                                <span t-esc="grand_qty"/>
+                            </b>
+                        </span>
+                    </td>
+                    <td style="font-size:10" align="center">
+                        <span>
+                            <b>
+                                <span t-esc="grand_amount"/>
+                            </b>
+                        </span>
+                    </td>
+                    <td/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr width="100%">
+                    <td colspan="11"/>
+                </tr>
+                <tr style="border-bottom: 1px solid black;;;width:100%">
+                    <td style="border-bottom: 1px solid black;" colspan="11"/>
+                </tr>
+            </table>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="employee_interview_form"
+                  name="Interview Form"
+                  parent="hr.menu_config_employee"
+                  action="action_employee_interview_form"/>
+        <menuitem id="employee_manpower_requisition:"
+                  name="Manpower Requisition"
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  action="action_employee_manpower_requisition"/>
+        <menuitem id="employee_advance_loans"
+                  name="Advance/Loans"
+                  parent="hr.menu_hr_root"
+                  action="action_employee_advance_loans"/>
+
+    </data>
+</odoo>

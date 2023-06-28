@@ -1,0 +1,207 @@
+<odoo>
+    <data>
+        <record id="view_kg_daily_production_tree_lat" model="ir.ui.view">
+            <field name="name">product.shift.line.tree.latest</field>
+            <field name="model">product.shift.line</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Report" editable="top" create="false">
+                    <field name="kg_date" readonly="1"/>
+                    <field name="kg_shift_id" readonly="1"/>
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_start_time" widget="float_time" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                    <field name="kg_end_time" widget="float_time" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                    <field name="kg_real_mins"/>
+                    <field name="kg_qty" readonly="1"/>
+                    <field name="kg_act_prod" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                    <field name="kg_dt" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                    <field name="kg_act_mins" readonly="1"/>
+                    <field name="kg_eff"/>
+                    <field name="state" readonly="1"/>
+                    <field name="kg_wastage_calculation"/>
+                    <field name="kg_waste_per"/>
+                    <field name="kg_remarks"/>
+                    <button name="complete_prod" type="object" icon="fa-check" string="Complete Production"
+                            attrs="{'invisible': ['|',('state', '!=', 'new'),('kg_act_prod', '=', 0)]}"/>
+                    <field name="production_id" attrs="{'invisible': [('production_id', '=', False)]}"/>
+                    <button name="send_to_stock" type="object" icon="fa-exchange" string="Transfer to Stock"
+                            states="prod_com"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kg_daily_production" model="ir.actions.act_window">
+            <field name="name">Shift Reporting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.shift.line</field>
+            <field name="view_id" ref="view_kg_daily_production_tree_lat"/>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+
+        <!--        <menuitem id="menu_action_view_kg_prod_shift_line"-->
+        <!--                  action="action_view_kg_prod_shift_line" parent="menu_action_kg_prod_plan"-->
+        <!--                  name="Shift Reporting"/>-->
+
+<!--        <menuitem id="menu_action_view_kg_daily_production"-->
+<!--                  action="action_view_kg_daily_production" parent="menu_action_kg_prod_plan"-->
+<!--                  name="Shift Report"/>-->
+
+
+        <record id="view_kg_daily_production_report_tree" model="ir.ui.view">
+            <field name="name">kg.prod.shift.line.tree1</field>
+            <field name="model">product.shift.line</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Production Report" edit="false" create="false">
+                    <field name="kg_date" readonly="1"/>
+                    <field name="kg_shift_id" readonly="1"/>
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_qty" readonly="1"/>
+                    <field name="kg_act_prod"/>
+                    <field name="kg_real_mins" readonly="1"/>
+                    <field name="kg_act_mins" readonly="1"/>
+                    <field name="kg_wastage_calculation" readonly="1"/>
+                    <field name="kg_waste_per"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kg_daily_production_report" model="ir.actions.act_window">
+            <field name="name">Daily Production Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.shift.line</field>
+            <field name="view_id" ref="view_kg_daily_production_report_tree"/>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+
+                </p>
+            </field>
+        </record>
+
+
+<!--        <menuitem id="menu_action_view_kg_daily_production_report"-->
+<!--                  action="action_view_kg_daily_production_report" parent="menu_action_kg_prod_plan"-->
+<!--                  name="Daily Production Report" sequence="6" invisible="1"/>-->
+
+
+        <record id="view_kg_monthly_production_report_tree" model="ir.ui.view">
+            <field name="name">kg.prod.shift.line.tree2</field>
+            <field name="model">product.shift.line</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Production Report" edit="false" create="false">
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_qty" readonly="1" string="Target Production"/>
+                    <field name="kg_act_prod" string="MTD Production" readonly="1"/>
+                    <field name="kg_act_mins" string="Production Time(mins)" readonly="1"/>
+                    <field name="kg_eff" string="Production Efficency(%)" readonly="1"/>
+                    <field name="kg_forecast"/>
+                    <field name="kg_forecast_act_per"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kg_monthly_production_report" model="ir.actions.act_window">
+            <field name="name">Monthly Production Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.shift.line</field>
+            <field name="view_id" ref="view_kg_monthly_production_report_tree"/>
+            <field name="context">{'group_by': ['kg_date', 'kg_product']}</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+<!--        <menuitem id="menu_action_view_kg_monthly_production_report"-->
+<!--                  action="action_view_kg_monthly_production_report" parent="menu_action_kg_prod_plan"-->
+<!--                  name="Monthly Production Report" sequence="7"/>-->
+        <record id="view_kg_raw_mat_plan_tree" model="ir.ui.view">
+            <field name="name">kg.raw.mat.line.tree</field>
+            <field name="model">kg.raw.mat.line</field>
+            <field name="arch" type="xml">
+                <tree string="Raw Material Planning" create="false">
+                    <field name="kg_prod_plan_id" string="Plan No" readonly="1"/>
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_product_uom" readonly="1"/>
+                    <field name="kg_date" readonly="1"/>
+                    <field name="kg_shift_id" readonly="1"/>
+                    <field name="kg_qty" readonly="1"/>
+                    <field name="req_date"/>
+                    <field name="req_qty"/>
+                    <field name="notes"/>
+                    <field name="kg_purchase_requisition_id" readonly="1"/>
+                    <button name="action_open_quants" type="object" string="Check Stock"/>
+                    <button name="create_purchase_req" type="object" string="Create Pu.Req"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kg_raw_mat_plan" model="ir.actions.act_window">
+            <field name="name">Raw Material Planning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.raw.mat.line</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+
+        <record id="view_kg_prod_shift_line_tree" model="ir.ui.view">
+            <field name="name">kg.prod.shift.line.tree</field>
+            <field name="model">product.shift.line</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Planning" create="false" edit="false">
+                    <field name="kg_prod_plan_id" string="Plan No"/>
+                    <field name="kg_day"/>
+                    <field name="kg_date"/>
+                    <field name="kg_shift_id"/>
+                    <field name="kg_qty"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--        <record id="action_view_kg_prod_shift_line" model="ir.actions.act_window">-->
+        <!--            <field name="name">Shift Reporting</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">product.shift.line</field>-->
+        <!--            <field name="view_mode">tree</field>-->
+        <!--            <field name="help" type="html">-->
+        <!--                <p class="oe_view_nocontent_create">-->
+        <!--                </p>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <menuitem id="menu_action_kg_prod_plan1"
+                  action="action_kg_prod_plan" parent="menu_action_kg_prod_plan"
+                  name="Production Planning" sequence="1"/>
+        <menuitem id="menu_action_view_kg_raw_mat_plan"
+                  action="action_view_kg_raw_mat_plan" parent="stock.menu_stock_warehouse_mgmt"
+                  name="Raw Material Planning" sequence="2"/>
+
+
+        <record id="production_planning_wizard" model="ir.ui.view">
+            <field name="name">kg.wizard.production.planning</field>
+            <field name="model">wizard.production.planning</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <tree string="Production Planning">
+                    <field name="kg_product_id"/>
+                    <field name="req_qty"/>
+                    <field name="available_qty"/>
+                    <field name="user_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_show_raw_materials" model="ir.actions.act_window">
+            <field name="name">Production Planning Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.production.planning</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

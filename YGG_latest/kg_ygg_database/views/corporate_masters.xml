@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_business_level_category_tree" model="ir.ui.view">
+            <field name="name">ygg.business.level.category.tree</field>
+            <field name="model">ygg.business.level.category</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Business Level Category">
+                    <field name="name"/>
+                    <field name="date_added"/>
+                    <field name="date_modified"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_business_level_category_form" model="ir.ui.view">
+            <field name="name">ygg.business.level.category.form</field>
+            <field name="model">ygg.business.level.category</field>
+            <field name="arch" type="xml">
+                <form string="YGG Business Level Category">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="date_added"/>
+                                <field name="date_modified"/>
+                                <field name="db_name" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_business_level_category" model="ir.actions.act_window">
+            <field name="name">YGG Business Level Category</field>
+            <field name="res_model">ygg.business.level.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="ygg_business_level_subcategory_tree" model="ir.ui.view">
+            <field name="name">ygg.business.level.subcategory.tree</field>
+            <field name="model">ygg.business.level.subcategory</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Business Level SubCategory">
+                    <field name="name"/>
+                    <field name="business_level_categ_id"/>
+                    <field name="date_added"/>
+                    <field name="date_modified"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_business_level_subcategory_form" model="ir.ui.view">
+            <field name="name">ygg.business.level.subcategory.form</field>
+            <field name="model">ygg.business.level.subcategory</field>
+            <field name="arch" type="xml">
+                <form string="YGG Business Level SubCategory">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+
+                            <group>
+                                <field name="business_level_categ_id"/>
+                            </group>
+                            <group>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="date_added"/>
+                                <field name="date_modified"/>
+                                <field name="db_name" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_business_level_subcategory" model="ir.actions.act_window">
+            <field name="name">YGG Business Level SubCategory</field>
+            <field name="res_model">ygg.business.level.subcategory</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <record id="ygg_corporate_category_tree" model="ir.ui.view">
+            <field name="name">ygg.corporate.category.tree</field>
+            <field name="model">ygg.corporate.category</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Corporate Category">
+                    <field name="name"/>
+                    <field name="business_level_subcateg_id"/>
+                    <field name="date_added"/>
+                    <field name="date_modified"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_corporate_category_form" model="ir.ui.view">
+            <field name="name">ygg.corporate.category.form</field>
+            <field name="model">ygg.corporate.category</field>
+            <field name="arch" type="xml">
+                <form string="YGG Corporate Category">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="business_level_subcateg_id"/>
+                            </group>
+                            <group>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="date_added"/>
+                                <field name="date_modified"/>
+                                <field name="db_name" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_corporate_category" model="ir.actions.act_window">
+            <field name="name">YGG Business Level Category</field>
+            <field name="res_model">ygg.corporate.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="pending_purchase_wizard_new_form_view" model="ir.ui.view">
+            <field name="name">Pending Purchase Wizard</field>
+            <field name="model">pending.purchase.report.wizard.new</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                        <group>
+                            <group name="main_info">
+                                <field name="date_from" required="1"/>
+                            </group>
+                            <group name="date_to">
+                                <field name="date_to" required="1"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button
+                                    name="button_pending_purchase_report_new"
+                                    string="Print Report"
+                                    type="object"/>
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="pending_purchase_order_wizard_new_menu_action1" model="ir.actions.act_window">
+            <field name="name">Pending Purchase Order</field>
+            <field name="res_model">pending.purchase.report.wizard.new</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_pending_purchase"
+                  name="Pending Purchase Order"
+                  action="pending_purchase_order_wizard_new_menu_action1"
+                  parent="purchase.purchase_report_main"/>
+
+
+    </data>
+</odoo>

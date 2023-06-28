@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_pdf_report_partner_ledger" model="ir.actions.report">
+        <field name="name">Partner Ledger PDF Report</field>
+        <field name="model">partner.ledger.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">partner_ledger.pdf_report_template_partner_ledger</field>
+        <field name="report_file">partner_ledger.pdf_report_template_partner_ledger</field>
+        <field name="binding_model_id" ref="model_partner_ledger_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="pdf_report_template_partner_ledger">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Partner Ledger Report</h2>
+                </div>
+                <table class="table table-sm o_main_table" name="warranty">
+                    <thead>
+                        <tr>
+                            <th name="th_seq" class="text-left">
+                                <span>Demo</span>
+                            </th>
+                            <th name="th_customer_name" class="text-left">
+                                <span>Demo</span>
+                            </th>
+                            <th name="th_service" class="text-left">
+                                <span>Demo</span>
+                            </th>
+                            <th name="th_date" class="text-left">
+                                <span>Demo</span>
+                            </th>
+                            <th name="th_source_location" class="text-left">
+                                <span>Demo</span>
+                            </th>
+                            <th name="th_dest_location" class="text-left">
+                                <span>Demo</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

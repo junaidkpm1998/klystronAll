@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_payment_receipt_inherit" model="ir.actions.report">
+        <field name="name">Payment Account</field>
+        <field name="model">account.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">payment_pdf_report.account_payment_report</field>
+        <field name="report_file">payment_pdf_report.account_payment_report</field>
+        <field name="binding_model_id" ref="account.model_account_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="account_payment_report">
+
+
+        <!--        <t t-call="web.html_container">-->
+
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.basic_layout">
+
+                <style>
+                    tr,td{
+                    border: 1px;
+                    }
+                </style>
+
+                <!--                <table width="100%"-->
+                <!--                       style="border-bottom:1px solid black;border-top:1px solid black;border-left:1px solid black;border-right:1px solid black">-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;">-->
+                <!--                        <td width="40%" align="left">-->
+                <!--                            <strong>-->
+                <!--                                <span style="color:  #404040;" class="pb-2">Payment Certificate</span>-->
+                <!--                            </strong>-->
+                <!--                        </td>-->
+                <!--                        <td width="60%" align="right">-->
+                <!--                            <img t-att-src="'/logo.png?company=%s' % o.company_id.id"-->
+                <!--                                 style="padding: 0px; margin: 0px; height: 80px; width: 200px;"-->
+                <!--                                 t-att-alt="'%s' % o.company_id.name"/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                job Number-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                job Name-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                LPO Amount(AED)-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                LPO Number-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Vendor Name-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Invoice Amount-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Invoice Number-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Date:-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Paid:-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Current Payment-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Balance Against LPO(after adjusting current payment)-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td style="text-align:left;border-right:1px solid black;" width="40%">-->
+                <!--                            <b>-->
+                <!--                                Remarks-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td style="text-align:left;" width="60%">-->
+                <!--                            <h6>-->
+                <!--                                -&#45;&#45;&#45;&#45;-->
+                <!--                            </h6>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%" style="border-bottom:1px solid black;border-right:1px solid black;">-->
+                <!--                        <td width="100%" colspan="2" align="center">-->
+                <!--                            APPROVED BY-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr width="100%">-->
+                <!--                        <td width="40%">-->
+                <!--                            <b>-->
+                <!--                                Project Engineer-->
+                <!--                            </b>-->
+                <!--                        </td>-->
+                <!--                        <td width="60%"-->
+                <!--                            style="border-bottom:1px solid black;border-right:1px solid black;border-top:1px solid black;border-left:1px solid black;">-->
+
+                <!--                        </td>-->
+                <!--                    </tr>-->
+
+
+                <!--                </table>-->
+
+
+                <div class="container" style="font-size:15px; border: 1px solid black; padding: 5px;">
+
+                    <div class="row container">
+                        <!--                        <div width="100%">-->
+                        <div class="col-9">
+                            <h2 class="text-left mb-5">
+                                <strong>
+                                    <span style="color:  #404040;" class="pb-2">Payment Certificate</span>
+                                </strong>
+                            </h2>
+                        </div>
+                        <div class="col-3 text-right">
+                            <img t-att-src="'/logo.png?company=%s' % o.company_id.id"
+                                 style="padding: 0px; margin: 0px; height: 80px; width: 200px;"
+                                 t-att-alt="'%s' % o.company_id.name"/>
+                        </div>
+                        <!--                        </div>-->
+                    </div>
+
+
+                    <table class="table table-condensed" style="width:100%">
+                        <tbody>
+                            <tr width="100%">
+                                <td style="text-align:left;" width="40%">
+                                    <b>
+                                        job Number
+                                    </b>
+                                </td>
+                                <td style="text-align:left;" width="60%">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Job Name
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        LPO Amount(AED)
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        LPO Number
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Vendor Name
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+
+                                    </h6>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Invoice Amount
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Invoice Number
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Date
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Paid
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        <!--                                            <span t-esc="o.name"/>-->
+                                        -----
+                                    </h6>
+
+                                </td>
+                                <tr>
+                                    <td style="text-align:left;">
+                                        <b>
+                                            Current Payment
+                                        </b>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <h6>
+                                            -----
+                                        </h6>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;">
+                                        <b>
+                                            Balance Against LPO(after adjusting current payment)
+                                        </b>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <h6>
+                                            -----
+                                        </h6>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;">
+                                        <b>
+                                            Remarks
+                                        </b>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <h6>
+                                            -----
+                                        </h6>
+
+
+                                    </td>
+                                </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2 class="text-center mb-5">
+
+                        <div class="text-center">
+                            <h5>
+                                APPROVED BY
+                            </h5>
+                        </div>
+                    </h2>
+                    <table class="table table-condensed" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Project Manager
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Remarks
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Accountant
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Mgr.Commercial/Admin
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:left;">
+                                    <b>
+                                        Managing director
+                                    </b>
+                                </td>
+                                <td style="text-align:left;">
+                                    <h6>
+                                        -----
+                                    </h6>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </t>
+        </t>
+        <!--        </t>-->
+    </template>
+</odoo>

@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="kg_contacts_partner_share_company_rule" model="ir.rule">
+            <field name="name">res.partner.internal.user</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="domain_force">[('partner_share','=',False)]</field>
+            <field name="groups"
+                   eval="[(4, ref('project.group_project_user')),
+                   (4, ref('hr_attendance.group_hr_attendance')),
+                   (4, ref('stock.group_stock_user')),
+                   (4, ref('mrp.group_mrp_user')),
+                   (4, ref('purchase.group_purchase_user'))]"/>
+        </record>
+        <record id="kg_contacts_all_partner_rule" model="ir.rule">
+            <field name="name">kg.all.res.partner</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="domain_force">[('partner_share','=',True)]</field>
+            <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_management,access_travel_management,model_travel_management,travel_management.tm_manager_access,1,1,1,1
+access_tm_service_types,access_tm_service_types,model_tm_service_types,travel_management.tm_manager_access,1,1,1,1
+access_tm_vehicle,access_tm_vehicle,model_tm_vehicle,travel_management.tm_manager_access,1,1,1,1
+access_vehicle_facilities,access_vehicle_facilities,model_vehicle_facilities,travel_management.tm_manager_access,1,1,1,1
+access_vehicle_charges,access_vehicle_charges,model_vehicle_charges,travel_management.tm_manager_access,1,1,1,1
+access_tour_package,access_tour_package,model_tour_package,travel_management.tm_manager_access,1,1,1,1
+access_tm_estimation,access_tm_estimation,model_tm_estimation,travel_management.tm_manager_access,1,1,1,1
+access_travel_management_wizard,access_travel_management_wizard,model_travel_management_wizard,travel_management.tm_manager_access,1,1,1,1

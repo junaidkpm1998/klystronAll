@@ -1,0 +1,6 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_book_details,access_book_details,model_book_details,book_details.tm_manager_access,1,1,1,1
+access_book_author,access_book_author,model_book_author,book_details.tm_manager_access,1,1,1,1
+access_book_publisher,access_book_publisher,model_book_publisher,book_details.tm_manager_access,1,1,1,1
+access_product_reservation,access_product_reservation,model_product_reservation,book_details.tm_manager_access,1,1,1,1
+

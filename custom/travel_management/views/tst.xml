@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="purchase_order_template" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="o.name" class="col-xs-3">
+                <strong>Our Order Reference:</strong>
+                <p t-field="o.name"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@id='total']" position="after">
+            <b>Signature</b>
+            <img style="max-height: 100px;" t-if="o.partner_signature"
+                 t-att-src="image_data_uri(o.partner_signature)" alt="Logo"/>
+        </xpath>
+    </template>
+</odoo>

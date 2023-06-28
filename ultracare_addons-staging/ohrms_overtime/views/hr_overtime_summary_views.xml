@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_overtime_summary_form_view" model="ir.ui.view">
+            <field name="name">HR Overtime summary</field>
+            <field name="model">hr.overtime.summary</field>
+            <field name="arch" type="xml">
+                <form string="HR Overtime Summary">
+                    <header>
+                        <button name="fetch_overtime_data" string="FETCH OVERTIME SHEET" type="object"
+                                class="btn-primary" attrs="{'invisible': [('is_fetch', '=', True)]}"/>
+                        <button name="over_time_approve" string="APPROVE" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('is_fetch', '=', False),('is_approve', '=', True)]}"/>
+                        <button name="over_time_reject" string="REJECT" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('is_fetch', '=', False),('is_approve', '=', True)]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                               <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                                <field name="is_fetch" invisible="1"/>
+                                <field name="is_approve" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Overtime Information" name="overtime_info">
+                                <field name="overtime_ids">
+                                    <tree string="Overtime datas" editable="bottom">
+                                        <field name="overtime_summary_id" invisible="1"/>
+                                        <field name="employee_id"/>
+                                        <field name="project_id"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="days_no_tmp"/>
+                                        <field name="state"/>
+                                        <field name="type" invisible="1"/>
+                                        <field name="payslip_paid"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_overtime_summary_tree_view" model="ir.ui.view">
+            <field name="name">HR Overtime Summary</field>
+            <field name="model">hr.overtime.summary</field>
+            <field name="arch" type="xml">
+                <tree string="HR Overtime Summary">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_overtime_summary_action" model="ir.actions.act_window">
+            <field name="name">HR Overtime Summary</field>
+            <field name="res_model">hr.overtime.summary</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- MenuItems -->
+        <menuitem id="hr_overtime_summary_submenu" name="HR Overtime Summary"
+                  parent="overtime_submenu" groups="account.group_account_manager"
+                  action="hr_overtime_summary_action"/>
+
+    </data>
+</odoo>

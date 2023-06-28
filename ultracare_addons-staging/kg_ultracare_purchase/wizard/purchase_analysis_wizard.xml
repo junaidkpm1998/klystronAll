@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+
+        <!--        <record id="reporting_purchase_action" model="ir.actions.act_window">-->
+        <!--            <field name="name">Reporting</field>-->
+        <!--            <field name="res_model">purchase.analysis.report.wizard</field>-->
+        <!--            <field name="view_mode">form</field>-->
+        <!--            <field name="target">new</field>-->
+        <!--        </record>-->
+
+        <!--        <menuitem id="menu_reporting_config"-->
+        <!--                  name="Reporting" parent="purchase.purchase_report_main" action="reporting_purchase_action"/>-->
+
+        <record id="purchase_analysis_report_action" model="ir.actions.act_window">
+            <field name="name">Purchase Analysis</field>
+            <field name="res_model">purchase.analysis.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_purchase_analysis"
+                  name="Purchase Analysis"
+                  action="purchase_analysis_report_action"
+                  parent="purchase.purchase_report_main"/>
+
+        <record id="purchase_analysis_wizard_view" model="ir.ui.view">
+            <field name="name">Purchase Analysis Wizard</field>
+            <field name="model">purchase.analysis.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_purchase_analysis_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

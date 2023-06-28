@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_recruitment_grades_menu" model="ir.actions.act_window">
+        <field name="name">Grades</field>
+        <field name="res_model">grades</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="recruitment_grades_menu_tree" model="ir.ui.view">
+        <field name="name">grades.tree</field>
+        <field name="model">grades</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="recruitment_grades_menu_form" model="ir.ui.view">
+        <field name="name">grades.form</field>
+        <field name="model">grades</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="department"/>
+                            <field name="grade_name"/>
+                            <field name="createdby_id"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="table"/>
+                            <field name="salary_structure_id"/>
+                            <field name="gratituty_period"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pay Scale" name="payscale">
+                            <field name="payscale_ids">
+                                <tree editable="bottom">
+                                    <field name="salary_rule_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+</odoo>

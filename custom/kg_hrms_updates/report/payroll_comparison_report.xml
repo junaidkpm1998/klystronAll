@@ -1,0 +1,182 @@
+<odoo>
+    <data>
+        <template id="payroll_comparison_report_tem_id">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <style>
+                        .table-borderless td,
+                        .table-borderless th {
+                        border: 0;
+                        }
+                    </style>
+
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="75%" align="left">
+                                    <b>
+                                        <span t-esc="company_name"/>
+                                    </b>
+                                </td>
+                                <td width="25%" colspan="3"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="75%" align="left">
+                                    <b>
+                                        <span>
+                                            P.O. BOX :
+                                        </span>
+                                        <span t-esc="company_zip"/>
+                                        <t t-if="company_state">
+                                            <span t-esc="company_state"/>,
+                                        </t>
+                                        <t t-if="company_country">
+                                            <span t-esc="company_country"/>
+                                        </t>
+                                    </b>
+                                </td>
+                                <td width="5%" align="left"/>
+                                <td width="15%" align="right">
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </td>
+                                <td width="5%"/>
+                            </tr>
+                        </table>
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="100%" align="center">
+                                    <span style="font-size:20px;">
+                                        <b>
+                                            Payroll Comparison Report
+                                        </b>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;font-size:13px;'>
+                        <tr width="100%"
+                            style="font-size:13px;border-bottom: 1px solid black;border-top: 1px solid black;"
+                            align="left">
+                            <td width="20%">
+                                <b>Employee</b>
+                            </td>
+                            <td colspan="3" width="40%" align="center">
+                                <b>
+                                    <span>
+                                        <span t-esc="previous_start_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        TO
+                                        <span t-esc="previous_end_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td colspan="3" width="40%" align="center">
+                                <b>
+                                    <span>
+                                        <span t-esc="current_start_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        TO
+                                        <span t-esc="current_end_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr width="100%" align="left"
+                            style="border-bottom: 1px solid black;border-top: 1px solid black;">
+                            <td width="20%"/>
+                            <td width="20%" align="left">
+                                <b>
+                                    Payslip Ref
+                                </b>
+                            </td>
+                            <td width="10%">
+                                <b>
+                                    Basic Wage
+                                </b>
+                            </td>
+                            <td width="10%">
+                                <b>
+                                    Net Wage
+                                </b>
+                            </td>
+                            <td width="20%" align="left">
+                                <b>
+                                    Payslip Ref
+                                </b>
+                            </td>
+                            <td width="10%">
+                                <b>
+                                    Basic Wage
+                                </b>
+                            </td>
+                            <td width="10%">
+                                <b>
+                                    Net Wage
+                                </b>
+                            </td>
+                        </tr>
+                        <t t-foreach="values" t-as="val">
+                            <tr width="100%" align="left">
+                                <td width="20%">
+                                    <span t-esc="val['employee_name']"/>
+                                </td>
+                                <td width="20%" align="left">
+                                    <t t-if="val['prev_payslip_ref']!='False'">
+                                        <span t-esc="val['prev_payslip_ref']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="left">
+                                    <span t-esc="val['currency']"/>
+                                    <span t-esc="'{:,.2f}'.format(val['prev_basic_wage'])"/>
+                                </td>
+                                <td width="10%" align="left">
+                                    <span t-esc="val['currency']"/>
+                                    <span t-esc="'{:,.2f}'.format(val['prev_net_wage'])"/>
+                                </td>
+
+                                <td width="20%" align="left">
+                                    <span t-esc="val['current_payslip_ref']"/>
+                                </td>
+                                <td width="10%" align="left">
+                                    <span t-esc="val['currency']"/>
+                                    <span t-esc="'{:,.2f}'.format(val['current_basic_wage'])"/>
+                                </td>
+                                <td width="10%" align="left">
+                                    <span t-esc="val['currency']"/>
+                                    <span t-esc="'{:,.2f}'.format(val['current_net_wage'])"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+
+                    <div class="footer">
+                        <table class="table table-borderless table-condensed table-hover">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="5%" align="left">
+                                    <span>Date:</span>
+                                </td>
+                                <td width="12%" align="left">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </td>
+                                <td width="20%" align="left">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S %p')"/>
+                                </td>
+                                <td width="63%" align="right"/>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

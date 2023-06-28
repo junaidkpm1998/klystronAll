@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- Inherit Form View to Modify it -->
+      <!-- <record id="hr_employee_view_id" model="ir.ui.view">
+           <field name="name">Hr Employee</field>
+           <field name="model">hr.employee</field>
+           <field name="inherit_id" ref="hr.view_employee_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='agent_id']" position="after">
+                   <field name="resident_id"/>
+               </xpath>
+
+           </field>
+       </record>-->
+
+    </data>
+</odoo>

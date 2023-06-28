@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <data>
+        <record id="document_number" model="ir.sequence">
+            <field name="name">HR Employee Requests</field>
+            <field name="code">hr.employee.requests</field>
+            <field name="prefix">ER</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sequence_vehicle_name" model="ir.sequence">
+            <field name="name">Employee Vehicles</field>
+            <field name="code">employee.vehicle</field>
+            <field name="prefix">EV</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="reservation_sequence" model="ir.sequence">
+            <field name="name">Employee Number</field>
+            <field name="code">employee.number</field>
+            <field name="prefix">EMP</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="salary_certificate_sequence" model="ir.sequence">
+            <field name="name">Salary Certificate</field>
+            <field name="code">salary.certificate.sequence</field>
+            <field name="prefix">DOC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+</odoo>

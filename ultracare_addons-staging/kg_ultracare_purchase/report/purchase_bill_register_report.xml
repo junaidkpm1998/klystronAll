@@ -1,0 +1,451 @@
+<!--<odoo>-->
+<!--    <data>-->
+<!--        <template id="purchase_bill_register_wizard">-->
+<!--            <t t-call="web.html_container">-->
+<!--                <style>.table-borderless td,-->
+<!--                    .table-borderless th {-->
+<!--                    border: 0;-->
+<!--                    }-->
+<!--                </style>-->
+<!--                <div class="header">-->
+<!--                    <table class='table table-borderless table-condensed table-hover'>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="75%" align="left">-->
+<!--                                <b>-->
+<!--                                    <span t-esc="company_id"/>-->
+<!--                                </b>-->
+<!--                            </td>-->
+<!--                            <td width="25%"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="75%" align="left">-->
+<!--                                <span>P.O. BOX :-->
+<!--                                </span>-->
+<!--                                <span t-esc="company_zip"/>-->
+<!--                                <t t-if="company_state"><span t-esc="company_state"/>,-->
+<!--                                </t>-->
+<!--                                <t t-if="company_country">-->
+<!--                                    <span t-esc="company_country"/>-->
+<!--                                </t>-->
+<!--                            </td>-->
+<!--                            <td width="25%" align="right">-->
+<!--                                <span>PageNo.-->
+<!--                                    <span class="page"/>-->
+<!--                                    of-->
+<!--                                    <span class="topage"/>-->
+<!--                                </span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                    <div class="oe_structure"/>-->
+<!--                    <div class="row">-->
+<!--                        <center style="font-size:30px;">-->
+<!--                            <b>-->
+<!--                                PURCHASE REGISTER - DETAILED-->
+<!--                            </b>-->
+<!--                        </center>-->
+<!--                    </div>-->
+<!--                    <table class='table table-borderless'>-->
+<!--                        <tr width="100%" style="font-size:18px;">-->
+<!--                            <td>-->
+<!--                                <b>-->
+<!--                                    <span>Date From :-->
+<!--                                    </span>-->
+<!--                                    <span>-->
+<!--                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+<!--                                        To-->
+<!--                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+<!--                                    </span>-->
+<!--                                </b>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--                <br/>-->
+<!--                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>-->
+<!--                    <thead>-->
+<!--                        <tr style="border-bottom: 1px solid black;width:100%">-->
+<!--                            <td style="border-bottom: 1px solid black;" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="100%" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="100%" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="10%">-->
+<!--                                Date-->
+<!--                            </td>-->
+<!--                            <td width="15%">-->
+<!--                                Doc No-->
+<!--                            </td>-->
+<!--                            <td width="20%">-->
+<!--                                Reference-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                JobNo-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                A/C-->
+<!--                            </td>-->
+<!--                            <td width="15%">-->
+<!--                                Description-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                Debit-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                Credit-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr style="border-bottom: 1px solid black;width:100%">-->
+<!--                            <td style="border-bottom: 1px solid black;" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                    <t t-foreach="data" t-as="data">-->
+<!--                        <tr width="100%">-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['order_date']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['order_no']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['ref']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['job_no']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['account_id']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['account_name']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <span t-esc="data['debit']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left">-->
+<!--                                <t t-if="data['credit']!= 0.00">-->
+<!--                                    <span t-esc="data['credit']"/>-->
+<!--                                </t>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="font-size:13" align="left" colspan="2">-->
+<!--                                <span t-esc="data['product_item_code']"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-size:13" align="left" colspan="4">-->
+<!--                                <span t-esc="data['product_name']"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </t>-->
+<!--                </table>-->
+<!--                <br/>-->
+<!--                <span>A/C HEADWISE</span>-->
+<!--                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>-->
+<!--                    <thead>-->
+<!--                        <tr style="border-bottom: 1px solid black;width:100%">-->
+<!--                            <td style="border-bottom: 1px solid black;" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="100%" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="100%" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                        <tr width="100%">-->
+<!--                            <td width="10%">-->
+<!--                                Date-->
+<!--                            </td>-->
+<!--                            <td width="15%">-->
+<!--                                Doc No-->
+<!--                            </td>-->
+<!--                            <td width="20%">-->
+<!--                                Reference-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                JobNo-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                A/C-->
+<!--                            </td>-->
+<!--                            <td width="15%">-->
+<!--                                Description-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                Debit-->
+<!--                            </td>-->
+<!--                            <td width="10%">-->
+<!--                                Credit-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr style="border-bottom: 1px solid black;width:100%">-->
+<!--                            <td style="border-bottom: 1px solid black;" colspan="8"/>-->
+<!--                        </tr>-->
+<!--                    </thead>-->
+<!--                </table>-->
+<!--&lt;!&ndash;                <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td align="left">&ndash;&gt;-->
+<!--&lt;!&ndash;                        Currency :&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span t-esc="currency_id"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <td align="right">&ndash;&gt;-->
+<!--&lt;!&ndash;                        Amount :&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span t-esc="amount"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </td>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                </tr>&ndash;&gt;-->
+<!--            </t>-->
+<!--        </template>-->
+<!--    </data>-->
+<!--</odoo>-->
+
+
+<odoo>
+    <data>
+        <template id="purchase_bill_register_wizard">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right">
+                                <b>
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:10;">
+                            <b>Purchase Bill - Detailed</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td style="font-size:13px;">
+                                <b>
+                                    <span>
+                                        Date From
+                                    </span>
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        <span><![CDATA[&nbsp;]]></span>To
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%">
+                            <td width="7%" style="font-size:10" align="left">
+                                <b>
+                                    Doc.Date
+                                </b>
+                            </td>
+                            <td width="7%" style="font-size:10" align="left">
+                                <b>
+                                    Doc.No.
+                                </b>
+                            </td>
+                            <td width="7%" style="font-size:10" align="left">
+                                <b>
+                                    Order No
+                                </b>
+                            </td>
+                            <td width="24%" style="font-size:10" align="left">
+                                <b>
+                                    Reference
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center"></td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Brand
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    C.C
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Job No
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Qty
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Unit
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Rate
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Curr.
+                                </b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>
+                                    Amount
+                                </b>
+                            </td>
+                            <td width="10%" style="font-size:10" align="center">
+                                <b>
+                                    Amount(BC)
+                                </b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tr style="border-bottom: 1px solid black;width:100%">
+                        <td style="border-bottom: 1px solid black;" colspan="14"/>
+                    </tr>
+                    <t t-foreach="data" t-as="data">
+                        <tr width="100%" align="right">
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['order_date']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['doc_no']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['order_no']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['product_description']"/>
+                            </td>
+                            <td></td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['brand']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['cc']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['job_no']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['quantity']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['uom']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['rate']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['currency_id']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['amount']"/>
+                            </td>
+                            <td style="font-size:10" align="right">
+                                <span t-esc="data['amount']"/>
+                            </td>
+                            <!--                            <td style="font-size:10" align="center">-->
+                            <!--                                <span t-esc="data['uom']"/>-->
+                            <!--                            </td>-->
+                        </tr>
+                    </t>
+                    <tr style="border-bottom: 1px solid black;width:100%">
+                        <td style="border-bottom: 1px solid black;" colspan="14"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="45" colspan="4"/>
+                        <td width="5%" style="font-size:10" align="center">
+                            <b>
+                                Currency
+                            </b>
+                        </td>
+                        <td width="15%" colspan="3"/>
+                        <td width="5%" style="font-size:10" align="center">
+                            <b>
+                                Amount
+                            </b>
+                        </td>
+                        <td width="30%" colspan="5"/>
+                    </tr>
+                    <tr width="100%">
+                        <td style="border-bottom: 1px solid black;" colspan="9"/>
+                        <td colspan="5"/>
+                    </tr>
+<!--                    <tr width="100%" style="height:25pt;">-->
+<!--                        <td width="45" colspan="4"/>-->
+<!--                        <td width="5%" style="font-size:10" align="center">-->
+<!--                            <span t-esc="currency_id"/>-->
+<!--                        </td>-->
+<!--                        <td width="15%" colspan="3"/>-->
+<!--                        <td width="5%" style="font-size:10" align="center">-->
+
+<!--                        </td>-->
+<!--                        <td width="30%" colspan="5"/>-->
+<!--                    </tr>-->
+<!--                    <tr width="100%">-->
+<!--                        <td colspan="13" width="90%"/>-->
+<!--                        <td width="10%" align="center">-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                    <tr width="100%" style="height:50pt;">
+                        <td width="45%" colspan="4"/>
+                        <td width="5%" style="font-size:10" align="center">
+                            <span t-esc="currency_id"/>
+                        </td>
+                        <td width="15%" colspan="3"/>
+                        <td width="5%" style="font-size:10" align="center">
+                            <span t-esc="grand_amount"/>
+                        </td>
+                        <td width="30%" colspan="5"/>
+                    </tr>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

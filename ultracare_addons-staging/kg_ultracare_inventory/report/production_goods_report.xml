@@ -1,0 +1,164 @@
+<odoo>
+    <data>
+        <template id="production_goods_template_id">
+            <t t-call="web.html_container">
+                <style>.table-borderless td, .table-borderless th { border: 0; }</style>
+                <div class="header">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td width="100%" align="left" colspan="2">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="50%" align="left">
+                                <span>P.O. BOX :</span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>
+                                    ,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="50%" align="center"/>
+                        </tr>
+<!--                        <tr width="100%">-->
+<!--                            <td width="50%"/>-->
+<!--                            <td width="50%" align="right">-->
+<!--                                <img t-att-src="logo" alt="Logo" height="100" width="100"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>Production Goods</b>
+                        </center>
+                    </div>
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%" style="font-size:13px;">
+                            <td>
+                                <b>
+                                    <span>Date From</span>
+                                    <span>
+                                        <![CDATA[ &nbsp; ]]>
+                                    </span>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        <span>
+                                            <![CDATA[ &nbsp; ]]>
+                                        </span>
+                                        To
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        ;
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="border-collapse:collapse;border-radius: 5px 5px 5px 5px;width:100%;margin:5pt;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                    <thead>
+                        <tr width="100%" style="border-right: 1px solid black;border-bottom: 1px solid black;">
+                            <td width="5%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Prod No</b>
+                            </td>
+                            <td width="10%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Date</b>
+                            </td>
+                            <td width="10%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Machine</b>
+                            </td>
+                            <td width="6%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Operator</b>
+                            </td>
+                            <td width="6%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Start Time</b>
+                            </td>
+                            <td width="6%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>End Time</b>
+                            </td>
+                            <td width="6%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Sales Man</b>
+                            </td>
+                            <td width="6%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Order No</b>
+                            </td>
+                            <td width="10%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Item Code</b>
+                            </td>
+                            <td width="20%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Item Description</b>
+                            </td>
+                            <td width="5%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Qty</b>
+                            </td>
+                            <td width="5%" style="font-size:10;border-right: 1px solid black;" align="center">
+                                <b>Rate</b>
+                            </td>
+                            <td width="5%" style="font-size:10" align="center">
+                                <b>Amount</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <tr width="100%" style="border-bottom: 1px solid black;">
+                            <td width="5%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['prod_number']"/>
+                            </td>
+                            <td width="10%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['date']"/>
+                            </td>
+                            <td width="10%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['machine']"/>
+                            </td>
+                            <td width="6%" align="center" style="font-size:10;border-right: 1px solid black;"/>
+                            <td width="6%" align="center" style="font-size:10;border-right: 1px solid black;"/>
+                            <td width="6%" align="center" style="font-size:10;border-right: 1px solid black;"/>
+                            <td width="6%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['sales_man']"/>
+                            </td>
+                            <td width="6%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['order_no']"/>
+                            </td>
+                            <td width="10%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['item_code']"/>
+                            </td>
+                            <td width="20%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="data['description']"/>
+                            </td>
+                            <td width="5%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="'{:,.2f}'.format(data['qty'])"/>
+                            </td>
+                            <td width="5%" align="center" style="font-size:10;border-right: 1px solid black;">
+                                <span t-esc="'{:,.2f}'.format(data['rate'])"/>
+                            </td>
+                            <td width="5%" align="center" style="font-size:10;">
+                                <span t-esc="'{:,.2f}'.format(data['cost'])"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <div class="footer">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td width="80%"/>
+                            <td width="20%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

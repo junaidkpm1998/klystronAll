@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="kg_stock_picking_inh"
+                model="ir.ui.view">
+            <field name="name">Stock Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_scrap']" position="after">
+                    <button class="oe_highlight" type="action"
+                            name="%(action_change_warehouse_wizard)d" string="Change Warehouse"
+                            attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="kg_supply_place" readonly="0"/>
+                    <field name="kg_pan_it_no" readonly="0" invisible="1"/>
+                    <field name="kg_sm_approved" invisible="1"/>
+                    <field name="payment_term_id"/>
+                </xpath>
+                <field name="scheduled_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_done" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <xpath expr="//notebook/page[@name='operations']/field[@name='move_ids_without_package']//tree/field[@name='date']"
+                       position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+                 <xpath expr="//notebook/page[@name='operations']/field[@name='move_ids_without_package']//tree/field[@name='date_deadline']"
+                       position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

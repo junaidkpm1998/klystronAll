@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_transfer_tree" model="ir.ui.view">
+            <field name="name">kg.product.transfer.tree</field>
+            <field name="model">kg.product.transfer</field>
+            <field name="arch" type="xml">
+                <tree string="Product Transfer">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_product_transfer_form" model="ir.ui.view">
+            <field name="name">kg.product.transfer.form</field>
+            <field name="model">kg.product.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Inventory Transfer">
+                    <header>
+                        <button name="confirm_transfer" type="object" state="new" string="Transfer"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" required="1" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="date" readonly="1"/>
+                                <field name="kg_finish"/>
+                            </group>
+                            <group>
+                                <field name="source_location_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="transfer_line" attrs="{'readonly': [('state', '=', 'done')]}">
+                                    <tree editable="bottom">
+                                        <field name="in_product_id" required="1"
+                                               domain="[('kg_internal_type','in',('finish','raw')),('id','!=',out_product_id)]"
+                                               options="{'no_create': True}"/>
+                                        <field name="qty" required="1"/>
+                                        <field name="out_product_id" required="1"
+                                               domain="[('kg_internal_type','in',('finish','raw')),('id','!=',in_product_id)]"
+                                               options="{'no_create': True}"/>
+                                        <field name="in_product_picking_id" readonly="1"/>
+                                        <field name="out_product_id_picking_id" readonly="1"/>
+                                        <field name="transfer_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_transfer_store"
+                model="ir.actions.act_window">
+            <field name="name">Product Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.product.transfer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'store': True,'default_source_location_id':15
+
+                }
+            </field>
+
+            <field name="domain">[
+                ('source_location_id', '=', 15)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Convert Product here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_product_transfer_production"
+                model="ir.actions.act_window">
+            <field name="name">Product Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.product.transfer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'store': False,'default_source_location_id':19
+
+                }
+            </field>
+            <field name="domain">[
+                ('source_location_id', '=', 19)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Convert Product here.
+                </p>
+            </field>
+        </record>
+        <!--<menuitem id="menu_product_transfer1"
+            action="action_product_transfer_production" parent="menu_action_kg_prod_plan"
+            name="Convert Product" sequence="20"/>-->
+        <menuitem id="menu_product_transfer12"
+                  action="action_product_transfer_store" parent="stock.menu_stock_warehouse_mgmt"
+                  name="Convert Product" sequence="20"/>
+    </data>
+</odoo>

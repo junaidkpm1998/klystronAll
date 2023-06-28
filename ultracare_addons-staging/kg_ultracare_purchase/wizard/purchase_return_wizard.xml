@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="purchase_return_report_action" model="ir.actions.act_window">
+            <field name="name">Purchase Return Register</field>
+            <field name="res_model">purchase.return.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_purchase_return"
+                  name="Purchase Return Register"
+                  action="purchase_return_report_action"
+                  parent="purchase.purchase_report_main"
+                  sequence="4"/>
+
+        <record id="purchase_detailed_wizard_view" model="ir.ui.view">
+            <field name="name">Purchase Return Wizard</field>
+            <field name="model">purchase.return.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_purchase_return"
+                                string="Print Report"
+                                type="object"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

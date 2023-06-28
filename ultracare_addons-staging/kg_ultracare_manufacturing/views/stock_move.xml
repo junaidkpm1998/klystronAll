@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="mrp_production_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.kg.ultracare</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='move_raw_ids']/tree/field[@name='product_uom_qty']"
+                       position="after">
+                    <field name="normal_wastage"/>
+                    <field name="jumbo_roll" readonly="1" force_save="1"/>
+                    <field name="total_cost" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="before">
+                    <field name="machine_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        Hide product menu in Manufacturing module-->
+        <menuitem id="mrp.menu_mrp_product_form" active="False"/>
+
+        <record id="kg_stock_move_form_inherit" model="ir.ui.view">
+            <field name="name">KG Stock Move Inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="date_deadline" position="after">
+                    <field name="is_vendor" force_save="1" invisible="1"/>
+                    <field name="vendor_name" attrs="{'invisible': [('is_vendor', '=', False)]}"/>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_deadline" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_stock_move_tree_inherit" model="ir.ui.view">
+            <field name="name">KG Stock Move Tree Inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="vendor_name"/>
+                </xpath>
+                <field name="date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

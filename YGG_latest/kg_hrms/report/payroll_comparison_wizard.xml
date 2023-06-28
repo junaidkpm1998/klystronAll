@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="kg_payroll_com_wizard_menu_action" model="ir.actions.act_window">
+            <field name="name">Payroll Comparison Report</field>
+            <field name="res_model">kg.payroll.comparison.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="kg_menu_payroll_com_wizard"
+                  name="Payroll Comparison Report"
+                  action="kg_payroll_com_wizard_menu_action"
+                  parent="hr_payroll.menu_hr_payroll_report"/>
+
+        <record id="kg_payroll_com_wizard_form_id" model="ir.ui.view">
+            <field name="name">Payroll Comparison Wizard</field>
+            <field name="model">kg.payroll.comparison.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="year" required="1"/>
+                            <field name="month" required="1"/>
+                            <field name="employee_id" widget="many2many_tags" invisible="0"/>
+                        </group>
+                        <group/>
+                        <group string="Dates" invisible="1">
+                            <field name="previous_start_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                            <field name="previous_end_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                        </group>
+                        <group string="Dates" invisible="1">
+                            <field name="current_start_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                            <field name="current_end_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="print_payroll_com_report"
+                                string="Print Report"
+                                type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

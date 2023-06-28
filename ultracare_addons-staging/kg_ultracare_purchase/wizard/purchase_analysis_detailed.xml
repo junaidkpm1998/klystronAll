@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+        <record id="purchase_analysis_detailed_menu_action" model="ir.actions.act_window">
+            <field name="name">Purchase Analysis Detailed</field>
+            <field name="res_model">purchase.analysis.detailed.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_purchase_analysis_detailed"
+                  name="Purchase Analysis Detailed"
+                  action="purchase_analysis_detailed_menu_action"
+                  parent="purchase.purchase_report_main"
+                  />
+
+        <record id="pending_purchase_wizard_view" model="ir.ui.view">
+            <field name="name">Purchase Analysis Detailed Wizard</field>
+            <field name="model">purchase.analysis.detailed.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_purchase_analysis_detailed_report"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

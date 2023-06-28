@@ -1,0 +1,137 @@
+<odoo>
+    <data>
+        <record id="request_for_leave_approval" model="mail.template">
+            <field name="name">TimeOff : Request For Leave Approval</field>
+            <field name="model_id" ref="model_hr_leave"/>
+            <field name="subject">Request For {{object.holiday_status_id.name}} Leave Approval</field>
+            <field name="email_from">{{object.employee_id.work_email}}</field>
+            <field name="email_to">{{object._get_responsible_for_approval().email}}</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0"
+                       style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                   style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <!--  HEADER  -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                                   style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="middle"/>
+                                                    <td valign="middle" align="right">
+                                                        <img src="/logo.png?company={{object.user.company_id.id}}"
+                                                             style="padding: 0px; margin: 0px; height: auto; width: 80px;"
+                                                             alt="{{object.user.company_id.name}}"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!--  CONTENT  -->
+                                    <tr>
+                                        <td align="center" style="min-width: 590px;">
+                                            <table border="0" cellpadding="0"
+                                                   cellspacing="0" width="590"
+                                                   style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tr>
+                                                    <td valign="top" style="font-size: 13px;">
+                                                        <div>
+                                                            Dear
+                                                            <t t-out="object._get_responsible_for_approval().name"/>
+                                                            ,
+                                                            <br/>
+                                                            <span>
+                                                                <![CDATA[&nbsp;]]>
+                                                                <![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                                                <![CDATA[&nbsp;]]>You have received a
+                                                                <t t-out="object.holiday_status_id.name"/>
+                                                                <![CDATA[&nbsp;]]>leave request
+                                                                from
+                                                                <t t-out="object.get_leave_req_emp()"/>
+                                                                <t
+                                                                        t-out="object.request_date_from"/>
+                                                                <t t-if="object.request_date_from != object.request_date_to">
+                                                                    to
+                                                                    <t t-out="object.request_date_to"/>
+                                                                </t>
+                                                                .
+                                                            </span>
+                                                        </div>
+                                                        <div style="margin:16px 0px 16px 0px;">
+                                                            <a t-attf-href="/web/#id={{object.id}}&amp;view_type=form&amp;model=hr.leave"
+                                                               style="background-color:#875A7B;padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                                                View Leave Request
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td valign="top" style="font-size: 13px;">
+                                                        <div>
+                                                            Thanks,
+                                                            <br/>
+                                                            <t t-out="object.env.company.display_name"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!--  FOOTER  -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width: 590px; padding: 0 8px 0 8px; font-size:11px;">
+                                            <hr width="100%"
+                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;"/>
+                                            <b t-out="object.env.company.display_name or ''">My Company (San
+                                                Francisco)
+                                            </b>
+                                            <br/>
+                                            <div style="color: #999999;">
+                                                <t t-out="object.env.company.phone or ''">+1 650-123-4567</t>
+                                                <t t-if="object.env.company.email">
+                                                    |
+                                                    <a t-attf-href="'mailto:%s' % {{ object.env.company.email }}"
+                                                       style="text-decoration:none; color: #999999;"
+                                                       t-out="object.env.company.email or ''">info@yourcompany.com
+                                                    </a>
+                                                </t>
+                                                <t t-if="object.env.company.website">
+                                                    |
+                                                    <a t-attf-href="'%s' % {{ object.env.company.website }}"
+                                                       style="text-decoration:none; color: #999999;"
+                                                       t-out="object.env.company.website or ''">http://www.example.com
+                                                    </a>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--  POWERED BY  -->
+                                <tr>
+                                    <td align="center" style="min-width: 590px;">
+                                        <table border="0" cellpadding="0" cellspacing="0" width="590"
+                                               style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+                                            <tr>
+                                                <td style="text-align: center; font-size: 13px;">
+                                                    Powered by
+                                                    <a target="_blank"
+                                                       href="https://www.odoo.com?utm_source=db&amp;utm_medium=auth"
+                                                       style="color: #875A7B;">Odoo
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>

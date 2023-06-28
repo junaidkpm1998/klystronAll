@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="quotation_report_template">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <style>
+                    td
+                    {
+                    padding-left:1%;
+                    }
+                    p{
+                    line-height:1%
+                    }
+                </style>
+                <table border="0" style="width:100%;margin-right:20%">
+                    <tr height="20px">
+                        <td align="right">
+                            <h2>
+                                <b>Quotation</b>
+                            </h2>
+                        </td>
+                    </tr>
+                    <tr height="20px">
+                        <td align="right">
+                            <b>Date:
+                                <span t-field="doc.date_order" t-options='{"widget": "date"}'/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr height="20px">
+                        <td align="right">
+                            <b>Ref #:
+                                <span t-field="doc.name"/>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr height="20px">
+                        <td align="left">
+                            <span t-field="doc.partner_id.name"/>
+                            <br/>
+                            <t t-if="doc.partner_id.street"><span t-field="doc.partner_id.street"/>,
+                            </t>
+                            <t t-if="doc.partner_id.street2"><span t-field="doc.partner_id.street2"/>,
+                            </t>
+                            <t t-if="doc.partner_id.city"><span t-field="doc.partner_id.city"/>,
+                            </t>
+                            PO Box:
+                            <span t-field="doc.partner_id.zip"/>
+                            <br/>
+                            <span t-field="doc.partner_id.state_id.name"/>,
+                            <span t-field="doc.partner_id.country_id.name"/>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table style="width:100%">
+                    <tr style="background:#25C3F6;border:1px solid black;border-collapse:collapse;">
+                        <td style="width:5%;border:1px solid black;border-collapse:collapse;">SN.</td>
+                        <td style="width:11%;border:1px solid black;border-collapse:collapse;">User Name</td>
+                        <td style="width:11%;border:1px solid black;border-collapse:collapse;">Company Name</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;">Currency</td>
+                        <td style="width:11%;border:1px solid black;border-collapse:collapse;">Vendor</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;">Country</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;">MAF #</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;">Activity Name</td>
+                        <td style="width:11%;border:1px solid black;border-collapse:collapse;">Promotion Program</td>
+                        <td style="width:11%;border:1px solid black;border-collapse:collapse;">Total In
+                            <span t-field="doc.currency_id"/>
+                        </td>
+                    </tr>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="doc.order_line" t-as="line">
+                        <tr>
+                            <td style=";border:1px solid black">
+                                <span t-esc="i"/>
+                            </td>
+                            <t t-set="i" t-value="i+1"/>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                            <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                        </tr>
+                    </t>
+                    <tr>
+                        <td colspan="8"></td>
+                        <td style=";border:1px solid black;border-collapse:collapse;">VAT %</td>
+                        <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8"></td>
+                        <td style=";border:1px solid black;border-collapse:collapse;">TOTAL</td>
+                        <td style=";border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <table border="0" style="width:100%;">
+                    <tr>
+                        <td>
+                            TERMS OF PAYMENT: <span t-field="doc.payment_term_id.name"/>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table border="0" style="width:78%;">
+                    <tr>
+                        <td colspan="2">Bank Account Details</td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;border:1px solid black;border-collapse:collapse;">Account Name</td>
+                        <td style="width:70%;border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;border:1px solid black;border-collapse:collapse;">Bank</td>
+                        <td style="width:70%;border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;border:1px solid black;border-collapse:collapse;">Swift Code</td>
+                        <td style="width:70%;border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width:30%;border:1px solid black;border-collapse:collapse;">Branch Code</td>
+                        <td style="width:70%;border:1px solid black;border-collapse:collapse;"></td>
+                    </tr>
+                </table>
+                <br/>
+                <table border="0" style="width:78%;">
+                    <tr>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center">Sr. No</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center">Type</td>
+                        <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center">Currency</td>
+                        <td style="width:35%;border:1px solid black;border-collapse:collapse;" align="center">Account Number</td>
+                        <td style="width:25%;border:1px solid black;border-collapse:collapse;" align="center">IBAN No.</td>
+                    </tr>
+                    <t t-set="i" t-value="1"/>
+                    <t t-foreach="doc.order_line" t-as="line">
+                        <tr>
+                            <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center"><span t-esc="i"/></td><t t-set="i" t-value="i+1"/>
+                            <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center"></td>
+                            <td style="width:10%;border:1px solid black;border-collapse:collapse;" align="center"></td>
+                            <td style="width:35%;border:1px solid black;border-collapse:collapse;" align="center"></td>
+                            <td style="width:25%;border:1px solid black;border-collapse:collapse;" align="center"></td>
+                        </tr>
+                    </t>
+                </table>
+                <!--                <center><h5><b>ORDER ACKNOWLEDGMENT</b></h5></center>-->
+                <!--                <table style="width:80%;margin-left:10%">-->
+                <!--                    <tr>-->
+                <!--                        <th width="50%">-->
+                <!--                            <span t-field="doc.company_id.partner_id"-->
+                <!--                                  t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+                <!--                            <span>TRN:</span><span t-field="doc.company_id.vat"></span>-->
+                <!--                        </th>-->
+                <!--                        <td width="50%" style="vertical-align: top;">-->
+                <!--                            SALES ORDER NO.-->
+                <!--                            <span t-field="doc.name" style="margin-left:15%"></span>-->
+                <!--                            <br/>-->
+                <!--                            CUSTOMER NO.-->
+                <!--                            <span t-field="doc.client_order_ref" style="margin-left:20%"></span>-->
+                <!--                            <br/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+
+                <!--                </table>-->
+                <!--                <table style="width:80%;margin-left:10%">-->
+                <!--                    <tr>-->
+                <!--                        <th width="50%">-->
+                <!--                            <div style="background-color:black;color:white;width:20%;">SOLD TO</div>-->
+                <!--                        </th>-->
+                <!--                        <th width="50%">-->
+                <!--                            <div style="background-color:black;color:white;width:20%;">SHIP TO</div>-->
+                <!--                        </th>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td width="50%">-->
+                <!--                            <span t-field="doc.partner_invoice_id"-->
+                <!--                                  t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+
+                <!--                        </td>-->
+                <!--                        <td width="50%" style="vertical-align: top;">-->
+                <!--                            <t t-if="doc.same_as_bill_to">-->
+                <!--                                <span t-field="doc.partner_shipping_id"-->
+                <!--                                      t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+                <!--                            </t>-->
+                <!--                            <t t-if="not doc.same_as_bill_to">-->
+                <!--                                <span t-field="doc.ship_to"/>-->
+                <!--                            </t>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td width="50%">-->
+                <!--                            TRN:-->
+                <!--                            <span t-field="doc.partner_id.vat"/>-->
+                <!--                        </td>-->
+                <!--                        <td width="50%" style="vertical-align: top;">-->
+                <!--                            TRN:-->
+                <!--                            <span t-field="doc.partner_id.vat"/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+
+                <!--                </table>-->
+                <!--                <br/>-->
+                <!--                <p style="margin-left:10%">-->
+                <!--                    <span>Attention:</span>-->
+                <!--                    <b>-->
+                <!--                        <span t-field="doc.partner_id.name"></span>-->
+                <!--                    </b>-->
+                <!--                </p>-->
+                <!--                <table style="width:80%;margin-left:10%" border="1">-->
+                <!--                    <tr style="background:#bfb8b8;">-->
+                <!--                        <td>ORDER DATE</td>-->
+                <!--                        <td>FOB</td>-->
+                <!--                        <td>CUSTOMER REF</td>-->
+                <!--                        <td>TERMS</td>-->
+                <!--                    </tr>-->
+                <!--                    <tr>-->
+                <!--                        <td>-->
+                <!--                            <span t-field="doc.date_order"/>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <span t-field="doc.fob.name"/>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <span t-field="doc.client_order_ref"/>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <span t-field="doc.payment_term_id.name"/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                </table>-->
+                <!--                <table style="width:80%;margin-left:10%" border="1">-->
+                <!--                    <tr style="background:#bfb8b8;">-->
+                <!--                        <td>LINE</td>-->
+                <!--                        <td>PART NUMBER</td>-->
+                <!--                        <td>DESCRIPTION - BRAND</td>-->
+                <!--                        <td>U/M</td>-->
+                <!--                        <td>QTY</td>-->
+                <!--                        <td>PRICE</td>-->
+                <!--                        <td>TOTAL</td>-->
+                <!--                        <td>EST SHIP DATE</td>-->
+                <!--                    </tr>-->
+                <!--                    <t t-set="i" t-value="1"/>-->
+                <!--                    <t t-foreach="doc.order_line" t-as="line">-->
+                <!--                        <tr>-->
+
+                <!--                            &lt;!&ndash; <span t-field="line.payment_term_id.name"/> &ndash;&gt;-->
+                <!--                            <td>-->
+                <!--                                <span t-esc="i"/>-->
+                <!--                            </td>-->
+                <!--                            <t t-set="i" t-value="i+1"/>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.product_id.default_code"/>-->
+                <!--                            </td>-->
+                <!--                            <td><span t-field="line.product_id.name"/>- -->
+                <!--                                <span t-field="line.product_id.brand_id.name"/>-->
+                <!--                            </td>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.product_id.uom_id.name"/>-->
+                <!--                            </td>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.product_uom_qty"/>-->
+                <!--                            </td>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.price_unit"/>-->
+                <!--                            </td>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.price_subtotal"/>-->
+                <!--                            </td>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="line.sale_delivery_date"/>-->
+                <!--                            </td>-->
+                <!--                        </tr>-->
+                <!--                    </t>-->
+                <!--                </table>-->
+                <!--                <table border="1" style="width:80%;margin-left:10%">-->
+                <!--                    <tr>-->
+                <!--                        <td>-->
+                <!--                            <span t-if="doc.currency_id" t-esc="doc.currency_id.amount_to_text(doc.amount_total)"/>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <b>Gross Total</b>-->
+                <!--                            <br/>-->
+                <!--                            <b>Discount</b>-->
+                <!--                            <br/>-->
+                <!--                            <b>Sub Total</b>-->
+                <!--                            <br/>-->
+                <!--                            <b>Vat</b>-->
+                <!--                            <br/>-->
+                <!--                            <b>Custom Charges</b>-->
+                <!--                            <br/>-->
+                <!--                            <b>TOTAL</b>-->
+                <!--                            <br/>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <span t-field="doc.amount_untaxed"/>-->
+                <!--                            <br/>-->
+                <!--                            <span t-field="doc.amount_discount"/>-->
+                <!--                            <br/>-->
+                <!--                            <span t-field="doc.amount_untaxed"/>-->
+                <!--                            <br/>-->
+                <!--                            <span t-field="doc.amount_tax"/>-->
+                <!--                            <br/>-->
+                <!--                            0.00-->
+                <!--                            <br/>-->
+                <!--                            <span t-field="doc.amount_total"/>-->
+                <!--                            <br/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                </table>-->
+                <!--                <table border="1" style="width:80%;margin-left:10%">-->
+                <!--                    <tr style="border-bottom:none">-->
+                <!--                        <td colspan="3">-->
+                <!--                            <span t-field="doc.user_id.name"/>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                </table>-->
+                <!--                <br/>-->
+                <!--                <t t-if="doc.is_note_print">-->
+                <!--                    <table style="width:80%;margin-left:10%;font-size: 10pt;">-->
+                <!--                        <tr>-->
+                <!--                            <td>-->
+                <!--                                <h6>Notes:</h6>-->
+                <!--                            </td>-->
+                <!--                        </tr>-->
+                <!--                        <tr>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="doc.kg_note"/>-->
+                <!--                            </td>-->
+                <!--                        </tr>-->
+                <!--                    </table>-->
+                <!--                </t>-->
+                <!--                <table style="width:80%;margin-left:10%;font-size: 10pt;line-height: 12pt;">-->
+                <!--                    <div style="page-break-inside: avoid">-->
+                <!--                        <tr>-->
+                <!--                            <td>-->
+                <!--                                <h6>Bank details</h6>-->
+                <!--                            </td>-->
+                <!--                        </tr>-->
+                <!--                        <tr>-->
+                <!--                            <td>-->
+                <!--                                <span t-field="doc.bank_details"/>-->
+                <!--                            </td>-->
+                <!--                        </tr>-->
+                <!--                    </div>-->
+                <!--                </table>-->
+            </div>
+        </t>
+    </template>
+
+    <template id="report_sale_quotation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="kg_ygg_sales.quotation_report_template" t-lang="doc.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
+                

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <template id="sale_report_template_id">
+           <t t-call="report.html_container">
+               <t t-call="report.internal_layout">
+                   <div class="page">
+                       <h2>TITLE FOR YOUR REPORT</h2>
+
+                   </div>
+               </t>
+           </t>
+       </template>
+
+
+
+    </data>
+</odoo>

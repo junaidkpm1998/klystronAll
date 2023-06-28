@@ -1,0 +1,215 @@
+<odoo>
+    <data>
+
+        <!--        Hide product menu in Sales module-->
+        <menuitem id="sale.menu_products" active="False"/>
+
+        <!--        Hide product menu in Invoicing module-->
+        <menuitem id="account.product_product_menu_purchasable" active="False"/>
+        <menuitem id="account.product_product_menu_sellable" active="False"/>
+
+
+        <record id="sale_order_location_crm" model="ir.ui.view">
+            <field name="name">Sales Location Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="sale_location"/>
+                    <field name="destination_location"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="description"/>
+                    <field name="is_revised" widget="boolean_toggle"/>
+                    <field name="po_reference"/>
+                    <field name="amount_in_words" invisible="1"/>
+                    <field name="tax_amount_in_words" invisible="1"/>
+                    <field name="is_print" invisible="1"/>
+                </xpath>
+
+
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('state', 'not in', ('draft', 'sent'))]}</attribute>
+                </xpath>
+
+
+                <xpath expr="//field[@name='note']" position='after'>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <field name="product_name"/>
+                    <field name="onhand_qty"/>
+                    <field name="reserved_qty"/>
+                    <field name="last_selling_price" widget="monetary"/>
+                    <field name="ordered_qty" string="Ordered Qty" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']"
+                       position="before">
+                    <button name="get_product_info" type="object" title="Orderline Product Info"
+                            icon="fa-list"/>
+                </xpath>
+                <field name="commitment_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="expected_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="signed_on" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <xpath expr="//field[@name='tax_totals']" position="after">
+                    <label for="total_gross_weight"/>
+                    <div class="o_row">
+                        <field name="total_gross_weight" class="oe_inline"/>
+                        <span>
+                            <field name="weight_uom_name"/>
+                        </span>
+                    </div>
+                    <label for="total_gross_volume"/>
+                    <div class="o_row">
+                        <field name="total_gross_volume" class="oe_inline" readonly="1" force_save="1"/>
+                        <span>
+                            <field name="volume_uom_name"/>
+                        </span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record id="sale_order_lid_view" model="ir.ui.view">
+            <field name="name">Sales List View Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="invoice_ids"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_line_description" model="ir.ui.view">
+            <field name="name">Sales Order Line Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                       position="after">
+                    <field name="alternate_description" optional="hide"/>
+                    <field name="gross_weight" optional="hide" force_save="1"/>
+                    <field name="gross_volume" optional="hide" force_save="1"/>
+                    <field name="gross_weight_qty" optional="hide" force_save="1"/>
+                    <field name="gross_volume_qty" optional="hide" force_save="1"/>
+                    <field name="invoice_description" invisible="1"/>
+                    <field name="check_user_group" invisible="1"/>
+                    <field name="tax_amount" invisible="1"/>
+                    <field name="tax_value" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="options">{'no_create': [('check_user_group', '=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_location_menu_action" model="ir.actions.act_window">
+            <field name="name">Sale Location</field>
+            <field name="res_model">sale.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="sale_location_menu"
+                  parent="sale.sale_order_menu" action="sale_location_menu_action"/>
+
+        <record model="ir.ui.view" id="sale_location_tree">
+            <field name="name">Sale Location Tree</field>
+            <field name="model">sale.location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_location_form">
+            <field name="name">Sale Location Form</field>
+            <field name="model">sale.location</field>
+            <field name="arch" type="xml">
+                <form string="Sale Location">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_destination_location_menu_action" model="ir.actions.act_window">
+            <field name="name">Destination Location</field>
+            <field name="res_model">sale.destination.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="sale_destination_location_menu"
+                  parent="sale.sale_order_menu" action="sale_destination_location_menu_action"/>
+
+        <record model="ir.ui.view" id="sale_destination_tree">
+            <field name="name">Destination Location Tree</field>
+            <field name="model">sale.destination.location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sale_destination_location_form">
+            <field name="name">Sale Destination Location Form</field>
+            <field name="model">sale.destination.location</field>
+            <field name="arch" type="xml">
+                <form string="Sale Destination Location">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="kg_inherit_sale_order_filter_search" model="ir.ui.view">
+            <field name="name">KG Sale Order Filter Views</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group/filter[@name='salesperson']" position="after">
+                    <filter name="groupby_pending_delivery" string="Pending Delivery Order"
+                            domain="[('invoice_status','=','no'),('state','=','sale')]"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+

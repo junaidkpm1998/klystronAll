@@ -1,0 +1,254 @@
+<odoo>
+    <data>
+        <record id="view_kg_sales_forecast_tree" model="ir.ui.view">
+            <field name="name">kg.sales.forecast.tree</field>
+            <field name="model">kg.sales.forecast</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Forecast">
+                    <field name="name"/>
+                    <field name="kg_period"/>
+                    <field name="kg_user_id"/>
+                    <field name="kg_date"/>
+                    <field name="kg_state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_kg_sales_forecast_form" model="ir.ui.view">
+            <field name="name">kg.sales.forecast.form</field>
+            <field name="model">kg.sales.forecast</field>
+            <field name="arch" type="xml">
+                <form string="Sales Forecast">
+                    <header>
+                        <button name="button_set_to_new" type="object" string="Set To New"
+                                attrs="{'invisible':[('kg_state', 'not in', ('rejected','cancel'))]}"/>
+
+                        <button name="button_cancel" type="object" string="Cancel"
+                                attrs="{'invisible':[('kg_state', 'not in', ('rejected','approved'))]}"/>
+
+                        <field name="kg_state" widget="statusbar"
+                               statusbar_visible="new,approved,done,rejected,cancel"/>
+                        <button name="create_prod_plan" type="object" string="Create Production Plan"
+                                invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="action_open_production_planning"
+                                    icon="fa-book" string="Production Planning"/>
+                            <!--                            <button class="oe_stat_button" type="object" name="action_open_purchase_requisition"-->
+                            <!--                                    icon="fa-edit" string="Purchase Requisition">-->
+                            <!--                            </button>-->
+
+                        </div>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="kg_period" required="1"
+                                       attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                                <field name="kg_dep" domain="[('name', '=', 'Sales')]" required="1"/>
+                                <field name="kg_user_id" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                                <field name="is_plan" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="kg_date" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                                <field name="sale_ids" invisible="1" widget="many2many_tags" force_save="1"/>
+
+                                <!--                                 <field name="project_id" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                                 -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="kg_lines" attrs="{'readonly':[('kg_state', '=', 'approved')]}">
+                                    <tree editable="top">
+                                        <field name="priority_no"/>
+                                        <field name="kg_product_id" required="1"
+                                               domain="[('kg_internal_type', '=', 'finish')]"/>
+                                        <field name="kg_uom_id"/>
+                                        <field name="kg_qty"/>
+                                        <field name="kg_adj" readonly="1"/>
+                                        <field name="kg_net" readonly="1"/>
+                                        <field name="kg_comments" readonly="1"/>
+                                        <field name="expected_date" optional="show"/>
+                                    </tree>
+                                    <form>
+                                        <label for="kg_product_id" class="oe_edit_only"/>
+                                        <h1>
+                                            <field name="kg_product_id" readonly="1"/>
+                                        </h1>
+                                        <group>
+                                            <field name="kg_uom_id"/>
+                                            <field name="kg_qty"/>
+                                            <field name="kg_adj"/>
+                                            <field name="kg_net"/>
+                                            <field name="kg_comments"/>
+                                            <field name="expected_date" optional="show"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        <field name="note" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_kg_sales_forecast"
+                model="ir.actions.act_window">
+            <field name="name">Sales Forecast</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.sales.forecast</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Sales Forecast
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_kg_sales_forecast_sale"
+                  action="action_kg_sales_forecast" parent="sale.sale_menu_root"
+                  name="Sales Forecast"/>
+
+        <!-- for production new form making they only need to edit in the adjustment column and this should be readonly for sales that's why am making two different forms -->
+
+
+        <record id="view_kg_sales_forecast_tree1" model="ir.ui.view">
+            <field name="name">kg.sales.forecast.tree</field>
+            <field name="model">kg.sales.forecast</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Forecast" create="false">
+                    <field name="name"/>
+                    <field name="kg_period"/>
+                    <field name="kg_user_id"/>
+                    <field name="kg_date"/>
+                    <field name="kg_state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_kg_sales_forecast_form1" model="ir.ui.view">
+            <field name="name">kg.sales.forecast.form</field>
+            <field name="model">kg.sales.forecast</field>
+            <field name="arch" type="xml">
+                <form string="Sales Forecast" create="false">
+                    <header>
+                        <button name="button_approve" type="object" string="Approve"
+                                attrs="{'invisible':[('kg_state', '!=', 'new')]}"/>
+                        <button name="button_rejected" type="object" string="Reject"
+                                attrs="{'invisible':[('kg_state', '!=', 'new')]}"/>
+                        <field name="kg_state" widget="statusbar" statusbar_visible="new,approved,rejected,cancel"/>
+                        <button name="create_prod_plan" type="object" string="Create Production Plan" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object" name="action_open_production_planning"
+                                    icon="fa-book" string="Production Planning"/>
+                        </div>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="kg_period" required="1" readonly="0"/>
+                                <field name="kg_user_id" readonly="1"/>
+                                <field name="purchase_req_created" invisible="1"/>
+                            </group>
+                            <group>
+                                <!--                                 <field name="project_id" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/> -->
+                                <field name="kg_dep" domain="[('parent_id.name', '=', 'Sales')]" required="1"/>
+                                <field name="kg_date" readonly="1"/>
+                                <field name="sale_ids" invisible="1" widget="many2many_tags" force_save="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="kg_lines" attrs="{'readonly':[('kg_state', '=', 'approved')]}">
+                                    <tree editable="top">
+                                        <field name="kg_product_id" required="1"
+                                               domain="[('kg_internal_type', '=', 'finish')]"/>
+                                        <field name="kg_uom_id" readonly="1"/>
+                                        <field name="kg_qty" readonly="1"/>
+                                        <field name="kg_adj"/>
+                                        <field name="kg_net" readonly="1"/>
+                                        <field name="kg_comments"/>
+                                        <field name="expected_date" optional="show"/>
+                                        <field name="state" readonly="1" force_save="1" invisible="1"/>
+                                        <field name="sale_id" readonly="1" force_save="1" invisible="1"/>
+                                        <field name="sale_line_id" readonly="1" force_save="1" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <label for="kg_product_id" class="oe_edit_only"/>
+                                        <h1>
+                                            <field name="kg_product_id" readonly="1"/>
+                                        </h1>
+                                        <group>
+                                            <field name="kg_uom_id"/>
+                                            <field name="kg_qty"/>
+                                            <field name="kg_adj"/>
+                                            <field name="kg_net"/>
+                                            <field name="kg_comments"/>
+                                            <field name="expected_date" optional="show"/>
+                                            <field name="state" readonly="1" force_save="1" invisible="1"/>
+                                            <field name="sale_id" readonly="1" force_save="1" invisible="1"/>
+                                            <field name="sale_line_id" readonly="1" force_save="1" invisible="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                        <field name="note" attrs="{'readonly':[('kg_state', '=', 'approved')]}"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_kg_sales_forecast1"
+                model="ir.actions.act_window">
+            <field name="name">Sales Forecast</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.sales.forecast</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Sales Forecast
+                </p>
+            </field>
+        </record>
+        <record id="kg_sales_forecast_prod_tree_view"
+                model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kg_sales_forecast_tree1"/>
+            <field name="act_window_id" ref="action_kg_sales_forecast1"/>
+        </record>
+        <record id="kg_sales_forecast_prod_form_view"
+                model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_kg_sales_forecast_form1"/>
+            <field name="act_window_id" ref="action_kg_sales_forecast1"/>
+        </record>
+        <menuitem id="menu_kg_sales_forecast_prod"
+                  parent="mrp.menu_mrp_root"
+                  name="Sales Forecast" sequence="1"/>
+        <menuitem id="menu_kg_sales_forecast_prod1"
+                  action="action_kg_sales_forecast1" parent="menu_kg_sales_forecast_prod"
+                  name="Sales Forecast" sequence="1"/>
+        <record id="action_server_join_sf" model="ir.actions.server">
+            <field name="name">Group Sales Forecast</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_kg_sales_forecast"/>
+            <field name="state">code</field>
+            <field name="code">records.button_group_sf()</field>
+        </record>
+    </data>
+</odoo>

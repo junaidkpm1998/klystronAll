@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="group_tree">
+            <field name="name">Group</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <tree string="Group Tree">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="group_form">
+            <field name="name">product.group.form</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <form string="Product Group Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                        <label for="remarks"/>
+                        <field name="remarks"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_group_menu_action" model="ir.actions.act_window">
+            <field name="name">Product Group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Product Group</p>
+            </field>
+        </record>
+        <menuitem id="product_group" parent="stock.menu_stock_config_settings" name="Group"
+                  action="product_group_menu_action"/>
+    </data>
+</odoo>

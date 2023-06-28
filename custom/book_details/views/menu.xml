@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem id="book_details_menu"
+              name="Book Details"
+              parent="stock.menu_stock_root"
+              action="action_book_details"
+               sequence="9"/>
+        <menuitem id="product_reservation_menu"
+              name="Book Details"
+              parent="contacts.menu_contacts"
+              action="action_product_reservation"
+               sequence="3"/>
+
+
+</odoo>

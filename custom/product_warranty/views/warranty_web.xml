@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+       <record id="menu_product_warrantggggggggy_web" model="website.menu">
+           <field name="name">Product Warranty Request</field>
+           <field name="url">/warranty</field>
+           <field name="parent_id" ref="website.main_menu"/>
+           <field name="sequence">55</field>
+       </record>
+   </data>
+</odoo>

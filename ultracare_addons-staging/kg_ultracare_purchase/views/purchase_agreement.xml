@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.menu" id="purchase_requisition.menu_purchase_requisition_pro_mgt">
+            <field name="name">Purchase Agreement</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="purchase_requisition.action_purchase_requisition">
+            <field name="name">Purchase Agreement</field>
+        </record>
+
+        <record id="kg_purchase_agreement_type_menu" model="ir.actions.act_window">
+            <field name="name">Purchase Agreement Types</field>
+            <field name="res_model">purchase.requisition.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem id="menu_purchase_agreement_type"
+                  name="Purchase Agreement Types"
+                  action="kg_purchase_agreement_type_menu"
+                  parent="purchase.menu_purchase_config" sequence="2"/>
+
+        <record id="kg_purchase_agreement_type_mail_mixin" model="ir.ui.view">
+            <field name="name">Purchase Agreement Types Mail Mixin</field>
+            <field name="model">purchase.requisition.type</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_type_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_purchase_requisition_views_inherit" model="ir.ui.view">
+            <field name="name">kg.purchase.requisition.form.inherit</field>
+            <field name="model">purchase.requisition</field>
+            <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+            <field name="arch" type="xml">
+                <field name="date_end" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,176 @@
+<odoo>
+    <data>
+        <template id="purchase_bill_register_template">
+            <t t-call="web.html_container">
+                <style>.table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <span>P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state"><span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="25%" align="right">
+                                <span>PageNo.
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:15px;">
+                            <b>
+                                PENDING PURCHASE ORDER - DETAILED
+                            </b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless'>
+                        <tr width="100%" style="font-size:12px;">
+                            <td>
+                                <b>
+                                    <span>Date From :
+                                    </span>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        To
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class='table table-bordered' width="100%">
+                    <thead style="border: 1px solid black;">
+                        <tr width="100%" style="font-size:15px;">
+                            <th width="10%" border="1px solid black;">
+                                Date
+                            </th>
+                            <th width="10%" border="1px solid black;">
+                                Doc No
+                            </th>
+                            <th width="10%" border="1px solid black;">
+                                Reference
+                            </th>
+                            <th width="10%"></th>
+                            <th width="10%">
+                                JOB No
+                            </th>
+                            <th width="10%">
+                                A/C
+                            </th>
+                            <th width="20%">
+                                Description
+                            </th>
+                            <th width="10%">
+                                Debit
+                            </th>
+                            <th width="10%">
+                                Credit
+                            </th>
+                        </tr>
+                    </thead>
+                    <t t-set="j" t-value="0"/>
+                    <t t-foreach="values" t-as="vals">
+                        <tr width="100%">
+                            <td>
+                                <span t-esc="vals['date']" style="font-size:12px;"/>
+                            </td>
+
+                            <td>
+                                <span t-esc="vals['doc_no']" style="font-size:12px;"/>
+                            </td>
+                            <td>
+                                <span t-esc="vals['ref']" style="font-size:12px;"/>
+                            </td>
+                            <td>
+                                <!--                                <span t-esc="vals['doc_no']"/>-->
+                            </td>
+                            <td>
+                                <!--                                <span t-esc="vals['doc_no']"/>-->
+                            </td>
+                            <td>
+                                <span t-esc="vals['account_code']" style="font-size:12px;"/>
+                            </td>
+                            <td>
+                                <span t-esc="vals['account_name']" style="font-size:12px;"/>
+                            </td>
+                            <td>
+                                <span t-esc="vals['debit']" style="font-size:12px;"/>
+                                <t t-set="j" t-value="vals['debit']+j"/>
+                            </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span t-esc="vals['customer_code']" style="font-size:12px;"/>
+                            </td>
+                            <td colspan="4">
+                                <span t-esc="vals['customer_name']" style="font-size:12px;"/>
+                            </td>
+                            <td colspan="2">
+                                <span t-esc="vals['account_description']" style="font-size:12px;"/>
+                            </td>
+                            <td>
+                                <!--                                <span t-esc="vals['doc_no']"/>-->
+                            </td>
+                            <td>
+                                <!--                                <span t-esc="vals['doc_no']"/>-->
+                            </td>
+                        </tr>
+
+                    </t>
+                    <tr>
+                        <td colspan="7"></td>
+                        <td>
+                            <span t-esc="j"/>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                </table>
+            </t>
+            <tr>
+                <td align="left">
+                    Currency :
+                    <span t-esc="currency_id"/>
+                </td>
+                <td align="right">
+                    Amount :
+                    <span t-esc="amount"/>
+                </td>
+            </tr>
+            <div class="row">
+                <left style="font-size:12px;">
+                    <b>
+                        >A/C HEADWISE REGISTER SUMMARY
+                    </b>
+                </left>
+            </div>
+            <!--            <tr>-->
+            <!--                <span><b</b></span>-->
+            <!--            </tr>-->
+        </template>
+    </data>
+</odoo>

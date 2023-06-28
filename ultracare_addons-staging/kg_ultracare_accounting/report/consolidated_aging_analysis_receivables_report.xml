@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="consolidated_ageing_rec_template">
+        <t t-call="web.html_container">
+            <style>
+                .table-borderless td,
+                .table-borderless th {
+                border: 0;
+                }
+            </style>
+            <div class="header">
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td width="75%" align="left">
+                            <b>
+                                <span t-esc="company_id"/>
+                            </b>
+                        </td>
+                        <td width="25%" colspan="3"/>
+                    </tr>
+                    <tr width="100%" style="font-size:13px;">
+                        <td width="75%" align="left">
+                            <b>
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </b>
+                        </td>
+                        <td width="5%" align="center"/>
+                        <td width="15%" align="right">
+                            <span>
+                                Page
+                                <span class="page"/>
+                                of
+                                <span class="topage"/>
+                            </span>
+                        </td>
+                        <td width="5%"/>
+                    </tr>
+                </table>
+                <div class="oe_structure"/>
+                <div class="row">
+                    <center style="font-size:13">
+                        <b>CONSOLIDATED AGING ANALYSIS (Receivables)</b>
+                    </center>
+                </div>
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td>
+                            <span>
+                                As On:
+                            </span>
+                            <span><![CDATA[&nbsp;]]></span>
+                            <span>
+                                <span t-esc="data['date_from']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;">
+                <thead>
+                    <tr width="100%" style="font-size:13;">
+                        <td width="15%" colspan="2" style="border-right:1px solid #484848;"/>
+                        <td width="5%" style="border-right:1px solid #484848;"/>
+                        <td width="48%" colspan="6" align="center"
+                            style="border-right:1px solid #484848;border-bottom:1px solid #484848;">
+                            <span>
+                                <b>
+                                    INVOICE AGING
+                                </b>
+                            </span>
+                        </td>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <b>
+                                <span>
+                                    Unadjusted Credits
+                                </span>
+                            </b>
+                        </td>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <b>
+                                <span>
+                                    Balance
+                                </span>
+                            </b>
+                        </td>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <b>
+                                <span>
+                                    PDC Amt
+                                </span>
+                            </b>
+                        </td>
+                        <td width="8%" align="center">
+                            <b>
+                                <span>
+                                    Net Balance
+                                </span>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr width="100%" style="font-size:13;border-bottom:1px solid #484848;">
+                        <td width="5%" align="left">
+                            <span>
+                                <b>
+                                    A/c Code
+                                </b>
+                            </span>
+                        </td>
+                        <td width="10%" align="left" style="border-right:1px solid #484848;">
+                            <span>
+                                <b>
+                                    A/c Name
+                                </b>
+                            </span>
+                        </td>
+                        <td width="5%" align="center" style="border-right:1px solid #484848;">
+                            <span>
+                                <b>
+                                    Credit Days
+                                </b>
+                            </span>
+                        </td>
+                        <t t-foreach="range(int(data['0']['range'])-1, -1, -1)" t-as="heading_item">
+                            <td class="text-right" style="border-right:1px solid #484848;" align="center">
+                                <t t-set="value" t-value="data[str(heading_item)]['name']"/>
+                                <b>
+                                    <span t-esc="value"/>
+                                </b>
+                            </td>
+                        </t>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <span>
+                                <b>
+                                    <span t-esc="currency_id"/>
+                                </b>
+                            </span>
+                        </td>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <span>
+                                <b>
+                                    <span t-esc="currency_id"/>
+                                </b>
+                            </span>
+                        </td>
+                        <td width="8%" align="center" style="border-right:1px solid #484848;">
+                            <span>
+                                <b>
+                                    <span t-esc="currency_id"/>
+                                </b>
+                            </span>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="test" t-value="0"/>
+                    <t t-foreach="get_account_lines" t-as="lines">
+                        <tr style="font-size:13;" width="100%">
+                            <td width="5%" align="left">
+                                <b>
+                                    <span t-esc="lines['account_code']"/>
+                                </b>
+                            </td>
+                            <td width="10%" align="left" style="border-right:1px solid #484848;">
+                                <b>
+                                    <span t-esc="lines['account_name']"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                            <td width="8%" align="center" style="border-right:1px solid #484848;"/>
+                        </tr>
+                        <t t-foreach="lines['lines']" t-as="partner">
+                            <tr style="font-size:13;" width="100%">
+                                <td width="5%" align="left">
+                                    <t t-if="partner['customer_code']">
+                                        <span t-esc="partner['customer_code']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="left" style="border-right:1px solid #484848;">
+                                    <span t-esc="partner['name']"/>
+                                </td>
+                                <td width="5%" align="center" style="border-right:1px solid #484848;">
+                                    <span t-esc="'%.2f'% partner['payment_terms']"/>
+                                </td>
+                                <t t-foreach="range(int(partner['range_count'])-1, -1, -1)" t-as="data_item">
+                                    <td class="text-right" style="border-right:1px solid #484848;" align="center">
+                                        <t t-set="value" t-value="partner[str(data_item)]"/>
+                                        <b>
+                                            <span t-esc="'%.2f'% value"/>
+                                            <t t-set="test" t-value="test + value"/>
+                                        </b>
+                                    </td>
+                                </t>
+                                <td width="8%" align="center" style="border-right:1px solid #484848;">
+                                    <span t-esc="partner['total'] - test"/>
+                                </td>
+                                <td width="8%" align="center" style="border-right:1px solid #484848;">
+                                    <b>
+                                        <span t-esc="'%.2f'% partner['total']"/>
+                                    </b>
+                                </td>
+                                <td width="8%" align="center" style="border-right:1px solid #484848;">
+                                    <b>
+                                        <span t-esc="'%.2f'% partner['pdc_payment_amt']"/>
+                                    </b>
+                                </td>
+                                <td width="8%" align="center" style="border-right:1px solid #484848;">
+                                    <b>
+                                        <span t-esc="'%.2f'% partner['net_balance']"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </t>
+
+                    </t>
+                </tbody>
+            </table>
+            <div class="footer">
+                <table class="table table-borderless table-condensed table-hover">
+                    <tr width="100%" style="font-size:13px;">
+                        <td width="5%" align="left">
+                            <span>Date:</span>
+                        </td>
+                        <td width="12%" align="left">
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                        </td>
+                        <td width="20%" align="left">
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S %p')"/>
+                        </td>
+                        <td width="63%" align="right"/>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_material_request_form" model="ir.ui.view">
+        <field name="name">booking.order.form</field>
+        <field name="model">booking.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <!--                            <field name="name"/>-->
+                            <field name="partner_id"/>
+                            <field name="book_order"/>
+                            <field name="pickup_date"/>
+                            <field name="pricelist_id"/>
+                        </group>
+                        <group>
+                            <field name="date_order"/>
+                            <field name="phone"/>
+                            <field name="date_quotation"/>
+                            <field name="deliver_date"/>
+                            <field name="delivery_address"/>
+                            <field name="total" invisible="1"/>
+
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="products" string="Products">
+                            <field name="lines">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="qty"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="tax_ids" widget="many2many_tags"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="price_subtotal_incl"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="info" placeholder="Internal notes..."/>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_booking_order_tree" model="ir.ui.view">
+        <field name="name">booking.order.tree</field>
+        <field name="model">booking.order</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state == 'done'"
+                  decoration-danger="state == 'draft'">
+                <field name="reference_no"/>
+                <field name="partner_id"/>
+                <field name="book_order"/>
+                <field name="pickup_date"/>
+                <field name="pricelist_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+
+    </record>
+    <record id="action_booking_order" model="ir.actions.act_window">
+        <field name="name">Booking Orders</field>
+        <field name="res_model">booking.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <data>
+        <record id="seq_pos_menu" model="ir.sequence">
+            <field name="name">Patient Sequence</field>
+            <field name="code">booking.order</field>
+            <field name="prefix">POS</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+</odoo>

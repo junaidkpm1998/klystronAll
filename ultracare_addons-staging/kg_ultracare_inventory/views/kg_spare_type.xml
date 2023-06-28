@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="spare_type_tree">
+            <field name="name">Spare Type</field>
+            <field name="model">kg.spare.type</field>
+            <field name="arch" type="xml">
+                <tree string="Spare Type Tree">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="spare_type_form">
+            <field name="name">spare.type.form</field>
+            <field name="model">kg.spare.type</field>
+            <field name="arch" type="xml">
+                <form string="Spare Type Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                        <label for="remarks"/>
+                        <field name="remarks"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="spare_type_menu_action" model="ir.actions.act_window">
+            <field name="name">Spare Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.spare.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Spare Types</p>
+            </field>
+        </record>
+        <menuitem id="spare_types" parent="stock.menu_stock_inventory_control" name=" Spare Types"
+                  action="spare_type_menu_action"/>
+    </data>
+</odoo>

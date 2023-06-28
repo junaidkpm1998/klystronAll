@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="salary_certificate">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <div class="text-center">
+                        <h1 style="font-family: monospace;">Salary Certificate</h1>
+                    </div>
+                    <h5 class="mt-4">
+                        <span t-esc="form.get('requested_date')"
+                              t-options='{"widget": "date","format": "MMMM dd, yyyy"}'/>
+                    </h5><br/>
+                    <br/>
+                    <p>This certification proves that <strong><t t-esc="form.get('employee_id')[1]"/></strong> is currently employed with our Company and his/ her current position as  <strong><t t-esc="form.get('employee_type')[1]"/></strong> staff on the department  <strong><t t-esc="form.get('department_id')[1]"/></strong> .</p>
+
+                    <br/>
+                    <p><strong><t t-esc="form.get('employee_id')[1]"/></strong> has worked last is  <strong> <span t-esc="form.get('last_working_date')" t-options='{"widget": "date","format": "MMMM dd, yyyy"}'/></strong>. Here is the Document Reference <strong>"<t t-esc="form.get('name')"/>"</strong>.</p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p>If you have any questions about this document, please contact us</p>
+                    <br/>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

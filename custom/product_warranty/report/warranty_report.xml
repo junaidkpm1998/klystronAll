@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_pdf_report_product_warranty" model="ir.actions.report">
+        <field name="name">Product Warranty Report</field>
+        <field name="model">warranty.wizard.model</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">product_warranty.report_product_warranty</field>
+        <field name="report_file">product_warranty.report_product_warranty</field>
+        <field name="binding_model_id" ref="model_warranty_model"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="report_product_warranty">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Product Warranty Report</h2>
+                </div>
+                <table class="table table-sm o_main_table" name="warranty">
+                    <thead>
+                        <tr>
+                            <th name="th_id" class="text-left">
+                                <span>ID</span>
+                            </th>
+                            <th name="th_invoice" class="text-left">
+                                <span>Invoice</span>
+                            </th>
+                            <th name="th_customer_name" class="text-left">
+                                <span>Customer Name</span>
+                            </th>
+                            <th name="th_product" class="text-left">
+                                <span>Product</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="sql_data" t-as="det">
+                            <tr>
+                                <td>
+                                    <span t-esc="det['id']"/>
+                                </td>
+                                <t t-if="types_id">
+                                </t>
+                                <t t-else="">
+                                    <td>
+                                        <span t-esc="det['invoice']"/>
+                                    </td>
+                                </t>
+                                <td>
+                                    <span t-esc="det['customer']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="det['product']"/>
+                                </td>
+
+                            </tr>
+                        </t>
+                    </tbody>
+
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

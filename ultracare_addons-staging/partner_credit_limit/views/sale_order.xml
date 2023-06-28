@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record id="sale_order_price_change" model="ir.ui.view">
+            <field name="name">Sales Order Price Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+                       position="after">
+                    <field name="price_change_check" force_save="1" invisible="1"/>
+                    <field name="diff_price" force_save="1" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('price_change_check', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+                       position="after">
+                    <field name="sp_unit_amt" force_save="1" optional="hide"
+                           attrs="{'readonly': [('state', '=', 'sale')]}"/>
+                    <field name="check_price_unit_amount" force_save="1" invisible="1"/>
+                    <field name="price_change" force_save="1" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='source_id']" position="after">
+                    <field name="over_credit_sale" force_save="1" invisible="1"/>
+                    <field name="unit_bool" force_save="1" invisible="1"/>
+                    <field name="approval_status" readonly="1" force_save="1"/>
+                    <field name="approval_status_credit" readonly="1" force_save="1"/>
+                    <field name="credit_bool" invisible="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="button_manager_approve" string="Manager Request" type="object" class="btn-primary"
+                            attrs="{'invisible': ['|',('unit_bool', '!=', True),('approval_status','!=',False)]}"
+                            help="Button for requesting to unit price change"/>
+                    <button name="approve_unit_manager" string="Approve" type="object" class="btn-primary"
+                            attrs="{'invisible': [('approval_status', '!=', 'waiting')]}"
+                            help="Button for Approving to unit price change"
+                            groups="sales_team.group_sale_salesman_all_leads"/>
+                    <button name="reject_unit_manager" string="Reject" type="object" class="btn-primary"
+                            attrs="{'invisible': [('approval_status', '!=', 'waiting')]}"
+                            help="Button for Rejecting to unit price change"
+                            groups="sales_team.group_sale_salesman_all_leads"/>
+                    <button name="button_credit_limit_approve" string="Request Credit Limit" type="object"
+                            class="btn-primary"
+                            attrs="{'invisible': ['|',('over_credit_sale', '!=', True),('approval_status_credit','!=',False)]}"
+                            help="Button for requesting to Credit Limit and Due date extention"/>
+                    <button name="approve_credit_manager" string="Approve Credit" type="object" class="btn-primary"
+                            attrs="{'invisible': [('approval_status_credit', '!=', 'waiting')]}"
+                            help="Button for Accepting Credit Limit or Due date exceed request"
+                            groups="sales_team.group_sale_salesman_all_leads"/>
+                    <button name="reject_credit_manager" string="Reject Credit" type="object" class="btn-primary"
+                            attrs="{'invisible': [('approval_status_credit', '!=', 'waiting')]}"
+                            groups="sales_team.group_sale_salesman_all_leads"
+                            help="Button for rejecting credit limit or due date approval"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <record id="inventory_valuation_inherit" model="ir.ui.view">
+            <field name="name">inventory.valuation.layer.kg.ultracare</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="product_category_id"/>
+                </xpath>
+                <field name="create_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="inventory_valuation_form_inherit" model="ir.ui.view">
+            <field name="name">inventory.valuation.layer.form.kg.ultracare</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="product_category_id"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="kg_stock_scrap_inherit" model="ir.ui.view">
+            <field name="name">stock.scrap.kg.ultracare</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="date_done" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

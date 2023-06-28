@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_stationary_consumption_tree">
+            <field name="name">stationary.consumption.tree.editable</field>
+            <field name="model">stationary.consumption</field>
+            <field eval="10" name="priority"/>
+            <field name="arch" type="xml">
+                <tree default_order="location_id, inventory_date, product_id" editable="bottom" create="1" edit="1"
+                      import="1" js_class="inventory_report_list" class="o_inventory_adjustments" sample="1">
+                    <field name="company_id" invisible="1"/>
+                    <field name="location_id" domain="[('usage', 'in', ['internal', 'transit'])]"
+                           attrs="{'readonly': [('id', '!=', False)]}" invisible="context.get('hide_location', False)"
+                           options="{'no_create': True}" force_save="1"/>
+                    <field name="product_id" force_save="1"
+                           options="{'no_create': True}" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    <field name="product_categ_id" optional="hide"/>
+                    <field name="quantity" optional="show"
+                           string="On hand" force_save="1"/>
+                    <field name="product_uom_id" groups="uom.group_uom" string="UoM"/>
+                    <field name="used_qty" force_save="1"
+                           attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    <field name="inventory_quantity" force_save="1"
+                           attrs="{'readonly': [('state', '=', 'done')]}" invisible="1"/>
+                    <field name="inventory_diff_quantity" string="Difference"
+                           decoration-muted="inventory_diff_quantity == 0"
+                           decoration-danger="inventory_diff_quantity &lt; 0"
+                           decoration-success="inventory_diff_quantity &gt; 0"
+                           decoration-bf="inventory_diff_quantity != 0" readonly="1" force_save="1"/>
+                    <field name="inventory_date" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    <field name="user_id" string="User" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                    <field name="is_consumed" string="Consumed" optional="show" invisible="1"/>
+                    <field name='company_id' groups="base.group_multi_company" optional="hide"/>
+                    <button name="action_apply_stationary" type="object" string="Apply" class="btn btn-link"
+                            icon="fa-save" attrs="{'invisible': [('is_consumed','=',True)]}"/>
+                    <button name="action_stationary_history" type="object" class="btn btn-link text-info"
+                            icon="fa-history" string="History"/>
+                    <field name="state" readonly="1" force_save="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="stationary_consumption_action" model="ir.actions.act_window">
+            <field name="name">Stationary Consumption</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stationary.consumption</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The First Stationary Consumption</p>
+            </field>
+        </record>
+        <menuitem id="menu_action_view_stationary_consumption" name="Stationary Consumption"
+                  parent="stock.menu_stock_warehouse_mgmt"
+                  sequence="10" action="stationary_consumption_action"/>
+
+    </data>
+</odoo>

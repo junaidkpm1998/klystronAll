@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <template id="pdc_outstanding_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>PDC OUTSTANDING - AS ON
+                                <span t-esc="date_from" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                ( Sort By : Bank Wise - Date Wise )
+                            </b>
+                        </center>
+                    </div>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="25%" align="left">
+                                <b>DocNo.</b>
+                            </td>
+                            <td width="10%" align="center">
+                                <b>Doc.Date</b>
+                            </td>
+                            <td width="30%" align="center">
+                                <b>Cheque No.</b>
+                            </td>
+                            <td width="20%" align="center">
+                                <b>ChequeDate</b>
+                            </td>
+                            <td width="15%" align="center">
+                                <b>Amount</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;;;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="5"/>
+                        </tr>
+                    </thead>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

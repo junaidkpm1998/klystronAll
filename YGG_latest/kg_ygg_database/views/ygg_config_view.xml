@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ygg_intervals_form" model="ir.ui.view">
+            <field name="name">ygg.intervals.form</field>
+            <field name="model">ygg.intervals</field>
+            <field name="arch" type="xml">
+                <form string="YGG Intervals">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <label for="interval" />
+                                <div class="o_row">
+                                    <field name="interval"/>
+                                    <field name="frequency"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ygg_config_tree" model="ir.ui.view">
+            <field name="name">ygg.config.tree</field>
+            <field name="model">ygg.config</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Config">
+                    <field name="name"/>
+                    <field name="url"/>
+                    <field name="port_no"/>
+                    <field name="db_name"/>
+                    <field name="db_type"/>
+                    <field name="login"/>
+                    <field name="password" password="True"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_config_form" model="ir.ui.view">
+            <field name="name">ygg.config.form</field>
+            <field name="model">ygg.config</field>
+            <field name="arch" type="xml">
+                <form string="DB Configuration">
+                    <header>
+                        <button name="run_manually" type="object" string="Connect" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="url"/>
+                                <field name="port_no"/>
+                                <field name="db_type"/>
+                            </group>
+                            <group>
+                                <field name="db_name"/>
+                                <field name="login"/>
+<!--                                <field name="password"/>-->
+                                <field name="password" password="True"/>
+<!--                                <field name="product_id"/>-->
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Lines">
+                                <field name="ygg_config_lines">
+                                    <tree editable="bottom">
+                                        <field name="update_sequence" widget='handle'/>
+                                        <field name="ygg_config_id" invisible="1"/>
+                                        <field name="ygg_table_id" domain="[('name', '!=', 'Absentee')]"/>
+<!--                                        <field name="ygg_table_name" attrs="{'column_invisible': [('parent.db_type', '!=', 'mssql')]}"/>-->
+<!--                                        <field name="ygg_field_name" attrs="{'column_invisible': [('parent.db_type', '!=', 'mssql')]}"/>-->
+<!--&lt;!&ndash;                                    <field name="odoo_table_name"/>&ndash;&gt;-->
+<!--                                        <field name="ygg_model_id" attrs="{'column_invisible': [('parent.db_type', '!=', 'psql')]}"/>-->
+<!--                                        <field name="ygg_field_id" attrs="{'column_invisible': [('parent.db_type', '!=', 'psql')]}"/>-->
+<!--                                        <field name="check_field_id" attrs="{'column_invisible': [('parent.db_type', '!=', 'psql')]}"/>-->
+<!--&lt;!&ndash;                                    <field name="odoo_relation_id"/>&ndash;&gt;-->
+<!--                                        <field name="odoo_model_id"/>-->
+<!--                                        <field name="odoo_check_field_id"/>-->
+<!--                                        <field name="updated_field_id"/>-->
+<!--&lt;!&ndash;                                    <field name="odoo_field_name"/>&ndash;&gt;-->
+<!--                                        <field name="update_sequence"/>-->
+                                        <field name="update_interval_id"/>
+<!--&lt;!&ndash;                        <field name="all_table_name"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <field name="all_table_col_name"/>&ndash;&gt;-->
+                                        <field name="last_upt_date" invisible="0"/>
+                                        <field name="next_upt_date" invisible="0"/>
+                                        <field name="upt_today" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_config" model="ir.actions.act_window">
+            <field name="name">Configure Database</field>
+            <field name="res_model">ygg.config</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ygg_menu" name="YGG"
+                  action="action_ygg_config" sequence="1"/>
+
+        <menuitem id="ygg_config" name="Configure Database" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_config" sequence="1"/>
+
+
+    </data>
+</odoo>

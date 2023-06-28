@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_form_view_id" model="ir.ui.view">
+            <field name="name">Product Form View</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page string="Coupon Details">
+                        <group>
+                            <group>
+                                <field name="coupon_code"/>
+                                <field name="present_code_type"
+                                       attrs="{'invisible':[('coupon_code','!=', 'present_code')]}"/>
+                                <field name="api_type"
+                                       attrs="{'invisible':[('coupon_code','!=', 'api_code')]}"/>
+                            </group>
+                        </group>
+
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

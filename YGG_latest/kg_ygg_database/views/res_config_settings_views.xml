@@ -1,0 +1,54 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.booking</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block"
+                     string="YGG"
+                     data-string="YGG"
+                     data-key="ygg_key">
+
+                    <div id="booking_id">
+                        <h2>YGG Configurations</h2>
+                        <div class="row mt16 o_settings_container" name="ygg_setting_container">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="mt8">
+                                        <label for="topup_journal_id"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="topup_journal_id" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="topup_account_id"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="topup_account_id" class="oe_inline"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="sale_payment_journal_id"
+                                               class="col-3 col-lg-3 o_light_label"/>
+                                        <field name="sale_payment_journal_id" class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_booking_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'ygg_key','bin_size': False}</field>
+    </record>
+
+
+
+</odoo>

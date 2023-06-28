@@ -1,0 +1,229 @@
+<odoo>
+    <data>
+        <template id="rfq_po_report_inherit" inherit_id="purchase.report_purchasequotation_document"
+                  priority="18">
+            <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+                <t t-call="web.basic_layout">
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="50%">
+                                    <img t-if='o.company_id.logo'
+                                         t-att-src='image_data_uri(o.company_id.logo)'
+                                         style="padding: 0px; margin: 0px; height: 48px;"
+                                         alt='Logo'/>
+                                </td>
+                                <td style='width:40%' align="right" width="40%">
+                                    <b>
+                                        <span t-field='o.company_id.name' style="color: #00BFFF;font-size:30"/>
+                                    </b>
+                                    <br/>
+                                    <t t-if='o.company_id.street'>
+                                        <span t-field='o.company_id.street' style='font-size:13'/>,
+                                    </t>
+                                    <t t-if='o.company_id.street2'>
+                                        <span t-field='o.company_id.street2' style='font-size:13'/>,
+                                    </t>
+                                    <t t-if='o.company_id.city'>
+                                        <span t-field='o.company_id.city' style='font-size:13'/>,
+                                    </t>
+                                    <t t-if='o.company_id.state_id.name'>
+                                        <span t-field='o.company_id.state_id.name' style='font-size:13'/>,
+                                    </t>
+                                    <t t-if='o.company_id.country_id.name'>
+                                        <span t-field='o.company_id.country_id.name' style='font-size:13'/>
+                                    </t>
+                                    <t t-if='o.company_id.phone'>
+                                        <br/>
+                                        Tel.
+                                        <span t-field='o.company_id.phone'/>|
+                                    </t>
+                                    <t t-if='o.company_id.mobile'>
+                                        Fax.
+                                        <span t-field='o.company_id.mobile'/>
+                                    </t>
+                                    <br/>
+                                    <t t-if='o.company_id.zip'>
+                                        PO Box:
+                                        <span t-field='o.company_id.zip'/>|
+                                    </t>
+                                    <t t-if='o.company_id.website'>
+                                        <span t-field='o.company_id.website'/>
+                                    </t>
+                                    <br/>
+                                    <t t-if='o.company_id.vat'>
+                                        TRN:
+                                        <span t-field='o.company_id.vat'/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+<!--                    <div class="header">-->
+<!--                        <table class='table table-borderless table-condensed table-hover'>-->
+<!--                            <tr width="100%">-->
+<!--                                <td width="50%">-->
+<!--                                    <img t-if='o.company_id.logo'-->
+<!--                                         t-att-src='image_data_uri(o.company_id.logo)'-->
+<!--                                         style="padding: 0px; margin: 0px; height: 48px;"-->
+<!--                                         alt='Logo'/>-->
+<!--                                </td>-->
+<!--                                <td width="50%" align="right">-->
+<!--                                    <b>-->
+<!--                                        <span t-field='o.company_id.name'-->
+<!--                                              style="color: #00BFFF;font-size:30"/>-->
+<!--                                    </b>-->
+<!--                                    <br/>-->
+<!--                                    <t t-if='o.company_id.city'>-->
+<!--                                        <span t-field='o.company_id.city' style='font-size:13'/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if='o.company_id.state_id.name'>-->
+<!--                                        <span t-field='o.company_id.state_id.name' style='font-size:13'/>,-->
+<!--                                    </t>-->
+<!--                                    <t t-if='o.company_id.country_id.name'>-->
+<!--                                        <span t-field='o.company_id.country_id.name' style='font-size:13'/>-->
+<!--                                    </t>-->
+<!--                                    <t t-if='o.company_id.phone'>-->
+<!--                                        <br/>-->
+<!--                                        Tel.-->
+<!--                                        <span t-field='o.company_id.phone'/>|-->
+<!--                                    </t>-->
+<!--                                    <t t-if='o.company_id.mobile'>-->
+<!--                                        Fax.-->
+<!--                                        <span t-field='o.company_id.mobile'/>-->
+<!--                                    </t>-->
+<!--                                    <br/>-->
+<!--                                    <t t-if='o.company_id.zip'>-->
+<!--                                        PO Box:-->
+<!--                                        <span t-field='o.company_id.zip'/>|-->
+<!--                                    </t>-->
+<!--                                    <t t-if='o.company_id.website'>-->
+<!--                                        <span t-field='o.company_id.website'/>-->
+<!--                                    </t>-->
+<!--                                    <br/>-->
+<!--                                    <t t-if='o.company_id.vat'>-->
+<!--                                        <VAT></VAT>:-->
+<!--                                        <span t-field='o.company_id.vat'/>-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+
+                    <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                    <t t-set="forced_vat"
+                       t-value="o.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
+                    <div class="row col-12">
+                        <div class="col-6">
+                            <t t-if="o.dest_address_id">
+                                <strong>Shipping address:</strong>
+                                <div t-field="o.dest_address_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+                                     name="purchase_shipping_address"/>
+                            </t>
+                            <t t-else="">
+                                <strong>Shipping address:</strong>
+                                <div t-if="o.picking_type_id and o.picking_type_id.warehouse_id">
+                                    <span t-field="o.picking_type_id.warehouse_id.name"/>
+                                    <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                                         t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </div>
+                                <!--                        </t>-->
+                            </t>
+                        </div>
+                        <div class="col-6">
+                            <!--                            <t t-set="address">-->
+                            <div t-field="o.partner_id"
+                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone", "vat"], "no_marker": True, "phone_icons": True}'/>
+                            <!--                            </t>-->
+                        </div>
+                    </div>
+
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2 class="mt-4">Request for Quotation
+                            <span t-field="o.name"/>
+                        </h2>
+
+                        <table class="table table-sm mt-4">
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th name="th_description">
+                                        <strong>Description</strong>
+                                    </th>
+                                    <th name="th_expected_date" class="text-center">
+                                        <strong>Expected Date</strong>
+                                    </th>
+                                    <th name="th_quantity" class="text-center">
+                                        <strong>Qty</strong>
+                                    </th>
+<!--                                    <th name="th_quantity" class="text-center">-->
+<!--                                        <strong>Unit Amount</strong>-->
+<!--                                    </th>-->
+<!--                                    <th name="th_price" class="text-end">-->
+<!--                                        <strong>Sub total</strong>-->
+<!--                                    </th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.order_line" t-as="order_line">
+                                    <tr t-att-class="'bg-200 fw-bold o_line_section' if order_line.display_type == 'line_section' else 'fst-italic o_line_note' if order_line.display_type == 'line_note' else ''">
+                                        <t t-if="not order_line.display_type">
+                                            <td id="product">
+                                                <span t-field="order_line.name"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="order_line.date_planned"/>
+                                            </td>
+                                            <td class="text-center">
+                                                <span t-field="order_line.product_qty"/>
+                                                <span t-field="order_line.product_uom" groups="uom.group_uom"/>
+                                            </td>
+<!--                                            <td class="text-center">-->
+<!--                                                <span t-field="order_line.price_unit"/>-->
+<!--                                            </td>-->
+<!--                                            <td class="text-end">-->
+<!--                                                <span t-field="order_line.price_subtotal"/>-->
+<!--                                            </td>-->
+                                        </t>
+                                        <t t-else="">
+                                            <td colspan="99" id="section">
+                                                <span t-field="order_line.name"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <p t-field="o.notes" class="mt-4"/>
+
+                        <div class="oe_structure"/>
+                    </div>
+                    <div class="footer">
+                        <table class="table table-borderless table-condensed table-hover">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="5%" align="left">
+                                    <span>Date:</span>
+                                </td>
+                                <td width="12%" align="left">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </td>
+                                <td width="20%" align="left">
+                                </td>
+                                <td width="63%" align="right">
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="account_move_location_crm" model="ir.ui.view">
+            <field name="name">Account Location Inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_vendor_bill_id']" position="after">
+                    <field name="sale_location"/>
+                    <field name="destination_location"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name="description"/>
+                    <field name="po_no"/>
+                    <field name="amount_in_words" invisible="1"/>
+                    <field name="tax_amount_in_words" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="account_move_line_description" model="ir.ui.view">
+            <field name="name">Account Move Line Inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='name']"
+                       position="after">
+                    <field name="alternate_description" optional="hide"/>
+                    <field name="invoice_description" optional="hide"/>
+                    <field name="product_packaging_qty" optional="hide"/>
+                    <field name="package_id" optional="hide"/>
+                    <field name="tax_amount" invisible="1"/>
+                    <field name="tax_value" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

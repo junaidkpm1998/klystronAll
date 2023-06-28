@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="kg_inherit_leave_calendar_report_search" model="ir.ui.view">
+            <field name="name">Leave Report Inherit Search View</field>
+            <field name="model">hr.leave.report.calendar</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_report_calendar_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/filter[@name='groupby_department_id']" position="after">
+                    <filter name="groupby_leave_type" string="Leave Type" context="{'group_by': 'leave_type'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <record id="product_product_book_details" model="ir.ui.view">
+        <field name="name">product.product.related.book.field.inherited</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_policy']" position="after">
+                <field name="related_book"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

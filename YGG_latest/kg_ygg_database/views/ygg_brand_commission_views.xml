@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_brand_commission_tree" model="ir.ui.view">
+            <field name="name">ygg.brand.commission.tree</field>
+            <field name="model">ygg.brand.commission</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Transaction">
+                    <field name="created_on"/>
+                    <field name="modified_on"/>
+                    <field name="gift_type"/>
+                    <field name="corporate_id"/>
+                    <field name="brand_id"/>
+                    <field name="commission_type"/>
+                    <field name="commission_amount"/>
+                    <field name="commission_percentage"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="currency" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_brand_commission_form" model="ir.ui.view">
+            <field name="name">ygg.brand.commission.form</field>
+            <field name="model">ygg.brand.commission</field>
+            <field name="arch" type="xml">
+                <form string="Brand Commission">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="created_on"/>
+                                <field name="modified_on"/>
+                                <field name="gift_type"/>
+                                <field name="corporate_id"/>
+                                <field name="brand_id"/>
+                                <field name="commission_type"/>
+                            </group>
+                            <group>
+                                <field name="commission_amount"/>
+                                <field name="commission_percentage"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="currency" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_brand_commission" model="ir.actions.act_window">
+            <field name="name">Brand Commission</field>
+            <field name="res_model">ygg.brand.commission</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

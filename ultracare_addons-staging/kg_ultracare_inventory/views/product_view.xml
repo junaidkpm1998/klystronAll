@@ -1,0 +1,969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="kg_edit_in_product_manyform" model="ir.ui.view">
+            <field name="name">Product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="action_open_material_consumption_product"
+                                icon="fa-edit" string="Stationary Consumption">
+                        </button>
+                    </div>
+                    <div name="options" position="after">
+                        <group col="2">
+                            <field name="kg_internal_type" invisible="0"/>
+                            <field name="is_dummy_prod" invisible="0"/>
+                            <field name="jumbo_roll" attrs="{'invisible': [('kg_internal_type','!=','raw')]}"/>
+                        </group>
+                    </div>
+                    <xpath expr="//field[@name='categ_id']" position="attributes">
+                        <attribute name="options">{'no_quick_create':True,'no_create_edit':True,'no_open':True}
+                        </attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='uom_po_id']" position="after">
+                        <field name="alternate_description"/>
+                        <field name="invoice_description"/>
+                        <field name="stationary_consumed_qty" invisible="1"/>
+                    </xpath>
+                    <xpath expr="//field[@name='categ_id']" position="after">
+                        <field name="product_group"/>
+                        <field name="product_brand"/>
+                        <field name="kg_cust_id"
+                               attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+
+                        <field name="kg_supp_id"
+                               context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}"/>
+                        <field name="kg_machine"
+                               attrs="{'invisible': [('kg_internal_type','in',['service','raw'])],'required': [('kg_internal_type','in',['finish','spare'])]}"/>
+                    </xpath>
+                    <xpath expr="//page[@name='sales']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page[2]" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page[5]" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//page[@name='sales']" position="after">
+                        <page string="Raw Materials"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}">
+                            <field name="kg_product_raw_lines">
+                                <tree editable="bottom">
+                                    <field name="product_id"
+                                           domain="[('kg_internal_type', '=', 'raw')]" required="1"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Specifications"
+                              attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}">
+                            <group>
+                                <group>
+                                    <field name="kg_cus_code"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="inner_outer_pack_conf"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="outer_pack_uom"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="kg_lbl"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_emb"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="kg_ply"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="weight_uom"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_width"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="rm_width"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="product_length"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d])]}"/>
+                                    <field name="kg_length"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                    <field name="tn_cut_length"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                    <field name="tissue_per_pack"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                    <field name="tissue_per_uom"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                    <field name="sch_shift_hours"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                </group>
+                                <group>
+                                    <field name="kg_sku_type"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="outer_packing_conf"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="core_size_ply"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_hndl"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_lam"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="weight_roll"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="price_per_piece"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_perf"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_gsm"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                    <field name="kg_dia"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="tn_sheets_pack"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                    <field name="tn_weight"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                    <field name="tn_weight_uom"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                    <field name="kg_sht"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="no_of_rolls_log"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                    <field name="kg_sleeve"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                    <field name="kg_print"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="tn_actual_speed"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                <field name="tn_prod_packs"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+                                <field name="eff_speed"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                <field name="eff_pulls_minute"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                <field name="eff_prd"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                <field name="eff_speed_rolls"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+                                <field name="packs_per_min"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc4)d])]}"/>
+                                <field name="effic"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="eff_output_car_shift"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="eff_output_carton"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="eff_output_car_month"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="eff_ton_per_month"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="pack_mach_speed"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                                <field name="tn_poly_film_pack"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+
+                                <field name="tn_poly_film_per_uom"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"/>
+
+
+                                <field name="poly_film_per_uom"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67])]}"/>
+
+                                <field name="poly_bag_per_uom"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc1)d,59,%(kg_pc4)d,%(kg_pc3)d,70,67,%(kg_pc2)d])]}"/>
+                            </group>
+
+
+                        </page>
+
+
+                        <page string="Specifications"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+
+                            <group
+                                    attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+                                <group>
+
+                                    <field name="spare_cc"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="size_dim"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="brand_make"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="spare_code" invisible="1"/>
+
+                                    <field name="spare_item_code"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+
+                                    <field name="spare_stat"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <!--<field name="spare_opening_stock_value" -->
+                                    <!--attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/> -->
+
+
+                                </group>
+                                <group>
+                                    <field name="spare_type"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="model_no"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="spare_cat"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+
+                                    <field name="spare_min_stk"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="spare_loc"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+                                    <field name="spare_rop"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+
+                                    <field name="spare_count_value"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+
+
+                                </group>
+                            </group>
+
+                            <group
+                                    attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+
+                                <field name="spare_remarks"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                            </group>
+
+                        </page>
+                        <page string="Specifications"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['raw'])]}">
+                            <group>
+
+                                <group>
+
+                                    <field name="rm_code"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d,%(kg_pc12)d])]}"/>-->
+
+                                    <field name="rm_width_mm"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc11)d,%(kg_pc6)d,%(kg_pc10)d])]}"/>-->
+
+                                    <field name="rm_product_codes"/>
+
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d,%(kg_pc7)d,%(kg_pc9)d,%(kg_pc8)d,%(kg_pc12)d])]}"/>-->
+
+                                    <field name="mat_type"/>
+
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d])]}"/>-->
+
+
+                                    <field name="rm_ply"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d])]}"/>-->
+
+
+                                    <field name="rm_length"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc10)d])]}"/>-->
+
+                                </group>
+
+                                <group>
+                                    <field name="rm_type"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d])]}"/>-->
+
+
+                                    <field name="rm_product_type"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d])]}"/>-->
+
+                                    <field name="rm_micron"/>
+
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d])]}"/>-->
+
+                                    <field name="rm_gsm"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc11)d,%(kg_pc12)d])]}"/>-->
+
+                                    <field name="rm_eye_mark"/>
+                                    <!--                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d])]}"/>-->
+
+                                    <field name="rm_carton_size"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc7)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_desc"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc8)d])]}"/>
+
+                                    <field name="rm_standard_qty"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc9)d])]}"/>
+                                </group>
+                            </group>
+
+                            <group>
+
+                                <field name="raw_remarks"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc7)d,%(kg_pc12)d])]}"/>
+
+                            </group>
+                        </page>
+
+                    </xpath>
+
+
+                </data>
+
+            </field>
+        </record>
+
+        <!--        <record model="ir.ui.view" id="product_code_filter">-->
+        <!--            <field name="name">product.template.raw.form.filter</field>-->
+        <!--            <field name="model">product.product</field>-->
+        <!--            <field name="inherit_id" ref="stock.stock_product_search_form_view"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                -->
+        <!--        </record>-->
+        <!--        <record model="ir.ui.view" id="product_code_filter">-->
+        <!--            <field name="name">product.template.raw.form.filter</field>-->
+        <!--            <field name="model">product.template</field>-->
+        <!--            <field name="inherit_id" ref="stock.product_template_search_form_view_stock"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <xpath expr="//search/group" position="inside">-->
+        <!--                    <filter string="Supplier Barcode" name="sup_barcode"-->
+        <!--                            domain="[('default_code', '=', True)]"/>-->
+        <!--&lt;!&ndash;                    <filter string="Fired Employees" name="fired"&ndash;&gt;-->
+        <!--&lt;!&ndash;                            domain="['&amp;',('fired', '=', True),('active', '=', False)]"/>&ndash;&gt;-->
+        <!--                </xpath>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="kg_edit_in_product" model="ir.ui.view">
+            <field name="name">Product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id"
+                   ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="action_open_material_consumption"
+                                icon="fa-edit" string="Stationary Consumption">
+                        </button>
+                    </div>
+                    <div name="options" position="after">
+                        <group col="2">
+                            <field name="kg_internal_type" invisible="0"/>
+                            <field name="is_dummy_prod" invisible="0"/>
+                            <field name="jumbo_roll" attrs="{'invisible': [('kg_internal_type','!=','raw')]}"/>
+                        </group>
+                    </div>
+                    <xpath expr="//field[@name='type']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr="//field[@name='barcode']" position="after">
+                        <field name="product_group"/>
+                        <field name="product_sub_group"/>
+                        <field name="stationary_consumed_qty" invisible="1"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='default_code']"
+                           position="attributes">
+                        <attribute name="string">SKU</attribute>
+                        <attribute name="required">1</attribute>
+                    </xpath>
+                    <field name="default_code" position="after">
+                        <field name="kg_reordering_value" attrs="{'invisible': [('detailed_type', '!=', 'product')]}"/>
+                        <field name="kg_reorder_warning" attrs="{'invisible': [('detailed_type', '!=', 'product')]}"/>
+                    </field>
+                    <xpath expr="//field[@name='categ_id']" position="attributes">
+                        <attribute name="attrs">{'invisible': [('kg_internal_type','in',['spare','service'])]}
+                        </attribute>
+                        <attribute name="options">{'no_quick_create':True,'no_create_edit':True,'no_open':True}
+                        </attribute>
+                    </xpath>
+
+                    <xpath expr="//field[@name='categ_id']" position="after">
+                        <field name="kg_location"/>
+                        <field name="kg_cust_id"
+                               attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                        <field name="kg_supp_id"
+                               context="{'search_default_supplier_rank':1, 'default_supplier_rank':1, 'default_customer_code':0}"/>
+                        <field name="kg_machine"
+                               attrs="{'invisible': [('kg_internal_type','in',['service','raw'])],'required': [('kg_internal_type','in',['finish','spare'])]}"/>
+                    </xpath>
+
+                    <!--                    <xpath expr="//page[@name='sales']" position="attributes">-->
+                    <!--                        <attribute name="invisible">1</attribute>-->
+                    <!--                    </xpath>-->
+
+                    <!--                    <xpath expr="/form/sheet/notebook/page[2]" position="attributes">-->
+                    <!--                        <attribute name="invisible">1</attribute>-->
+                    <!--                    </xpath>-->
+
+                    <!--                    <xpath expr="/form/sheet/notebook/page[5]" position="attributes">-->
+                    <!--                        <attribute name="invisible">1</attribute>-->
+                    <!--                    </xpath>-->
+
+                    <xpath expr="//page[@name='sales']" position="after">
+                        <page string="Raw Materials"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}">
+                            <field name="kg_product_raw_lines">
+                                <tree editable="bottom">
+                                    <field name="material_product_id" invisible="1"/>
+                                    <field name="product_id"
+                                           domain="[('kg_internal_type', '=', 'raw')]" required="1"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Specifications"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}">
+                            <group>
+                                <group>
+                                    <field name="kg_cus_code"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="inner_outer_pack_conf"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="outer_pack_uom"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_lbl"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_emb"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_ply"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="weight_uom"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_width"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="rm_width"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="product_length"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_length"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tn_cut_length"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc2)d])]}"
+                                           invisible="1"/>
+                                    <field name="tissue_per_pack"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tissue_per_uom"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tn_cut_length"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="sch_shift_hours"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="kg_sku_type"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tr_bale_qty"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="outer_packing_conf"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="core_size_ply"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_hndl"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_lam"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="weight_roll"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="price_per_piece"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="defined_weight"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tr_weight_roll"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_perf"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_gsm"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_dia"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tn_sheets_pack"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tn_weight"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tn_weight_uom"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_sht"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="pulls_count"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="tr_sheet_count"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="no_of_rolls_log"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="no_of_clips_log"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_sleeve"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                    <field name="kg_print"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="tn_actual_speed"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="tn_prod_packs"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_speed"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_pulls_minute"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_prd"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_speed_rolls"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="packs_per_min"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="effic" attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_output_car_shift"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_output_carton"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_output_car_month"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="eff_ton_per_month"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                                <field name="pack_mach_speed"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['finish'])]}"/>
+                            </group>
+                        </page>
+                        <page string="Specifications"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+                            <group
+                                    attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+                                <group>
+                                    <field name="spare_cc"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="size_dim"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="brand_make"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_code" invisible="1"/>
+                                    <field name="spare_item_code"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_stat"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                </group>
+                                <group>
+                                    <field name="spare_type"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="model_no"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_cat"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_min_stk"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_loc"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_rop"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                    <field name="spare_count_value"
+                                           attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                                </group>
+                            </group>
+                            <group
+                                    attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}">
+
+                                <field name="spare_remarks"
+                                       attrs="{'invisible': [('kg_internal_type', 'not in',['spare'])]}"/>
+                            </group>
+                        </page>
+                        <page string="Specifications"
+                              attrs="{'invisible': [('kg_internal_type', 'not in',['raw'])]}">
+                            <group>
+                                <group>
+                                    <field name="rm_code"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_width_mm"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc11)d,%(kg_pc6)d,%(kg_pc10)d])]}"/>
+                                    <field name="rm_product_codes"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d,%(kg_pc7)d,%(kg_pc9)d,%(kg_pc8)d,%(kg_pc12)d])]}"/>
+                                    <field name="mat_type"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d])]}"/>
+                                    <field name="rm_ply"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d])]}"/>
+                                    <field name="rm_length"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc10)d])]}"/>
+                                </group>
+                                <group>
+                                    <field name="rm_type"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_product_type"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc8)d,%(kg_pc9)d,%(kg_pc11)d,%(kg_pc7)d,%(kg_pc6)d,%(kg_pc10)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_micron"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc10)d])]}"/>
+                                    <field name="rm_gsm"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc5)d,%(kg_pc11)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_eye_mark"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d])]}"/>
+                                    <field name="rm_carton_size"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc7)d,%(kg_pc12)d])]}"/>
+                                    <field name="rm_desc"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc8)d])]}"/>
+                                    <field name="rm_standard_qty"
+                                           attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc9)d])]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="raw_remarks"
+                                       attrs="{'invisible': [('categ_id', 'not in',[%(kg_pc6)d,%(kg_pc7)d,%(kg_pc12)d])]}"/>
+                            </group>
+                        </page>
+                    </xpath>
+                    <xpath expr="//field[@name='uom_po_id']" position="after">
+                        <field name="alternate_description"/>
+                        <field name="invoice_description"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <menuitem id="menu_kg_parent_products" name="Products" parent="mrp.menu_mrp_bom"/>
+
+        <menuitem id="menu_kg_parent_products_store" name="Products"
+                  sequence="159" parent="stock.menu_stock_inventory_control"/>
+
+        <record id="kg_edit_in_product_tree_new" model="ir.ui.view">
+            <field name="name">Product</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id"
+                   ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='default_code']"
+                           position="attributes">
+                        <attribute name="string">SKU</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='list_price']" position="replace"/>
+                    <xpath expr="//field[@name='standard_price']"
+                           position="replace"/>
+                    <xpath expr="//field[@name='detailed_type']" position="replace">
+                        <field name="kg_sku_type"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_kg_finished_prod_tree" model="ir.ui.view">
+            <field name="name">kg.finished.prod.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code" string="Item Code"/>
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="outer_pack_uom"/>
+                    <field name="qty_available"/>
+                    <field name="kg_emb"/>
+                    <field name="kg_ply"/>
+                    <field name="weight_uom"/>
+                    <field name="inner_outer_pack_conf"/>
+                    <field name="tn_weight_uom" string="Weight Per UOM(TN)"
+                           invisible="1"/>
+                    <field name="kg_width"/>
+                    <field name="eff_output_car_shift"/>
+                    <field name="is_it_bom_created"/>
+                    <field name="kg_location"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_finished_product"
+                model="ir.actions.act_window">
+            <field name="name">Finished Products</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','finish')]
+            </field>
+            <field name="context">{'default_detailed_type':'product','default_kg_internal_type':'finish'}
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Finished Product.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_finished_product_tree_view"
+                model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kg_finished_prod_tree"/>
+            <field name="act_window_id" ref="action_finished_product"/>
+        </record>
+        <record id="action_finished_product_form_view"
+                model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_edit_in_product"/>
+            <field name="act_window_id" ref="action_finished_product"/>
+        </record>
+
+        <record id="action_picking_tree_do_inherit" model="ir.actions.act_window">
+            <field name="name">Delivery Order</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain">
+                [('picking_type_code','=','outgoing'),('kg_invoice_id','=',False),('state','=','done')]
+            </field>
+            <field name="context">{
+                'contact_display': 'partner_address',
+                }
+            </field>
+        </record>
+
+        <record id="action_rfq_finance_approval" model="ir.actions.act_window">
+            <field name="name">RFQ For Approval</field>
+            <field name="res_model">purchase.order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','sent_to_finance')]</field>
+        </record>
+
+        <menuitem id="menu_kg_finished_product"
+                  name="Finished Products" parent="menu_kg_parent_products"
+                  action="action_finished_product"/>
+
+        <menuitem id="menu_kg_finished_product_store"
+                  name="Finished Products" parent="menu_kg_parent_products_store"
+                  action="action_finished_product"/>
+
+        <!--        <menuitem id="menu_kg_finished_product_sale"-->
+        <!--                  name="Inventory" parent="sales_team.menu_sales"-->
+        <!--                  groups="sales_team.group_sale_salesman"-->
+        <!--                  action="action_finished_product"/>-->
+
+        <menuitem id="menu_kg_do_sale"
+                  name="DO to invoice" parent="account.menu_finance_receivables"
+                  action="action_picking_tree_do_inherit"/>
+
+        <menuitem id="menu_kg_rfq_account_approval"
+                  name="RFQ For Approval" parent="account.menu_finance_payables"
+                  action="action_rfq_finance_approval"/>
+
+        <record id="view_kg_spare_prod_tree" model="ir.ui.view">
+            <field name="name">kg.spare.prod.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code" string="Item Code"/>
+                    <field name="name"/>
+                    <field name="qty_available"/>
+                    <field name="uom_id"/>
+                    <field name="size_dim"/>
+                    <field name="spare_type"/>
+                    <field name="spare_loc"/>
+                    <field name="spare_rop"/>
+                    <field name="spare_stat"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_spare_parts" model="ir.actions.act_window">
+            <field name="name">Spare Parts</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('kg_internal_type','=','spare')]
+            </field>
+            <field name="context">{'default_detailed_type':'product','default_kg_internal_type':'spare'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Spare Parts
+                </p>
+            </field>
+        </record>
+
+        <record id="action_spare_parts_tree_view"
+                model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kg_spare_prod_tree"/>
+            <field name="act_window_id" ref="action_spare_parts"/>
+        </record>
+        <record id="action_spare_parts_form_view"
+                model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_edit_in_product"/>
+            <field name="act_window_id" ref="action_spare_parts"/>
+        </record>
+
+        <menuitem id="menu_kg_spare_parts" name="Spare Parts"
+                  parent="menu_kg_parent_products" action="action_spare_parts"/>
+
+        <menuitem id="menu_kg_spare_parts_store" name="Spare Parts"
+                  parent="menu_kg_parent_products_store" action="action_spare_parts"/>
+
+        <record id="trading_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Trading Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','trading')]</field>
+            <field name="context">{'default_kg_internal_type': 'trading'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Trading Products</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_kg_trading_parts" name="Trading Products"
+                  parent="menu_kg_parent_products" action="trading_product_menu_action"/>
+
+        <menuitem id="menu_kg_trading_parts_store" name="Trading Products"
+                  parent="menu_kg_parent_products_store" action="trading_product_menu_action"/>
+
+        <record id="view_kg_raw_prod_tree" model="ir.ui.view">
+            <field name="name">kg.raw.prod.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Products">
+                    <field name="sequence" widget="handle"/>
+                    <field name="default_code" string="Item Code"/>
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="rm_type"/>
+                    <field name="qty_available"/>
+                    <field name="uom_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_raw_materials" model="ir.actions.act_window">
+            <field name="name">Raw Materials</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('kg_internal_type','=','raw')]
+            </field>
+            <field name="context">{'default_detailed_type':'product','default_kg_internal_type':'raw'}
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Raw Materials.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_raw_materials_tree_view"
+                model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_kg_raw_prod_tree"/>
+            <field name="act_window_id" ref="action_raw_materials"/>
+        </record>
+        <record id="action_raw_materials_form_view"
+                model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_edit_in_product"/>
+            <field name="act_window_id" ref="action_raw_materials"/>
+        </record>
+
+        <menuitem id="menu_kg_raw_materials" name="Raw Materials"
+                  parent="menu_kg_parent_products" action="action_raw_materials"/>
+        <menuitem id="menu_kg_raw_materials_store"
+                  name="Raw Materials" parent="menu_kg_parent_products_store"
+                  action="action_raw_materials"/>
+
+        <record id="action_serv_products" model="ir.actions.act_window">
+            <field name="name">Service Products</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('kg_internal_type','=','service')]
+            </field>
+            <field name="context">{'default_detailed_type':'service','default_kg_internal_type':'service'}
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new Service.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_serv_products_tree_view"
+                model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="product.product_template_tree_view"/>
+            <field name="act_window_id" ref="action_serv_products"/>
+        </record>
+        <record id="action_serv_products_form_view"
+                model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kg_edit_in_product"/>
+            <field name="act_window_id" ref="action_serv_products"/>
+        </record>
+
+        <menuitem id="menu_kg_serv_products" name="Service"
+                  parent="menu_kg_parent_products" action="action_serv_products"/>
+        <menuitem id="menu_kg_serv_products_store" name="Service"
+                  parent="menu_kg_parent_products_store" action="action_serv_products"/>
+
+        <!--        <delete model="ir.ui.menu"-->
+        <!--                id="sale.menu_product_template_action"/>-->
+        <!--        <delete model="ir.ui.menu"-->
+        <!--                id="stock.menu_product_variant_config_stock"/>-->
+        <!--        <delete model="ir.ui.menu" id="mrp.menu_mrp_product_form"/>-->
+
+        <record id="kg_product_template_view" model="ir.ui.view">
+            <field name="name">Product Template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id"
+                   ref="kg_ultracare_inventory.kg_edit_in_product"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']"
+                       position="before">
+                    <field name="supplier_barcode" attrs="{'invisible': [('kg_internal_type', 'not in',['raw'])]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_product_product_view" model="ir.ui.view">
+            <field name="name">Product Product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id"
+                   ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']"
+                       position="before">
+                    <field name="supplier_barcode" attrs="{'invisible': [('kg_internal_type', 'not in',['raw'])]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_edit_in_product_search_view_inherit" model="ir.ui.view">
+            <field name="name">Product Search View</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id"
+                   ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="supplier_barcode" string="Supplier Barcode"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_view_template_property_form_inherit" model="ir.ui.view">
+            <field name="name">kg.product.template.stock.property.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.view_template_property_form"/>
+            <field name="arch" type="xml">
+                <field name="tracking" position="before">
+                    <field name="is_tracking" invisible="1"/>
+                </field>
+                <xpath expr="//field[@name='tracking']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_tracking', '=', True)]}</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

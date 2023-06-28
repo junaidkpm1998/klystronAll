@@ -1,0 +1,12 @@
+<odoo>
+    <record id="associated_product_view" model="ir.ui.view">
+        <field name="name">associated.product.custom.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="associated_products" string="associated products" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

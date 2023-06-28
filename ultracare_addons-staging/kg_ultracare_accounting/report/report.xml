@@ -1,0 +1,274 @@
+<odoo>
+    <data>
+        <record id="action_unpaid_invoice_report" model="ir.actions.report">
+            <field name="name">Unpaid Invoice Report</field>
+            <field name="model">unpaid.invoice.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Unpaid Invoice Report'</field>
+            <field name="report_name">kg_ultracare_accounting.unpaid_invoice_report_template</field>
+            <field name="report_file">kg_ultracare_accounting.unpaid_invoice_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_purchase_bill_register_report" model="ir.actions.report">
+            <field name="name">Purchase Bill Register Report</field>
+            <field name="model">purchase.bill.register.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Purchase Bill Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.purchase_bill_register_template</field>
+            <field name="report_file">kg_ultracare_accounting.purchase_bill_register_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_debtors_status_report" model="ir.actions.report">
+            <field name="name">Debtors Status Report</field>
+            <field name="model">debtors.status.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Debtors Status Report'</field>
+            <field name="report_name">kg_ultracare_accounting.debtors_report_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.debtors_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_bank_book_report" model="ir.actions.report">
+            <field name="name">Bank Book Report</field>
+            <field name="model">bank.book.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Bank Book Report'</field>
+            <field name="report_name">kg_ultracare_accounting.bank_boo_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.bank_boo_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_creditors_status_report" model="ir.actions.report">
+            <field name="name">Creditors Status Report</field>
+            <field name="model">creditors.status.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Creditors Status Report'</field>
+            <field name="report_name">kg_ultracare_accounting.creditors_report_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.creditors_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_account_ledger_report" model="ir.actions.report">
+            <field name="name">Account Ledger Report</field>
+            <field name="model">account.ledger.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Account Ledger Report'</field>
+            <field name="report_name">kg_ultracare_accounting.account_ledger_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.account_ledger_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_account_receivable_ledger_report" model="ir.actions.report">
+            <field name="name">Account Receivable Ledger Report</field>
+            <field name="model">account.receivable.ledger.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Account Receivable Ledger Report'</field>
+            <field name="report_name">kg_ultracare_accounting.account_receivable_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.account_receivable_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_report_consolidated_aging_receivables" model="ir.actions.report">
+            <field name="name">Consolidated Ageing Analysis Receivables Report</field>
+            <field name="model">consolidated.aging.analysis.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Consolidated Ageing Analysis Receivables Report'</field>
+            <field name="report_name">kg_ultracare_accounting.consolidated_ageing_rec_template</field>
+            <field name="report_file">kg_ultracare_accounting.consolidated_ageing_rec_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_balance_sheet_schedule_report" model="ir.actions.report">
+            <field name="name">Balance Sheet Schedule Report</field>
+            <field name="model">balance.sheet.schedule.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Balance Sheet Schedule Report'</field>
+            <field name="report_name">kg_ultracare_accounting.balance_sheet_sche_template</field>
+            <field name="report_file">kg_ultracare_accounting.balance_sheet_sche_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_bank_payment_register_report" model="ir.actions.report">
+            <field name="name">Bank Payment Register Report</field>
+            <field name="model">bank.payment.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Bank Payment Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.bank_payment_reg_template</field>
+            <field name="report_file">kg_ultracare_accounting.bank_payment_reg_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_bank_status_report" model="ir.actions.report">
+            <field name="name">Bank Status Report</field>
+            <field name="model">bank.status.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Bank Status Report'</field>
+            <field name="report_name">kg_ultracare_accounting.bank_report_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.bank_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_cash_receipts_register_report" model="ir.actions.report">
+            <field name="name">Cash Receipts Register Report</field>
+            <field name="model">cash.receipts.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Cash Receipts Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.cash_receipts_reg_template</field>
+            <field name="report_file">kg_ultracare_accounting.cash_receipts_reg_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_cash_book_report" model="ir.actions.report">
+            <field name="name">Cash Book Report</field>
+            <field name="model">cash.book.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Cash Book Report'</field>
+            <field name="report_name">kg_ultracare_accounting.cash_boo_template_id</field>
+            <field name="report_file">kg_ultracare_accounting.cash_boo_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_consolidated_account_ledger_report" model="ir.actions.report">
+            <field name="name">Consolidated Account Ledger Report</field>
+            <field name="model">consolidated.account.ledger.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Consolidated Account Ledger Report'</field>
+            <field name="report_name">kg_ultracare_accounting.consolidated_ac_ledger_template</field>
+            <field name="report_file">kg_ultracare_accounting.consolidated_ac_ledger_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_cash_payments_register_report" model="ir.actions.report">
+            <field name="name">Cash Payments Register Report</field>
+            <field name="model">cash.payments.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Cash Payments Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.cash_payments_reg_template</field>
+            <field name="report_file">kg_ultracare_accounting.cash_payments_reg_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_bank_reconciliation_report" model="ir.actions.report">
+            <field name="name">Bank Reconciliation Report</field>
+            <field name="model">bank.reconciliation.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Bank Reconciliation Report'</field>
+            <field name="report_name">kg_ultracare_accounting.bank_reconciliation_template</field>
+            <field name="report_file">kg_ultracare_accounting.bank_reconciliation_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_pdc_checklist_report" model="ir.actions.report">
+            <field name="name">PDC Checklist Report</field>
+            <field name="model">pdc.checklist.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'PDC Checklist Report'</field>
+            <field name="report_name">kg_ultracare_accounting.pdc_checklist_template</field>
+            <field name="report_file">kg_ultracare_accounting.pdc_checklist_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_pdc_issue_register_report" model="ir.actions.report">
+            <field name="name">PDC Issue Register Report</field>
+            <field name="model">pdc.issue.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'PDC Issue Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.pdc_issue_reg_template</field>
+            <field name="report_file">kg_ultracare_accounting.pdc_issue_reg_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_pdc_receipts_register_report" model="ir.actions.report">
+            <field name="name">PDC Receipts Register Report</field>
+            <field name="model">pdc.receipts.register.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'PDC Receipts Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.pdc_rec_reg_template</field>
+            <field name="report_file">kg_ultracare_accounting.pdc_rec_reg_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_pdc_maturity_report" model="ir.actions.report">
+            <field name="name">PDC Maturity Report</field>
+            <field name="model">pdc.maturity.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'PDC Maturity Report'</field>
+            <field name="report_name">kg_ultracare_accounting.pdc_maturity_template</field>
+            <field name="report_file">kg_ultracare_accounting.pdc_maturity_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_pdc_outstanding_report" model="ir.actions.report">
+            <field name="name">PDC Outstanding Report</field>
+            <field name="model">pdc.outstanding.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'PDC Outstanding Report'</field>
+            <field name="report_name">kg_ultracare_accounting.pdc_outstanding_template</field>
+            <field name="report_file">kg_ultracare_accounting.pdc_outstanding_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_ac_aging_analysis_report" model="ir.actions.report">
+            <field name="name">AC Aging Analysis Report</field>
+            <field name="model">ac.aging.analysis.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'AC Aging Analysis Report'</field>
+            <field name="report_name">kg_ultracare_accounting.ac_aging_analysis_tem</field>
+            <field name="report_file">kg_ultracare_accounting.ac_aging_analysis_tem</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="kg_action_opening_balance_report" model="ir.actions.report">
+            <field name="name">Opening Balance Report</field>
+            <field name="model">opening.balance.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Opening Balance Report'</field>
+            <field name="report_name">kg_ultracare_accounting.opening_balance_report_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.opening_balance_report_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_expense_pur_sum_report" model="ir.actions.report">
+            <field name="name">Expense Purchase Summary Report</field>
+            <field name="model">expense.purchase.summary.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Expense Purchase Summary Report'</field>
+            <field name="report_name">kg_ultracare_accounting.expense_pur_sum_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.expense_pur_sum_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_debit_notes_register_report" model="ir.actions.report">
+            <field name="name">Debit Notes Register Report</field>
+            <field name="model">debit.notes.register.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Debit Notes Register Report'</field>
+            <field name="report_name">kg_ultracare_accounting.debit_not_reg_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.debit_not_reg_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_detailed_expense_report" model="ir.actions.report">
+            <field name="name">Detailed Expense Report</field>
+            <field name="model">detailed.expense.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Detailed Expense Report'</field>
+            <field name="report_name">kg_ultracare_accounting.detailed_expense_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.detailed_expense_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="kg_action_income_statement_report" model="ir.actions.report">
+            <field name="name">Income Statement Report</field>
+            <field name="model">income.statement.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Income Statement Report'</field>
+            <field name="report_name">kg_ultracare_accounting.income_statement_report_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.income_statement_report_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_job_costing_report" model="ir.actions.report">
+            <field name="name">Job Costing Report</field>
+            <field name="model">job.costing.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Job Costing Report'</field>
+            <field name="report_name">kg_ultracare_accounting.job_costing_report_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.job_costing_report_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_missing_bank_receipts_report" model="ir.actions.report">
+            <field name="name">Missing Bank Receipts Report</field>
+            <field name="model">missing.bank.receipts.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Missing Bank Receipts Report'</field>
+            <field name="report_name">kg_ultracare_accounting.missing_bank_rec_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.missing_bank_rec_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_petty_cash_book_report" model="ir.actions.report">
+            <field name="name">Petty Cash Book Report</field>
+            <field name="model">petty.cash.book.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Petty Cash Book Report'</field>
+            <field name="report_name">kg_ultracare_accounting.petty_cash_book_tem_id</field>
+            <field name="report_file">kg_ultracare_accounting.petty_cash_book_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

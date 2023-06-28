@@ -1,0 +1,429 @@
+<odoo>
+    <data>
+        <record id="action_statement_report" model="ir.actions.report">
+            <field name="name">Statement Account Report</field>
+            <field name="model">kg.salesman.statement.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Statement Account Report'</field>
+            <field name="report_name">kg_ultracare_salesmanwise_report.salesman_statement_tem</field>
+            <field name="report_file">kg_ultracare_salesmanwise_report.salesman_statement_tem</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="salesman_statement_tem">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <style>
+                        .table-borderless td,
+                        .table-borderless th {
+                        border: 0;
+                        }
+                    </style>
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td style='width:30%'>
+                                    <!--                                    <img t-if='o.company_id.logo' t-att-src='image_data_uri(o.company_id.logo)'-->
+                                    <!--                                         alt='Logo' style="width:200px;"/>-->
+                                </td>
+                                <td style='width:10%'/>
+                                <td style='width:60%' align="left">
+                                    <b>
+                                        <span t-esc='company_id' style="color: #00BFFF"/>
+                                    </b>
+                                    <br/>
+                                    <t t-if='company_city'>
+                                        <span t-esc='company_city'/>,
+                                    </t>
+                                    <t t-if='company_state'>
+                                        <span t-esc='company_state'/>,
+                                    </t>
+                                    <t t-if='company_country'>
+                                        <span t-esc='company_country'/>
+                                    </t>
+                                    <t t-if='company_phone'>
+                                        <br/>
+                                        Tel.
+                                        <span t-esc='company_phone'/>|
+                                    </t>
+                                    <t t-if='company_mobile'>
+                                        Fax.
+                                        <span t-esc='company_mobile'/>
+                                    </t>
+                                    <br/>
+                                    <t t-if='company_zip'>
+                                        PO Box:
+                                        <span t-esc='company_zip'/>|
+                                    </t>
+                                    <t t-if='company_website'>
+                                        <span t-esc='company_website'/>
+                                    </t>
+                                    <br/>
+                                    <t t-if='company_vat'>
+                                        TRN:
+                                        <span t-esc='company_vat'/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%" align="center" style="font-size:10;color: #00BFFF;">
+                                    <b>STATEMENT OF A/C</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <t t-foreach="datas" t-as="data">
+                        <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                            <tr width="100%">
+                                <td width="100%" colspan="3" align="left">
+                                    <b>
+                                        <span>
+                                            Salesperson,
+                                        </span>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="10%" align="center">
+                                    <t t-if="data['user_code'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['user_code']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="90%" colspan="2" align="left">
+                                    <b>
+                                        <span t-esc="data['user_name']"/>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="3" width="100%"/>
+                            </tr>
+                        </table>
+                        <t t-foreach="data['partners']" t-as="partner">
+                            <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                                <tr width="100%">
+                                    <td width="100%" colspan="4" align="left">
+                                        <b>
+                                            <span>
+                                                To,
+                                            </span>
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr width="100%" style="font-size:15px;">
+                                    <td width="5%"/>
+                                    <td width="10%" align="left">
+                                        <t t-if="partner['code'] != 'FALSE'">
+                                            <b>
+                                                <span t-esc="partner['code']"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="80%" align="left">
+                                        <b>
+                                            <span t-esc="partner['name']"/>
+                                        </b>
+                                    </td>
+                                    <td width="5%"/>
+                                </tr>
+                                <tr width="100%" style="font-size:13px;">
+                                    <td width="5%"/>
+                                    <td width="90%" colspan="2" align="left">
+                                        <t t-if="partner['country_name']">
+                                            <span t-esc="partner['country_name']"/>
+                                        </t>
+                                        <t t-if="partner['country_code']">
+                                            (<span t-esc="partner['country_code']"/>)
+                                        </t>
+                                    </td>
+                                    <td width="5%"/>
+                                </tr>
+                                <tr width="100%" style="font-size:13px;">
+                                    <td width="5%"/>
+                                    <td width="90%" colspan="2" align="left">
+                                        <b>Tel:</b>
+                                        <t t-if="partner['tel']">
+                                            <span t-esc="partner['tel']"/>
+                                        </t>
+                                    </td>
+                                    <td width="5%"/>
+                                </tr>
+                                <tr width="100%" style="font-size:13px;">
+                                    <td width="5%"/>
+                                    <td width="90%" colspan="2" align="left">
+                                        Please find the Statement of A/C
+                                        <span>As On</span>
+                                        <span t-esc="to_date"
+                                              t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td width="5%"/>
+                                </tr>
+                            </table>
+                            <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;'>
+                                <tr width="100%" style="border-bottom:1px solid #484848;">
+                                    <td width="12%" align="left" style="font-size:10">
+                                        <b>
+                                            Date
+                                        </b>
+                                    </td>
+                                    <td width="14%" align="left" style="font-size:10">
+                                        <b>
+                                            Type
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="left" style="font-size:10">
+                                        <b>
+                                            DocNo.
+                                        </b>
+                                    </td>
+                                    <td width="14%" align="left" style="font-size:10">
+                                        <b>
+                                            LPO No
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right" style="font-size:10">
+                                        <b>
+                                            Inv. Amt
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right" style="font-size:10">
+                                        <b>
+                                            UnAdjusted Amt
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right" style="font-size:10">
+                                        <b>
+                                            Balance Amt
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right" style="font-size:10">
+                                        <b>
+                                            PDC Amt
+                                        </b>
+                                    </td>
+                                </tr>
+                                <t t-set="sum_invoice" t-value="0"/>
+                                <t t-set="sum_balance" t-value="0"/>
+                                <t t-set="sum_pdc" t-value="0"/>
+                                <t t-foreach="partner['lines']" t-as="line">
+                                    <tr width="100%" style="font-size:13px;">
+                                        <td width="12%" align="left">
+                                            <span t-esc="line['date']"
+                                                  t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        </td>
+                                        <td width="14%" align="left">
+                                            <span t-esc="line['doc_type']"/>
+                                        </td>
+                                        <td width="12%" align="left">
+                                            <span t-esc="line['doc_no']"/>
+                                        </td>
+                                        <td width="14%" align="center"/>
+                                        <td width="12%" align="right">
+                                            <t t-if="line['invoice_amount']!=0.00">
+                                                <span t-esc="'{:,.2f}'.format(line['invoice_amount'])"/>
+                                                <t t-set="sum_invoice" t-value="line['invoice_amount']+sum_invoice"/>
+                                            </t>
+                                        </td>
+                                        <td width="12%" align="right">
+                                        </td>
+                                        <td width="12%" align="right">
+                                            <t t-if="line['balance']!=0.00">
+                                                <span t-esc="'{:,.2f}'.format(line['balance'])"/>
+                                                <t t-set="sum_balance" t-value="line['balance']+sum_balance"/>
+                                            </t>
+                                        </td>
+                                        <td width="12%" align="right">
+                                            <t t-if="line['pdc_amount']!=0.00">
+                                                <span t-esc="'{:,.2f}'.format(line['pdc_amount'])"/>
+                                                <t t-set="sum_pdc" t-value="line['pdc_amount']+sum_pdc"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr width="100%" style="font-size:13px;border-top:1px solid #484848;">
+                                    <td width="52%" align="left" colspan="4"/>
+                                    <td width="12%" align="right">
+                                        <b>
+                                            <span t-esc="'%.2f'% sum_invoice"/>
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right">
+                                    </td>
+                                    <td width="12%" align="right">
+                                        <b>
+                                            <span t-esc="'%.2f'% sum_balance"/>
+                                        </b>
+                                    </td>
+                                    <td width="12%" align="right">
+                                        <b>
+                                            <span t-esc="'%.2f'% sum_pdc"/>
+                                        </b>
+                                    </td>
+                                </tr>
+
+                                <tr width="100%">
+                                    <td width="12%"/>
+                                    <td width="76%" colspan="6" style="font-size:13px;">
+                                        <b>
+                                            Aging Analysis
+                                        </b>
+                                    </td>
+                                    <td width="12%"/>
+                                </tr>
+                                <tr width="100%" align="center"
+                                    style="font-size:13px;">
+                                    <td style="12%;"/>
+                                    <td width="14%"
+                                        style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;border-top:1px solid #484848;">
+                                        <b>0 To 30</b>
+                                    </td>
+                                    <td width="12%"
+                                        style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                        <b>30 To 60</b>
+                                    </td>
+                                    <td width="14%"
+                                        style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                        <b>60 to 90</b>
+                                    </td>
+                                    <td width="12%"
+                                        style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                        <b>Above 90</b>
+                                    </td>
+                                    <td width="24%" colspan="2"
+                                        style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                        <b>Total</b>
+                                    </td>
+                                    <td style="12%"/>
+                                 </tr>
+                                <t t-foreach="partner['aging_lines']" t-as="age">
+                                    <tr width="100%" align="center"
+                                        style="font-size:13px;">
+                                        <td style="12%;"/>
+                                        <td width="14%"
+                                            style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;border-top:1px solid #484848;">
+                                            <b>
+                                                <span t-esc="'%.2f'% age['total_30']"/>
+                                            </b>
+                                        </td>
+                                        <td width="12%"
+                                            style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                            <b>
+                                                <span t-esc="'%.2f'% age['total_60']"/>
+                                            </b>
+                                        </td>
+                                        <td width="14%"
+                                            style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                            <b>
+                                                <span t-esc="'%.2f'% age['total_90']"/>
+                                            </b>
+                                        </td>
+                                        <td width="12%"
+                                            style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                            <b>
+                                                <span t-esc="'%.2f'% age['total_above_90']"/>
+                                            </b>
+                                        </td>
+                                        <td width="24%" colspan="2"
+                                            style="border-bottom:1px solid #484848;border-right:1px solid #484848;border-top:1px solid #484848;">
+                                            <b>
+                                                <span t-esc="'%.2f'% age['ageing_total']"/>
+                                            </b>
+                                        </td>
+                                        <td style="12%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                    <tr width="100%">
+                                        <td colspan="8" width="100%"/>
+                                    </tr>
+                                </t>
+                            </table>
+                        </t>
+                    </t>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="100%" style="font-size:10px;">
+                                <span>
+                                    This is a computer generated document and does not need any signatures
+                                    <br/>
+                                    Your immediate payment will be highly appreciated.
+                                    <p>
+                                        Note:
+                                        <br/>
+                                        Unless otherwise disputed within 10 days from the date of the statement, the
+                                        debtor shall deemed to have assumed full liability hereafter.
+                                    </p>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="footer">
+                        <table class="table table-borderless table-condensed table-hover">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="10%" align="left">
+                                    <span>Print Date:</span>
+                                </td>
+                                <td width="12%" align="left">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </td>
+                                <td width="20%" align="left">
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%H:%M:%S %p')"/>
+                                </td>
+                                <td width="58%" align="right">
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

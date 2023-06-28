@@ -1,0 +1,10 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_employee_requests,access_hr_employee_requests,model_hr_employee_requests,base.group_user,1,1,1,1
+access_employee_vehicle,access.employee.vehicle,model_employee_vehicle,base.group_user,1,1,1,1
+access_hr_employee_dependents,access_hr_employee_dependents,model_hr_employee_dependents,base.group_user,1,1,1,1
+access_hr_salary_certificate,access_hr_salary_certificate,model_hr_salary_certificate,base.group_user,1,1,1,1
+access_advance_loan,access_advance_loan,model_advance_loan,base.group_user,1,1,1,1
+access_hr_payscale,access_hr_payscale,model_hr_payscale,base.group_user,1,1,1,1
+access_interview_form,access_interview_form,model_interview_form,base.group_user,1,1,1,1
+access_manpower_requisition,access_manpower_requisition,model_manpower_requisition,base.group_user,1,1,1,1
+access_kg_payroll_comparison_wizard,kg_payroll_comparison_wizard,model_kg_payroll_comparison_wizard,,1,1,1,1

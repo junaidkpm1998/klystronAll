@@ -1,0 +1,63 @@
+<odoo>
+    <record id="employee_vehicle_form_view" model="ir.ui.view">
+        <field name="name">employee_vehicle_form</field>
+        <field name="model">employee.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Employee Vehicles">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="vehicle_model_id"/>
+                            <field name="insurance_number"/>
+                            <field name="insurance_expiry"/>
+                            <field name="fuel_card_number"/>
+                        </group>
+                        <group>
+                            <field name="fuel_card_custodian_id"/>
+                            <field name="employee_id"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="owner_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_vehicle_tree_view" model="ir.ui.view">
+        <field name="name">employee_vehicle_tree</field>
+        <field name="model">employee.vehicle</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Vehicles">
+                <field name="name"/>
+                <field name="vehicle_model_id"/>
+                <field name="insurance_number"/>
+                <field name="insurance_expiry"/>
+                <field name="employee_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_vehicle_view" model="ir.actions.act_window">
+        <field name="name">Employee Vehicles</field>
+        <field name="res_model">employee.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="menu_employee_vehicle" name="Employee Vehicles" parent="hr.menu_config_employee" sequence="3"
+              action="employee_vehicle_view"/>
+
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="purchase_approval_configuration" model="ir.ui.view">
+            <field name="name">Purchase Approval</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='purchase']//div[hasclass('o_settings_container')]" position="after">
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Partners Approval">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Purchase Approval</span>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Finance" for="finance_ids"
+                                               class="col-lg-3 o_light_label"/>
+                                        <field name="finance_ids" widget="many2many_tags"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Operations" for="operations_ids"
+                                               class="col-lg-3 o_light_label"/>
+                                        <field name="operations_ids" widget="many2many_tags"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Managing Director" for="director_ids"
+                                               class="col-lg-3 o_light_label"/>
+                                        <field name="director_ids" widget="many2many_tags"/>
+                                        <field name="kg_minimum_amount" invisible="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

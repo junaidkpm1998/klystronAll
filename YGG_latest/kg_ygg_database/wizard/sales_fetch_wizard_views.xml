@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+        <record id="action_sales_fetch_menu" model="ir.actions.act_window">
+            <field name="name">Fetch SaleOrder</field>
+            <field name="res_model">ygg.sales.fetch.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_fetch_saleorder_id" parent="kg_ygg_database.ygg_menu" name="Fetch SaleOrder"
+                  action="action_sales_fetch_menu"/>
+
+        <record id="kg_sales_fetch_form_view" model="ir.ui.view">
+            <field name="name">Fetch SaleOrder Form</field>
+            <field name="model">ygg.sales.fetch.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Fetch SaleOrder">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="database"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="button_fetch_sale_order" class="oe_highlight" string="Fetch" type="object"/>
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

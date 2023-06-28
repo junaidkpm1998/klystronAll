@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <record id="attendence_checkout_email" model="ir.cron">
+        <field name="name">Checkout Reminder</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">8</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_hr_attendance"/>
+        <field name="code">model.checkout_notification()</field>
+        <field name="priority">10</field>
+    </record>
+
+</odoo>

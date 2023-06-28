@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <record id="view_kg_raw_mat_plan_tree" model="ir.ui.view">
+            <field name="name">kg.raw.mat.line.tree</field>
+            <field name="model">kg.raw.mat.line</field>
+            <field name="arch" type="xml">
+                <tree string="Raw Material Planning" create="false">
+
+                    <field name="kg_prod_plan_id" string="Plan No" readonly="1"/>
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_product_uom" readonly="1"/>
+                    <field name="kg_date" readonly="1"/>
+                    <field name="kg_shift_id" readonly="1"/>
+                    <field name="kg_qty" readonly="1"/>
+                    <field name="req_date"/>
+                    <field name="req_qty"/>
+                    <field name="notes"/>
+                    <field name="kg_purchase_requisition_id" readonly="1"/>
+                    <button name="action_open_quants" type="object" string="Check Stock"/>
+                    <button name="create_purchase_req" type="object" string="Create Purchase Req"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_kg_raw_mat_plan" model="ir.actions.act_window">
+            <field name="name">Raw Material Planning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.raw.mat.line</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_action_view_kg_raw_mat_plan"
+                  action="action_view_kg_raw_mat_plan" parent="stock.menu_stock_warehouse_mgmt"
+                  name="Raw Material Planning" sequence="2"/>
+    </data>
+</odoo>

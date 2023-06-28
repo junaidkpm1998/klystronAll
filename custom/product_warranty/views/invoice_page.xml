@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="one_view_warranty_info_invoice" model="ir.ui.view">
+            <field name="name">account.move.warranty.info</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']" position="after">
+                    <page string="Warranty Info">
+                        <field name="invoice_warranty"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

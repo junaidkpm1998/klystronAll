@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_employee_requests_action" model="ir.actions.act_window">
+        <field name="name">Employee Requests</field>
+        <field name="res_model">hr.employee.requests</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="hr_employee_requests_tree_view" model="ir.ui.view">
+        <field name="model">hr.employee.requests</field>
+        <field name="arch" type="xml">
+            <tree string="hr_employee_requests_tree">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="request_date"/>
+                <field name="document_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_employee_requests_form_view" model="ir.ui.view">
+        <field name="model">hr.employee.requests</field>
+        <field name="arch" type="xml">
+            <form string="hr_employee_requests_form">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary" states="draft"/>
+                </header>
+                <sheet>
+                    <h1 class="d-flex">
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <field name="employee_id" required="1"/>
+                        <field name="request_date" required="1"/>
+                        <field name="document_type" required="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <menuitem id="hr_employee_requests_menu_action" action="hr_employee_requests_action"
+              parent="hr.menu_config_employee"/>
+
+
+</odoo>

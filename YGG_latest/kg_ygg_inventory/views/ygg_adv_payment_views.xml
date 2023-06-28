@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_advance_payment_tree" model="ir.ui.view">
+            <field name="name">ygg.advance.payment.tree</field>
+            <field name="model">ygg.advance.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Advance Payment">
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="debit_acc_id"/>
+                    <field name="credit_acc_id"/>
+                    <field name="amount"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_advance_payment_form" model="ir.ui.view">
+            <field name="name">ygg.advance.payment.form</field>
+            <field name="model">ygg.advance.payment</field>
+            <field name="arch" type="xml">
+                <form string="Advance Payment">
+                    <header>
+                         <button name="action_confirm" type="object" string="Confirm" class="oe_highlight" states="draft"/>
+                         <field name="state" widget="statusbar"   statusbar_visible="draft,validate,approve"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_entry" type="object" class="oe_stat_button" icon="fa-bars">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Journal Entry</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="partner_id"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="debit_acc_id"/>
+                                <field name="credit_acc_id"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_advance_payment" model="ir.actions.act_window">
+           <field name="name">Advance Payment</field>
+           <field name="res_model">ygg.advance.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="ygg_advance_payment" name="Advance Payment" parent="account.menu_finance_receivables"
+                  action="action_ygg_advance_payment"  sequence="1"/>
+
+
+    </data>
+</odoo>

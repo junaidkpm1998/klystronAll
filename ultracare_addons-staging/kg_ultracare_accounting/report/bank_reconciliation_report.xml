@@ -1,0 +1,271 @@
+<odoo>
+    <data>
+        <template id="bank_reconciliation_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left">
+                                <span style="font-size:13px;">
+                                    Date
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left">
+                                <span>
+                                    Page
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    Page
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <u>
+                                <b>BANK RECONCILIATION as on
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </b>
+                            </u>
+                        </center>
+                    </div>
+                </div>
+                <t t-foreach="datas" t-as="data">
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                        <t t-if="data['type'] == 'account'">
+                            <tr width="100%" style="font-size:13px;" align="left">
+                                <td width="10%">
+                                    <b>
+                                        <span t-esc="data['account_code']"/>
+                                    </b>
+                                </td>
+                                <td width="90%" colspan="9">
+                                    <t t-if="data['account_name']!='FALSE'">
+                                        <b>
+                                            <span t-esc="data['account_name']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="10%">
+                                    <b>Type</b>
+                                </td>
+                                <td width="15%">
+                                    <b>Doc No</b>
+                                </td>
+                                <td width="15%">
+                                    <b>Cheque No.</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Chq.Date</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Narration</b>
+                                </td>
+                                <td width="10%">
+                                    <b>Debit</b>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <b>Credit</b>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <b>Balance</b>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                            <tr width="100%">
+                                <td width="100%" colspan="10"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="10%">
+                                    <t t-if="data['doc_type']!='FALSE'">
+                                        <span t-esc="data['doc_type']"/>
+                                    </t>
+                                </td>
+                                <td width="15%">
+                                    <span t-esc="data['doc_no']"/>
+                                </td>
+                                <td width="15%">
+                                    <span t-esc="data['cheque_no']"/>
+                                </td>
+                                <td width="10%">
+                                    <span t-esc="data['cheque_date']"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="10%">
+                                    <span t-esc="data['narration']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['debit']">
+                                        <span t-esc="'{:,.2f}'.format(data['debit'])"/>
+                                    </t>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <t t-if="data['credit']">
+                                        <span t-esc="'{:,.2f}'.format(data['credit'])"/>
+                                    </t>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <t t-if="data['balance']">
+                                        <span t-esc="'{:,.2f}'.format(data['balance'])"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'amount'">
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="60%" colspan="5"/>
+                                <t t-if="data['total_debit']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                                <td width="5%"/>
+                                <t t-if="data['total_credit']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                                <td width="5%"/>
+                                <t t-if="data['total_balance']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="60%" colspan="5"/>
+                                <td width="10%">
+                                    <t t-if="data['total_debit']">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(data['total_debit'])"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <t t-if="data['total_credit']">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(data['total_credit'])"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="5%"/>
+                                <td width="10%">
+                                    <t t-if="data['total_balance']">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(data['total_balance'])"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;" align="center">
+                                <td width="60%" colspan="5"/>
+                                <t t-if="data['total_debit']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                                <td width="5%"/>
+                                <t t-if="data['total_credit']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                                <td width="5%"/>
+                                <t t-if="data['total_balance']">
+                                    <td width="10%" style="border-bottom: 1px solid black;"/>
+                                </t>
+                                <t t-else="">
+                                    <td width="10%"/>
+                                </t>
+                            </tr>
+                        </t>
+                    </table>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

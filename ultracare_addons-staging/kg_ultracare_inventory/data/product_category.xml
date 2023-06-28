@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="kg_mc1" model="product.category">
+			<field name="name">finish</field>
+<!--			<field name="type">view</field>-->
+		</record>
+		<record id="kg_mc2" model="product.category">
+			<field name="name">raw</field>
+<!--			<field name="type">view</field>-->
+		</record>
+		<record id="kg_pc1" model="product.category">
+			<field name="name">Jumbo SKU</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc1" />
+		</record>
+		<record id="kg_pc2" model="product.category">
+			<field name="name">Table Napkin SKU</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc1" />
+		</record>
+		<record id="kg_pc3" model="product.category">
+			<field name="name">TR KT SKU</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc1" />
+		</record>
+		<record id="kg_pc4" model="product.category">
+			<field name="name">Facial SKU</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc1" />
+		</record>
+		<record id="kg_pc5" model="product.category">
+			<field name="name">Paper</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc6" model="product.category">
+			<field name="name">Poly Film</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc7" model="product.category">
+			<field name="name">Outer Carton</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc8" model="product.category">
+			<field name="name">Labels &amp; Others</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc9" model="product.category">
+			<field name="name">GLUE</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc10" model="product.category">
+			<field name="name">Master Poly Bag</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc11" model="product.category">
+			<field name="name">Core</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+		<record id="kg_pc12" model="product.category">
+			<field name="name">Duplex Box</field>
+			<field name="parent_id" ref="kg_ultracare_inventory.kg_mc2" />
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="customer_analysis_report_report_action" model="ir.actions.act_window">
+            <field name="name">Customer Analysis</field>
+            <field name="res_model">customer.analysis.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_customer_analysis"
+                  name="Customer Analysis"
+                  action="customer_analysis_report_report_action"
+                  parent="sale.menu_sale_report"
+                  />
+
+        <record id="customer_analysis_id" model="ir.ui.view">
+            <field name="name">Sales Wizard</field>
+            <field name="model">customer.analysis.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group>
+                            <field name="year" required="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="current_year" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="date_to" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_print_report"
+                                string="Print Report"
+                                type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

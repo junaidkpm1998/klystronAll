@@ -1,0 +1,154 @@
+<odoo>
+    <data>
+        <template id="opening_balance_report_tem_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>OPENING BALANCE LISTING</b>
+                        </center>
+                    </div>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr style="border-bottom: 1px solid black;;;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="20%" align="left">
+                                <b>A/C Code</b>
+                            </td>
+                            <td width="40%" align="left">
+                                <b>Description</b>
+                            </td>
+                            <td width="20%" align="center">
+                                <b>Debit</b>
+                            </td>
+                            <td width="20%" align="center">
+                                <b>Credit</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;;;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <t t-if="data['type'] == 'account'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="20%" align="left">
+                                    <b>
+                                        <span t-esc="data['account_code']"/>
+                                    </b>
+                                </td>
+                                <td width="80%" align="left" colspan="3">
+                                    <b>
+                                        <span t-esc="data['account_name']"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="20%" align="left">
+
+                                    <span t-esc="data['customer_code']"/>
+
+                                </td>
+                                <td width="40%" align="left">
+
+                                    <span t-esc="data['customer_name']"/>
+
+                                </td>
+                                <td width="20%" align="center">
+                                    <t t-if="data['debit']">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(data['debit'])"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="20%" align="center">
+                                    <t t-if="data['credit']">
+                                        <b>
+                                            <span t-esc="'{:,.2f}'.format(data['credit'])"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

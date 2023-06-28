@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="leave_salary_view_tree">
+            <field name="name">Leave Salary Tree</field>
+            <field name="model">leave.salary.form</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                    <field name="payslip_paid"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="leave_salary_view_form">
+            <field name="name">Leave Salary Form View</field>
+            <field name="model">leave.salary.form</field>
+            <field name="arch" type="xml">
+                <form string="Stage">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="submit_to_f" string="Submit"
+                                type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button name="approve" string="Approve" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', '!=', 'f_approve')]}"/>
+                        <button name="reject" string="Refuse" type="object"
+                                class="btn-primary"
+                                attrs="{'invisible': ['|',('state', 'not in', ['f_approve']),('current_user_boolean', '=', True)]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="0"
+                                       placeholder="Reference ...."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Employee Details">
+                                <field name="employee_id" attrs="{'readonly': [('is_submit', '=', True)]}"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="manager_id"/>
+                                <field name="current_user_boolean" invisible="1"/>
+                                <field name="contract_id"/>
+                            </group>
+                            <group string="Leave Salary Details">
+                                <field name="start_date" required="1" attrs="{'readonly': [('is_submit', '=', True)]}"/>
+                                <field name="end_date" required="1" attrs="{'readonly': [('is_submit', '=', True)]}"/>
+                                <field name="amount" force_save="1"/>
+                                <field name="payslip_paid" force_save="1"/>
+                                <field name="is_submit" invisible="1"/>
+                            </group>
+                            <group/>
+                            <group string="Payslip Details">
+                                <field name="salary_structure_type" readonly="1" force_save="1"/>
+                                <field name="salary_structure"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_leave_salary_form_action" model="ir.actions.act_window">
+            <field name="name">Leave Salary Form</field>
+            <field name="res_model">leave.salary.form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="hr_menu_leave_salary_form"
+                  name="Leave Salary Form"
+                  parent="hr_holidays.menu_hr_holidays_approvals"
+                  action="hr_leave_salary_form_action" sequence="1"/>
+
+        <record id="view_salary_structure_inherit" model="ir.ui.view">
+            <field name="name">salary.structure.inherit.purchase</field>
+            <field name="model">hr.payroll.structure.type</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payroll_structure_type_view_form"/>
+            <field name="arch" type="xml">
+                <field name="default_struct_id" position="after">
+                    <field name="leave_structure_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+    <data noupdate="1">
+        <record id="seq_leave_salary_req" model="ir.sequence">
+            <field name="name">Leave Salary Sequencer</field>
+            <field name="code">leave.salary.form</field>
+            <field name="prefix">LS-</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

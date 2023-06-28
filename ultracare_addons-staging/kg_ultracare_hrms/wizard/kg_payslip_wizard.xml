@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="kg_payslip_report_action" model="ir.actions.act_window">
+            <field name="name">Payslip Report</field>
+            <field name="res_model">kg.payslip.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_kg_payslip_report"
+                  name="Payslip Report"
+                  action="kg_payslip_report_action"
+                  parent="hr_payroll.menu_hr_payroll_report"/>
+
+        <record id="kg_payslip_wizard_form_id" model="ir.ui.view">
+            <field name="name">Payslip Wizard</field>
+            <field name="model">kg.payslip.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group>
+                            <field name="year" required="1" force_save="1"/>
+                            <field name="salary_month_number" invisible="1" force_save="1"/>
+                            <field name="salary_month" required="1" force_save="1"/>
+                            <field name="employee_id" widget="many2many_tags" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="1" force_save="1"/>
+                            <field name="date_to" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="kg_payslip_button"
+                                string="Print Report"
+                                type="object"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

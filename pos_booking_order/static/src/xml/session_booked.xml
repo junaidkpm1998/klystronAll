@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+  <t t-name="BookedButton" owl="1">
+      <div class="control-button" style="color:black">
+<!--          <i class="fa fa-cart-shopping"> </i>-->
+          <span> </span>
+          <span>Booked</span>
+      </div>
+  </t>
+    <t t-name="BookedOrdersWidget" owl="1">
+        <div class="partnerlist-screen screen">
+            <div class="screen-content">
+                <section class="full-content">
+                    <div class="window">
+                        <div class="screen-full-width">
+                            <div class="orders" style="width: 100%">
+                                <div class="header-row" t-att-class="{ oe_hidden: env.isMobile }">
+                                    <div class="col">Order Ref.</div>
+                                    <div class="col">Customer</div>
+                                    <div class="col">Contact No.</div>
+                                    <div class="col">Order Date</div>
+                                    <div class="col">Pickup Date</div>
+                                    <div class="col">Delivery Date</div>
+                                    <div class="col wide">Address</div>
+                                    <div class="col">Total</div>
+                                    <div class="col very-narrow" name="confirm"/>
+                                </div>
+                                <t t-foreach="env.pos.booking_order" t-as="order" t-key="order.id">
+                                    <t t-if="order.state == 'draft'">
+                                        <div class="order-row">
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Order Ref.</div>
+                                                <div><t t-esc="order.reference_no"/></div>
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Customer</div>
+                                                <div><t t-esc="order.partner_id[1]"/></div>
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Contact No.</div>
+                                                <div><t t-esc="order.phone"/></div>
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Order Date.</div>
+                                                <div><t t-esc="order.date_order"/></div>
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Pickup Date</div>
+                                                <div><t t-esc="order.pickup_date or ''"/></div>
+                                                <div> </div>
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Delivery Date</div>
+                                                <div><t t-esc="order.deliver_date or ''"/></div>
+                                                <div> </div>
+                                            </div>
+                                            <div class="col wide">
+                                                <div t-if="env.isMobile">Address</div>
+                                                <div><t t-esc="order.delivery_address or ''"/></div>
+                                                <div>   </div>
+
+                                            </div>
+                                            <div class="col">
+                                                <div t-if="env.isMobile">Total</div>
+                                                <div><t t-esc="order.total"/></div>
+                                            </div>
+                                            <div class="col">
+                                                <button class="confirm-button" name="confirm_order" id="confirm_order" t-att-order="order.id"
+                                                        t-on-click="() => this.trigger('click-confirm')" style="width:145px;height:50px;background-color: #0ec280; color: black;margin:10px"> Confirm POS Order </button>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+<!--    <t t-name="BookedOrdersWidget" owl="1">-->
+<!--        <div class="ticket-screen screen" t-att-class="{ oe_hidden: !props.isShown }">-->
+<!--            <div class="screen-full-width">-->
+<!--                <div class="rightpane pane-border">-->
+<!--                    <div class="controls">-->
+<!--                        <div class="button back" t-on-click="back">-->
+<!--                            <button class="discard">-->
+<!--                                <span class="search-icon">-->
+<!--                                        <i class="fa fa-angle-double-left"/>-->
+<!--                                    </span>-->
+<!--                                <t t-if="!env.isMobile">-->
+<!--                                        Back-->
+<!--                                </t>-->
+<!--                            </button>-->
+<!--                            <div class="pos-search-bar">-->
+<!--                                <div class="search">-->
+<!--                                    <span class="search-icon">-->
+<!--                                        <i class="fa fa-search"></i>-->
+<!--                                    </span>-->
+<!--                                    <input class="radius-left" type="text" placeholder="Search Orders..."/>-->
+<!--                                </div>-->
+<!--                                <div class="filter radius-right">-->
+<!--                                    <span class="down-icon">-->
+<!--                                        <i class="fa fa-close"></i>-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="orders">-->
+<!--                                <div class="header-row">-->
+<!--                                    <div class="col wide">Order Ref</div>-->
+<!--                                    <div class="col">Customer</div>-->
+<!--                                    <div class="col wide">Contact No</div>-->
+<!--                                    <div class="col">Order Date</div>-->
+<!--                                    <div class="col end">Pickup Date</div>-->
+<!--                                    <div class="col narrow">Delivery Date</div>-->
+<!--                                    <div class="col narrow">Address</div>-->
+<!--                                    <div class="col narrow">Total Amount</div>-->
+<!--                                    <div class="col very-narrow" name="delete"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <t t-foreach="env.pos.booking_order" t-as="order" t-key="order.id">-->
+<!--&lt;!&ndash;                                    <t t-if="order.state == 'draft'">&ndash;&gt;-->
+<!--                                        <div class="order-row">-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Order Ref.</div>-->
+<!--                                                <div><t t-esc="order.reference_no"/></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Customer</div>-->
+<!--                                                <div><t t-esc="order.partner_id"/></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Contact No.</div>-->
+<!--                                                <div><t t-esc="order.phone"/></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Order Date.</div>-->
+<!--                                                <div><t t-esc="order.date_order"/></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Pickup Date</div>-->
+<!--                                                <div><t t-esc="order.pickup_date or ''"/></div>-->
+<!--                                                <div> </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Delivery Date</div>-->
+<!--                                                <div><t t-esc="order.deliver_date or ''"/></div>-->
+<!--                                                <div> </div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col wide">-->
+<!--                                                <div t-if="env.isMobile">Address</div>-->
+<!--                                                <div><t t-esc="order.delivery_address or ''"/></div>-->
+<!--                                                <div>   </div>-->
+
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <div t-if="env.isMobile">Total</div>-->
+<!--                                                <div><t t-esc="order.amount_total"/></div>-->
+<!--                                            </div>-->
+<!--                                            <div class="col">-->
+<!--                                                <button class="confirm-button" name="confirm_order" id="confirm_order"-->
+<!--                                                        t-att-order="order.id"-->
+<!--                                                        t-on-click="() => this.trigger('click-confirm')"-->
+<!--                                                        style="width:145px;height:50px;background-color: #0ec280; color: black;margin:10px"> Confirm POS Order </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--&lt;!&ndash;                                    </t>&ndash;&gt;-->
+<!--                                </t>-->
+
+
+
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </t>-->
+
+</templates>
+

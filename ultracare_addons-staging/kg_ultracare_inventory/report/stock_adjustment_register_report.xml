@@ -1,0 +1,202 @@
+<odoo>
+    <data>
+        <template id="stock_adjustment_template_id">
+            <t t-call="web.html_container">
+                <style>.table-borderless td, .table-borderless th { border: 0; }</style>
+                <div class="header">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td width="50%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="50%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="50%" align="left">
+                                <span>P.O. BOX :</span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>
+                                    ,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="50%" align="center" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:18px;">
+                            <td width="50%" align="left"/>
+                            <td width="50%" align="center" colspan="3">
+                                <b>
+                                    <span>STOCK ADJUSTMENT REGISTER</span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%" style="font-size:13px;">
+                            <td>
+                                <span>Date From</span>
+                                <span>
+                                    <![CDATA[ &nbsp; ]]>
+                                </span>
+                                <span>
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span>
+                                        <![CDATA[ &nbsp; ]]>
+                                    </span>
+                                    To
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="table table-borderless table-condensed table-hover">
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%"/>
+                    </tr>
+                </table>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td style="font-size:13" align="left" width="25%">
+                                <b>To Location</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="15%">
+                                <b>Item Code</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="30%">
+                                <b>Description</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="10%">
+                                <b/>
+                            </td>
+                            <td style="font-size:13" align="left" width="10%">
+                                <b>Unit</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="10%">
+                                <b>Qty</b>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td style="font-size:13" align="left" width="40%" colspan="2">
+                                <b>Doc.No</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="30%">
+                                <b>Dated</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="30%" colspan="3">
+                                <b>From :</b>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <t t-if="data['type'] == 'stock'">
+                            <tr width="100%" align="left" style="font-size:13">
+                                <td style="font-size:13" align="left" width="25%">
+                                    <t t-if="data['to_location']">
+                                        <span t-esc="data['to_location']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="left" width="15%">
+                                    <t t-if="data['item_code']">
+                                        <span t-esc="data['item_code']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="left" width="30%">
+                                    <t t-if="data['description']">
+                                        <span t-esc="data['description']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="left" width="10%"/>
+                                <td style="font-size:13" align="left" width="10%">
+                                    <t t-if="data['unit']">
+                                        <span t-esc="data['unit']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="left" width="10%">
+                                    <t t-if="data['qty']">
+                                        <span t-esc="data['qty']"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    <tr width="100%">
+                        <td width="100%" colspan="6"/>
+                    </tr>
+                    <tr width="100%">
+                        <td width="100%" colspan="6"/>
+                    </tr>
+                    <tr style="border-bottom: 1px solid black;width:100%">
+                        <td style="border-bottom: 1px solid black;" colspan="6"/>
+                    </tr>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

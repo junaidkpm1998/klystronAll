@@ -1,0 +1,185 @@
+<odoo>
+    <data>
+        <template id="pdc_issue_reg_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+<!--                            <td width="5%" align="center"/>-->
+                            <td width="20%" align="left" colspan="2">
+                                <b>
+                                    <span style="font-size:13px;">
+                                        Date :
+                                        <span><![CDATA[&nbsp;]]></span>
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+<!--                            <td width="5%" align="center"/>-->
+                            <td width="20%" align="left" colspan="2">
+                                <b>
+                                    <span>
+                                        Page :
+                                        <span><![CDATA[&nbsp;]]></span>
+                                        <span class="page"/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>PDC ISSUES REGISTER</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%" style="font-size:10;">
+                            <td>
+                                <b>
+                                    <span style="font-size:10;">
+                                        Date Range :
+                                    </span>
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span style="font-size:10;">
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        <span><![CDATA[&nbsp;]]></span>To
+                                        <span><![CDATA[&nbsp;]]></span>
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr style="border-top: 1px solid black;;;width:100%">
+                            <td style="border-top: 1px solid black;" colspan="7"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;" align="center">
+                            <td width="10%">
+                                <b>Date</b>
+                            </td>
+                            <td width="20%">
+                                <b>Doc No</b>
+                            </td>
+                            <td width="20%">
+                                <b>Reference</b>
+                            </td>
+                            <td width="10%">
+                                <b></b>
+                            </td>
+                            <td width="20%">
+                                <b>A/C Description</b>
+                            </td>
+                            <td width="10%">
+                                <b>Debit</b>
+                            </td>
+                            <td width="10%">
+                                <b>Credit</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;;;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="7"/>
+                        </tr>
+                    </thead>
+<!--                    <t t-foreach="datas" t-as="data">-->
+<!--                        <t t-if="data['type'] == 'data'">-->
+<!--                            <tr width="100%" style="font-size:13px;">-->
+<!--                                <td width="10%" align="left">-->
+<!--                                    <span t-esc="data['date']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>-->
+<!--                                </td>-->
+<!--                                <td width="20%" align="center">-->
+<!--                                    <span t-esc="data['doc_no']"/>-->
+<!--                                </td>-->
+<!--                                <td width="20%" align="center">-->
+<!--                                    <span t-esc="data['ref']"/>-->
+<!--                                </td>-->
+<!--                                <td width="10%" align="center">-->
+<!--                                    <span t-esc="data['acc_date']"/>-->
+<!--                                </td>-->
+<!--                                <td width="20%" align="center">-->
+<!--                                    <span t-esc="data['account_code']"/> <span t-esc="data['account_name']"/>-->
+<!--                                </td>-->
+<!--                                <td width="10%" align="center">-->
+<!--                                    <t t-if="data['debit']">-->
+<!--                                        <span t-esc="'{:,.2f}'.format(data['debit'])"/>-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                                <td width="10%" align="center">-->
+<!--                                    <t t-if="data['credit']">-->
+<!--                                        <span t-esc="'{:,.2f}'.format(data['credit'])"/>-->
+<!--                                    </t>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+<!--                        <t t-if="data['type'] == 'amount'">-->
+<!--                            <tr width="100%" style="font-size:13px;">-->
+<!--                                <td width="90%" align="left" colspan="5"/>-->
+<!--                                <td width="10%" align="center">-->
+<!--                                    <b>-->
+<!--                                        <span t-esc="'{:,.2f}'.format(data['sum_amount'])"/>-->
+<!--                                    </b>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+<!--                    </t>-->
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

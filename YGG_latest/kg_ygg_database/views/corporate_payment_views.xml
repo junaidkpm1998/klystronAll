@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_payment_table_tree" model="ir.ui.view">
+            <field name="name">ygg.payment.table.tree</field>
+            <field name="model">ygg.payment.table</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Currency">
+                    <field name="corporate_id"/>
+                    <field name="payment_reference"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_payment_table_form" model="ir.ui.view">
+            <field name="name">ygg.payment.table.form</field>
+            <field name="model">ygg.payment.table</field>
+            <field name="arch" type="xml">
+                <form string="Currency">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="corporate_id"/>
+                                <field name="payment_reference"/>
+                    <field name="amount"/>
+                            </group>
+                            <group>
+
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_payment_table" model="ir.actions.act_window">
+            <field name="name">Corporate Payment</field>
+            <field name="res_model">ygg.payment.table</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

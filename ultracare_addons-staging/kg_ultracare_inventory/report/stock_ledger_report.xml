@@ -1,0 +1,216 @@
+<odoo>
+    <data>
+        <template id="stock_ledger_template_id">
+            <t t-call="web.html_container">
+                <style>.table-borderless td, .table-borderless th { border: 0; }</style>
+                <div class="header">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td width="50%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="50%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="50%" align="left">
+                                <b>
+                                    <span>P.O. BOX :</span>
+                                    <span t-esc="company_zip"/>
+                                </b>
+                                <t t-if="company_state">
+                                    <b>
+                                        <span t-esc="company_state"/>
+                                        ,
+                                    </b>
+                                </t>
+                                <t t-if="company_country">
+                                    <b>
+                                        <span t-esc="company_country"/>
+                                    </b>
+                                </t>
+                            </td>
+                            <td width="50%" align="center" colspan="3"/>
+                        </tr>
+                    </table>
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%" style="font-size:13px;">
+                            <td>
+                                <span>Period From</span>
+                                <span>
+                                    <![CDATA[ &nbsp; ]]>
+                                </span>
+                                <span>
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span>
+                                        <![CDATA[ &nbsp; ]]>
+                                    </span>
+                                    To
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td style="font-size:13" align="left" width="28%" colspan="2">
+                                <b>Item Description</b>
+                            </td>
+                            <!--                            <td style="font-size:13" align="left" width="18%">-->
+                            <!--                                <b></b>-->
+                            <!--                            </td>-->
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>Opening</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>MRN</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>P.Return</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>Issues</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>S.Return</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>Adjust.</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>LOTR</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="8%">
+                                <b>Cl.Stock</b>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="10"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <t t-if="data['type'] == 'category'">
+                            <tr width="100%">
+                                <td width="28%" align="left" colspan="2">
+                                    <b>
+                                        <t t-if="data['product_category_code']!='FALSE'">
+                                            <span t-esc="data['product_category_code']"/>
+                                        </t>
+                                    </b>
+                                </td>
+                                <td width="72%" colspan="8" align="left">
+                                    <b>
+                                        <t t-if="data['product_category_name']!='FALSE'">
+                                            <span t-esc="data['product_category_name']"/>
+                                        </t>
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%">
+                                <td style="font-size:13" align="left" width="10%">
+                                    <span t-esc="data['item_code']"/>
+                                </td>
+                                <td style="font-size:13" align="left" width="18%">
+                                    <span t-esc="data['product_name']"/>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['opening']">
+                                        <span t-esc="data['opening']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['mrp']">
+                                        <span t-esc="data['mrp']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['purchase_return']">
+                                        <span t-esc="data['purchase_return']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['issues']">
+                                        <span t-esc="data['issues']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['sales_return']">
+                                        <span t-esc="data['sales_return']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['inventory_adj']">
+                                        <span t-esc="data['inventory_adj']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['lotr']">
+                                        <span t-esc="data['lotr']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13" align="center" width="8%">
+                                    <t t-if="data['cl_stock']">
+                                        <span t-esc="data['cl_stock']"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_manpower_request,access_manpower_request,model_manpower_request,base.group_user,1,1,1,1
+access_vacancies,access_vacancies,model_vacancies,base.group_user,1,1,1,1
+access_grades,access_grades,model_grades,base.group_user,1,1,1,1
+access_salary_splitup,access_salary_splitup,model_salary_splitup,base.group_user,1,1,1,1

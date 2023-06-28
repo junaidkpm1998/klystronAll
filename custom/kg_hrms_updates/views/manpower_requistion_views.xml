@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_employee_manpower_requisition" model="ir.actions.act_window">
+        <field name="name">Manpower Requisition</field>
+        <field name="res_model">manpower.requisition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_employee_manpower_requisition_tree" model="ir.ui.view">
+        <field name="name">manpower.requisition.tree</field>
+        <field name="model">manpower.requisition</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="partner_name"/>
+                <field name="job_id"/>
+                <field name="name"/>
+                <field name="partner_mobile" widget="phone"/>
+                <field name="categ_ids" placeholder="Tags" widget="many2many_tags"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_employee_manpower_requisition_form" model="ir.ui.view">
+        <field name="name">manpower.requisition.form</field>
+        <field name="model">manpower.requisition</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Request" type="object" name="manpower_requisition" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button string="Approve" type="object" name="manpower_requisition_approve" class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','gm_approval')]}"/>
+                    <button string="HR Approve" type="object" name="manpower_requisition_hr_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','hr')]}"/>
+                    <button string="GMCS Approve" type="object" name="manpower_requisition_gmcs_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','gmcs')]}"/>
+                    <button string="CEO Approve" type="object" name="manpower_requisition_ceo_approve"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','ceo')]}"/>
+                    <button string="Reject" type="object" name="manpower_requisition_reject" class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','gm_approval'),('state','!=','hr'),('state','!=','gmcs'),('state','!=','ceo')]}"/>
+                    <button string="Hire Employee" type="object" name="hire_employee" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+                </header>
+                <sheet>
+                    <div name="button_box" position="inside">
+                        <button class="oe_stat_button" type="object" name="employee_smart_button"
+                                icon="fa-users" attrs="{'invisible': [('employee_button_flag', '!=', True)]}">
+                            <field string="Employee" name="hired_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_name"/>
+                            <field name="email_from" widget="email"/>
+                            <field name="email_cc" groups="base.group_no_one"/>
+                            <field name="partner_phone" widget="phone" options="{'enable_sms': false}"/>
+                            <field name="partner_mobile" widget="phone"/>
+                            <field name="type_id" placeholder="Degree"/>
+                            <field name="linkedin_profile" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="categ_ids" placeholder="Tags" widget="many2many_tags"
+                                   options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            <field name="interviewer_ids" options="{'no_create': True, 'no_create_edit': True}"
+                                   widget="many2many_avatar_user"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="source_id"/>
+                            <field name="medium_id"/>
+                            <field name="employee_button_flag" invisible="1"/>
+                            <field name="currency_id" invisible="1"/>
+
+
+                        </group>
+                        <group string="Job">
+                            <field name="job_id"/>
+                            <field name="department_id"/>
+                            <field name="company_id" groups="base.group_multi_company"
+                                   options="{&quot;no_open&quot;:True}"/>
+                        </group>
+                        <group string="Contract" name="recruitment_contract">
+                            <label for="salary_expected"/>
+                            <div class="o_row">
+                                <field name="salary_expected" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </div>
+                            <label for="salary_proposed"/>
+                            <div class="o_row">
+                                <field name="salary_proposed" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </div>
+                            <field name="availability"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Application Summary">
+                            <field name="description" placeholder="Motivations..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

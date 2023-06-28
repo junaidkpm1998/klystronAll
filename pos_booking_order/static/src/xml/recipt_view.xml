@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="receipt_template" xml:space="preserve">
+   <t t-name="BookOrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+         <xpath expr="//div[contains(text(), 'Total Taxes')]" position="after">
+             <t t-if="env.pos.selectedOrder.is_booked">
+                 <hr/>
+                 <div>
+                     Booking Ref:
+                     <span t-esc="env.pos.selectedOrder.booked_data.reference_no    " class="pos-receipt-right-align"/>
+                 </div>
+                 <div>
+                     Contact No.:
+                     <span t-esc="env.pos.selectedOrder.booked_data.phone or ''" class="pos-receipt-right-align"/>
+                 </div>
+                 <div>
+                     Order Note:
+                     <span t-esc="env.pos.selectedOrder.booked_data.note  or ''" class="pos-receipt-right-align"/>
+                 </div>
+                 <t t-if="env.pos.selectedOrder.booked_data.pickup_date">
+                     <div>
+                        Pickup Date:
+                        <span t-esc="env.pos.selectedOrder.booked_data.pickup_date" class="pos-receipt-right-align"/>
+                    </div>
+                 </t>
+                 <t t-if="env.pos.selectedOrder.booked_data.deliver_date">
+                     <div>
+                        Delivery Date:
+                        <span t-esc="env.pos.selectedOrder.booked_data.deliver_date" class="pos-receipt-right-align"/>
+                     </div>
+                     <div>
+                        Delivery address:
+                        <span t-esc="env.pos.selectedOrder.booked_data.delivery_address" class="pos-receipt-right-align"/>
+                     </div>
+                 </t>
+             </t>
+       </xpath>
+   </t>
+</template>

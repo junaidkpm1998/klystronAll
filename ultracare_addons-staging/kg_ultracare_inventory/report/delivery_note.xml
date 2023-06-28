@@ -1,0 +1,514 @@
+<odoo>
+    <data>
+        <template id="delivery_note_template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="header">
+                            <div class="row">
+                                <div class="col-5 mb4 left">
+                                </div>
+                                <div class="col-5 mb4 center" style="middle;font-size: 18pt">
+                                    <strong>DELIVERY NOTE</strong>
+                                </div>
+                                <div class="col-5 mb4 right">
+                                </div>
+                            </div>
+                        </div>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                            <tr>
+                                <td align="left" style="border-right:none;width:50%" rowspan="3">
+                                    <table border="0"
+                                           style="width:100%;border:none;padding:15px 10px 10px 10px;margin-left:3%">
+                                        <tr style="padding:10px 10px 10px 10px;">
+                                            <span>
+                                                <b>Delivered To</b>
+                                            </span>
+                                            <br/>
+                                            <b>
+                                                <span t-field="doc.partner_id.name"/>
+                                            </b>
+                                            <br/>
+                                            <t t-if="doc.partner_id.street">
+                                                <span t-field="doc.partner_id.street"/>,
+                                            </t>
+                                            <t t-if="doc.partner_id.street2">
+                                                <span t-field="doc.partner_id.street2"/>,
+                                            </t>
+                                            <t t-if="doc.partner_id.city">
+                                                <span t-field="doc.partner_id.city"/>,
+                                            </t>
+                                            <br/>
+                                            <t t-if="doc.partner_id.state_id.name">
+                                                <span t-field="doc.partner_id.state_id.name"/>,
+                                            </t>
+                                            <t t-if="doc.partner_id.zip">
+                                                <span t-field="doc.partner_id.zip"/>,;
+                                            </t>
+                                            <t t-if="doc.partner_id.country_id.name">
+                                                <span t-field="doc.partner_id.country_id.name"/>;
+                                            </t>
+                                            <span>
+                                                Tel:
+                                                <span t-field="doc.partner_id.phone"/>;
+                                                <span t-field="doc.partner_id.mobile"/>,;
+                                            </span>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width:10%;padding:5px 5px 5px 5px;border-right:none"/>
+                                <td align="left" style="border-right:none;width:50%" rowspan="3">
+                                    <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                                        <tr style="padding:10px 10px 10px 10px;border-collapse:collapse;border-radius: 5px 5px 5px 5px;">
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>Delivery Note No</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>:</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span t-field="doc.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="padding:10px 10px 10px 10px;border:none">
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>Date</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>:</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span t-field="doc.scheduled_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="padding:10px 10px 10px 10px;border:none">
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>Destination</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>:</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span t-field="doc.destination"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="padding:10px 10px 10px 10px;border:none">
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>Purchase Order Ref</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>:</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+<!--                                                <span t-field="doc.name"/>-->
+                                            </td>
+                                        </tr>
+                                        <tr style="padding:10px 10px 10px 10px;border:none">
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>Payment Terms</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+                                                <span>
+                                                    <b>:</b>
+                                                </span>
+                                            </td>
+                                            <td style="border:none">
+<!--                                                <span t-field="doc.name"/>-->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!--                        <table style="border-collapse:collapse;width:100%;margin:5pt;">-->
+                        <!--                            <tr style="padding:10px 10px 10px 10px;">-->
+                        <!--                                <th width="50%">-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Delivered To-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span t-field="doc.partner_id.name"/>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <br/>-->
+                        <!--                                                            <t t-if="doc.partner_id.street">-->
+                        <!--                                                                <span t-field="doc.partner_id.street"/>,-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <t t-if="doc.partner_id.street2">-->
+                        <!--                                                                <span t-field="doc.partner_id.street2"/>,-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <t t-if="doc.partner_id.city">-->
+                        <!--                                                                <span t-field="doc.partner_id.city"/>,-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <br/>-->
+                        <!--                                                            <t t-if="doc.partner_id.state_id.name">-->
+                        <!--                                                                <span t-field="doc.partner_id.state_id.name"/>,-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <t t-if="doc.partner_id.zip">-->
+                        <!--                                                                <span t-field="doc.partner_id.zip"/>,;-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <t t-if="doc.partner_id.country_id.name">-->
+                        <!--                                                                <span t-field="doc.partner_id.country_id.name"/>;-->
+                        <!--                                                            </t>-->
+                        <!--                                                            <span>-->
+                        <!--                                                                Tel:-->
+                        <!--                                                                <span t-field="doc.partner_id.phone"/>;-->
+                        <!--                                                                <span t-field="doc.partner_id.mobile"/>,;-->
+                        <!--                                                            </span>-->
+
+                        <!--                                </th>-->
+                        <!--                                <th width="50%">-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Delivery Note No-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            :-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span t-field="doc.name"/>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Date-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            :-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span t-field="doc.scheduled_date"/>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Destination-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            :-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span t-field="doc.destination"/>-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Purchase Order Ref-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            :-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    &lt;!&ndash;                                    <span t-field="doc.scheduled_date"/>&ndash;&gt;-->
+                        <!--                                    <br/>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            Payment Terms-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    <span>-->
+                        <!--                                        <strong>-->
+                        <!--                                            :-->
+                        <!--                                        </strong>-->
+                        <!--                                    </span>-->
+                        <!--                                    &lt;!&ndash;                                    <span t-field="doc.scheduled_date"/>&ndash;&gt;-->
+                        <!--                                    <br/>-->
+                        <!--                                </th>-->
+                        <!--                            </tr>-->
+                        <!--                        </table>-->
+
+
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                            <thead>
+                                <tr style="border:1px solid #9F9D9C;border-collapse:collapse;height:5mm;">
+                                    <td align="center"
+                                        style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <b>Sl No</b>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <b>Item Description</b>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <b>Qty</b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <t t-set="j" t-value="1"/>
+                            <t t-foreach="doc.move_ids_without_package" t-as="line">
+                                <tr>
+                                    <td align="center"
+                                        style="solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <span t-esc="j"/>
+                                        <t t-set="j" t-value="j+1"/>
+                                    </td>
+                                    <td align="center"
+                                        style="solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <span t-field="line.product_id"/>
+                                    </td>
+                                    <td align="center"
+                                        style="solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                        <span t-field="line.quantity_done"/>
+                                        <br/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td align="center"
+                                    style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;"/>
+                                <td align="left"
+                                    style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: left;font-size: 8pt;">
+                                    <span>
+                                        <b>Total :</b>
+                                    </span>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid #9F9D9C;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;">
+                            <tr>
+                                <td>
+                                    <span>
+                                        <strong>NOTE</strong>
+                                    </span>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="color: red; font-size:11pt;">
+                                        <b>Delivery Damage should be reported in writing within 3 days from receipt of
+                                            goods.
+                                        </b>
+                                    </span>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;">
+                            <tr style="height:15pt;">
+                                <td colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        GOODS DELIVERED BY:
+                                    </span>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;">
+                            <tr style="height:7pt;">
+                                <td colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        ASSESSED, RECEIVED AND QUANTITY CONFIRMED BY:
+                                    </span>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="border-collapse:collapse;width:100%;margin:5pt;">
+                            <tr style="height:15pt;">
+                                <td colspan="5"/>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        RECEIPT DATE:
+                                    </span>
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
+        <!--            <t t-call="web.html_container">-->
+        <!--                <t t-foreach="docs" t-as="o">-->
+        <!--                    <div class="header">-->
+        <!--                                <div class="row">-->
+        <!--                                    <div class="col-5 mb4 left">-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-5 mb4 center">-->
+        <!--                                        <strong>DELIVERY NOTE</strong>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-5 mb4 right">-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                    </div>-->
+        <!--                    <table>-->
+        <!--                        <th>-->
+        <!--                            <div class="row col-12">-->
+        <!--                            <div class="col-6">-->
+        <!--                                <span>Delivered To</span>-->
+        <!--                                <br/>-->
+        <!--                                <span t-field="doc.partner_id.name"/>-->
+        <!--                                        <t t-if="doc.partner_id.street">-->
+        <!--                                            <span t-field="doc.partner_id.street"/>-->
+        <!--                                            <br/>-->
+        <!--                                        </t>-->
+        <!--                                        <t t-if="doc.partner_id.street2">-->
+        <!--                                            <span t-field="doc.partner_id.street2"/>-->
+        <!--                                            <br/>-->
+        <!--                                        </t>-->
+        <!--                                        <t t-if="doc.partner_id.city">-->
+        <!--                                            <span t-field="doc.partner_id.city"/>-->
+        <!--                                        </t>-->
+        <!--                                        <t t-if="doc.partner_id.state_id.name">-->
+        <!--                                            <span t-field="doc.partner_id.state_id.name"/>-->
+        <!--                                        </t>-->
+        <!--                                        <t t-if="doc.partner_id.zip">-->
+        <!--                                            <span t-field="doc.partner_id.zip"/>-->
+        <!--                                            <br/>-->
+        <!--                                        </t>-->
+        <!--                                        <t t-if="doc.partner_id.country_id.name">-->
+        <!--                                            <span t-field="doc.partner_id.country_id.name"/>-->
+        <!--                                        </t>-->
+        <!--                                        <span>-->
+        <!--                                            Tel:-->
+        <!--                                            <span t-field="doc.partner_id.phone"/>,-->
+        <!--                                            <span t-field="doc.partner_id.mobile"/>-->
+        <!--                                        </span>-->
+        <!--                            </div>-->
+        <!--                        </th>-->
+        <!--                        <th>-->
+        <!--&lt;!&ndash;                            <div class="col-6">&ndash;&gt;-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                Delivery Note No-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                :-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                <span t-field="doc.name"/>-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--                                        <br/>-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                Date-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                :-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                <span t-field="doc.scheduled_date"/>-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--                                        <br/>-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                Destination-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                :-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                <span t-field="doc.destination"/>-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--                                        <br/>-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                Purchase Order Ref-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                :-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                &lt;!&ndash;                                    <span t-field="doc.name"/>&ndash;&gt;-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--                                        <br/>-->
+        <!--                                        <tr>-->
+        <!--                                            <td>-->
+        <!--                                                Payment Terms-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                :-->
+        <!--                                            </td>-->
+        <!--                                            <td>-->
+        <!--                                                &lt;!&ndash;                                    <span t-field="doc.name"/>&ndash;&gt;-->
+        <!--                                            </td>-->
+        <!--                                        </tr>-->
+        <!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+
+        <!--                            &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--                        </th>-->
+        <!--                    </table>-->
+
+        <!--                    &lt;!&ndash;                    <table>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                        <tr>&ndash;&gt;-->
+
+        <!--                    &lt;!&ndash;                        </tr>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                    </table>&ndash;&gt;-->
+        <!--                    <table width="100%" style="border:1px solid black; border-collapse:collapse;">-->
+        <!--                        <thead>-->
+        <!--                            <tr style="height:8px;border:1px solid black; border-collapse:collapse;text-align:center;padding-top:5px;"-->
+        <!--                                valign="center">-->
+        <!--                                <th>Sl No</th>-->
+        <!--                                <th>Item Description</th>-->
+        <!--                                <th>Qty</th>-->
+        <!--                            </tr>-->
+        <!--                        </thead>-->
+        <!--                    </table>-->
+        <!--                            <table>-->
+        <!--                                <span>-->
+        <!--                                    <strong>NOTE</strong>-->
+        <!--                                </span>-->
+        <!--                                <br/>-->
+        <!--                                <span>-->
+        <!--                                    Delivery Damage should be reported in writing within 3 days from receipt of goods.-->
+        <!--                                </span>-->
+        <!--                                <br/>-->
+        <!--                                <span>-->
+        <!--                                    GOODS DELIVERED BY:-->
+        <!--                                </span>-->
+        <!--                                <br/>-->
+        <!--                                <span>-->
+        <!--                                    ASSESSED, RECEIVED AND QUANTITY CONFIRMED BY:-->
+        <!--                                </span>-->
+        <!--                                <br/>-->
+        <!--                                <span>-->
+        <!--                                    RECEIPT DATE:-->
+        <!--                                </span>-->
+        <!--                            </table>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </template>-->

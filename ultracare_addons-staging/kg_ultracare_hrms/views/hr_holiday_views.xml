@@ -1,0 +1,103 @@
+<odoo>
+    <data>
+
+        <record id="hr_leave_form_annual_leave" model="ir.ui.view">
+            <field name="name">hr.leave.annual.leave</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form_manager"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="deduct_from_annual_leave" readonly="True" force_save="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_leave_tree_view_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.kg.ultracare</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_to" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_hr_leave_report_tree_view_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.report.kg.ultracare</field>
+            <field name="model">hr.leave.report</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_report_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_to" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+         <record id="kg_hr_leave_report_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.report.form.kg.ultracare</field>
+            <field name="model">hr.leave.report</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_report_view_form"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_to" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_public_holiday_form_view_inherit" model="ir.ui.view">
+            <field name="name">public.holiday.form.kg.ultracare</field>
+            <field name="model">resource.calendar.leaves</field>
+            <field name="inherit_id" ref="resource.resource_calendar_leave_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_from" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_to" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_leave_type_form_probation" model="ir.ui.view">
+            <field name="name">hr.leave.probation</field>
+            <field name="model">hr.leave.type</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+            <field name="arch" type="xml">
+                <field name="employee_requests" position="after">
+                    <field name="restrict_on_probation"
+                           attrs="{'readonly': ['|','|',('deduct_from_annual_leave', '=', True),('annual_leave', '=', True),('compensatory_leave', '=', True)]}"/>
+                    <field name="deduct_from_annual_leave"
+                           attrs="{'readonly': ['|','|',('restrict_on_probation', '=', True),('annual_leave', '=', True),('compensatory_leave', '=', True)]}"/>
+                    <field name="annual_leave"
+                           attrs="{'readonly': ['|','|',('restrict_on_probation', '=', True),('deduct_from_annual_leave', '=', True),('compensatory_leave', '=', True)]}"/>
+                    <field name="compensatory_leave"
+                           attrs="{'readonly': ['|','|',('restrict_on_probation', '=', True),('deduct_from_annual_leave', '=', True),('annual_leave', '=', True)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_leave_allocation" model="ir.ui.view">
+            <field name="name">HR Leave Allocation</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form_manager"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="after">
+                    <field name="annual_leave_allocation" readonly="True" force_save="1" invisible="1"/>
+                    <field name="create_allocation" readonly="True" invisible="1"/>
+                    <field name="public_holiday_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <record id="associated_product_sale_view" model="ir.ui.view">
+        <field name="name">associated.product.sale.custom.form.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                <field name="associated_product_bool" string="Associates products" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+
+
+        <record id="hr_attendance_form_ot_normal" model="ir.ui.view">
+            <field name="name">hr.ot.normal.hours</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <field name="check_out" position="after">
+                    <field name="is_approve" invisible="1"/>
+                    <field name="is_sec_approve" invisible="1"/>
+                    <field name="normal_hours" widget="float_time" readonly="1" force_save="1"/>
+                    <field name="ot_hours" widget="float_time" readonly="1" force_save="1"/>
+                    <field name="ot_time_from" invisible="0" readonly="1" force_save="1"/>
+                </field>
+                <xpath expr="field[@name='employee_id']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_approve', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="field[@name='check_in']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_sec_approve', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="field[@name='check_out']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_sec_approve', '=', True)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_overtime_form_ot_normal" model="ir.ui.view">
+            <field name="name">hr.overtime.normal.hours</field>
+            <field name="model">hr.overtime</field>
+            <field name="inherit_id" ref="ohrms_overtime.hr_overtime_form_view"/>
+            <field name="arch" type="xml">
+                <page name="attendance" position="replace">
+                    <page string="Attendance">
+                        <field name="att_ids">
+                            <tree>
+                                <field name="employee_id"/>
+                                <field name="check_in"/>
+                                <field name="check_out"/>
+                                <field name="normal_hours"/>
+                                <field name="ot_hours"/>
+                                <field name="worked_hours"/>
+                                <field name="overtime_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="attendance_tree_production_approval">
+            <field name="name">hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                    <field name="is_approve" invisible="1"/>
+                    <field name="is_sec_approve" invisible="1"/>
+                    <field name="normal_hours" widget="float_time" readonly="1"/>
+                    <field name="ot_hours" widget="float_time" readonly="1"/>
+                    <field name="ot_time_from" invisible="0"/>
+                    <button name="action_approve" type="object" string="PRODUCTION APPROVAL"
+                            attrs="{'invisible': [('is_approve', '=', True)]}" groups="mrp.group_mrp_manager"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="attendance_tree_hr_approval">
+            <field name="name">hr.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="check_in"/>
+                    <field name="check_out"/>
+                    <field name="is_approve" invisible="1"/>
+                    <field name="is_sec_approve" invisible="1"/>
+                    <field name="normal_hours" widget="float_time" readonly="1"/>
+                    <field name="ot_hours" widget="float_time" readonly="1"/>
+                    <field name="ot_time_from" invisible="0"/>
+                    <button name="second_action_approve" type="object" string="HR APPROVAL"
+                            attrs="{'invisible': ['|',('is_sec_approve', '=', True),('is_approve', '=', False)]}"
+                            groups="hr_attendance.group_hr_attendance_manager"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="action_attendance_approval_production">
+            <field name="name">Attendance Production Approval</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="domain">[('is_approve', '=', False),('employee_id.ot_eligible','=',True)]</field>
+            <field name="view_id" ref="attendance_tree_production_approval"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Approvals" id="menu_attendance_approvals" parent="hr_attendance.menu_hr_attendance_root"
+                  sequence="12"/>
+
+        <menuitem name="Production Approval" id="kg_ultracare_hrms.menu_attendance_approval_production"
+                  action="action_attendance_approval_production"
+                  parent="menu_attendance_approvals" sequence="1"/>
+
+        <record model="ir.actions.act_window" id="action_attendance_approval_hr">
+            <field name="name">Attendance HR Approval</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="domain">[('is_sec_approve', '=', False),('is_approve', '=', True),('employee_id.ot_eligible','=',True)]</field>
+            <field name="view_id" ref="attendance_tree_hr_approval"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+        <menuitem name="HR Approval" id="kg_ultracare_hrms.menu_attendance_approval_hr"
+                  action="action_attendance_approval_hr"
+                  parent="menu_attendance_approvals" sequence="2"/>
+
+    </data>
+</odoo>

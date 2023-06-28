@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="kg_shift_master_tree" model="ir.ui.view">
+            <field name="name">kg.shift.master</field>
+            <field name="model">kg.shift.master</field>
+            <field name="arch" type="xml">
+                <tree string="Shift">
+                    <field name="name"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_shift_master_form" model="ir.ui.view">
+            <field name="name">kg.shift.master</field>
+            <field name="model">kg.shift.master</field>
+            <field name="arch" type="xml">
+                <form string="Shift">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="start_time"/>
+                                    <field name="start_am_pm" nolabel="1"/>
+                                </group>
+                                <group>
+                                    <field name="end_time"/>
+                                    <field name="end_am_pm" nolabel="1"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="prescent_threshold"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <field name="kg_note"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_kg_shift_master" model="ir.actions.act_window">
+            <field name="name">Shift</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.shift.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new Shift.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="action_kg_shift_masterid" action="action_kg_shift_master"
+                  parent="mrp.menu_mrp_bom" name="Shifts" sequence="66"/>
+
+        <menuitem id="menu_action_maint4"
+                  parent="mrp.menu_mrp_root"
+                  name="Maintenance Requests" sequence="4"/>
+        <menuitem
+                id="menu_m_request_formProd"
+                name="Maintenance Requests"
+                parent="menu_action_maint4"
+                action="maintenance.hr_equipment_request_action"
+                sequence="1"/>
+
+    </data>
+</odoo>

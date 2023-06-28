@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="abnormal_wastage_form">
+            <field name="name">Abnormal Wastage</field>
+            <field name="model">abnormal.wastage</field>
+            <field name="arch" type="xml">
+                <form string="Abnormal Wastage">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="bill_of_material"/>
+                                <field name="manufacturing_id" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                                <field name="uom" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="wastage_lines">
+                                    <tree string="Products" editable="bottom">
+                                        <!--                                        <field name="pro_id" invisible="1"/>-->
+                                        <field name="product_id" force_save="1" readonly="1"/>
+                                        <field name="qty" force_save="1" readonly="1"/>
+                                        <field name="waste_qty"/>
+                                        <field name="uom_id" force_save="1" readonly="1"/>
+                                        <field name="move_id" force_save="1" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="action_add_abnormal_wastage" string="Add Abnormal Wastage" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="abnormal_wastage_action_wizards" model="ir.actions.act_window">
+            <field name="name">Abnormal Wastage</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">abnormal.wastage</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="abnormal_wastage_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

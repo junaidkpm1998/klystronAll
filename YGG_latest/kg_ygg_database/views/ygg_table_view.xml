@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_table_tree" model="ir.ui.view">
+            <field name="name">ygg.table.tree</field>
+            <field name="model">ygg.table</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Table">
+                    <field name="name"/>
+                    <field name="odoo_model_id"/>
+                    <field name="db_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_table_form" model="ir.ui.view">
+            <field name="name">ygg.table.form</field>
+            <field name="model">ygg.table</field>
+            <field name="arch" type="xml">
+                <form string="YGG Table">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+<!--                                <field name="ygg_model_id"/>-->
+                                <field name="odoo_model_id"/>
+                                <field name="db_name"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page string="Fields">
+                                <field name="field_lines">
+                                    <tree editable="bottom">
+                                        <field name="ygg_table_id" invisible="1"/>
+                                        <field name="odoo_model_id" invisible="1"/>
+                                        <field name="ygg_field_name"/>
+                                        <field name="ygg_field_type"/>
+                                        <field name="odoo_related_model_id" invisible="1"/>
+                                        <field name="odoo_field_id"/>
+                                        <field name="primary_key"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_table" model="ir.actions.act_window">
+            <field name="name">YGG Table</field>
+            <field name="res_model">ygg.table</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

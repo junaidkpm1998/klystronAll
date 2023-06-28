@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="multiple_vendor_form">
+            <field name="name">Multiple Vendor</field>
+            <field name="model">purchase.order.multi.vendor</field>
+            <field name="arch" type="xml">
+                <form string="Multiple Vendor Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="vendor_ids" force_save="1" widget="many2many_tags"/>
+                                <field name="purchase_order" widget="many2many_tags" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_send_vendors" type="object" class="btn-primary"
+                                string="Send Vendors"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="multiple_vendor_form_action_wizards" model="ir.actions.act_window">
+            <field name="name">Multiple Vendor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.multi.vendor</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="multiple_vendor_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

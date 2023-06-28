@@ -1,0 +1,264 @@
+<odoo>
+    <data>
+        <template id="in_out_ledger_report_template_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>IN-OUT LEDGER</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td>
+                                <span>
+                                    Period From
+                                </span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span>
+                                    <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span><![CDATA[&nbsp;]]></span>To
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <t t-foreach="datas" t-as="data">
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                        <t t-if="data['type'] == 'product'">
+                            <tr width="100%" style="color:#993333;">
+                                <td width="25%" align="left" colspan="3">
+                                    <t t-if="data['product_code']">
+                                        <b>
+                                            <span t-esc="data['product_code']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td width="75%" align="left" colspan="7">
+                                    <t t-if="data['product_name']">
+                                        <b>
+                                            <span t-esc="data['product_name']"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+
+
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Doc.Date
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Type
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="5%" align="center">
+                                    <span>
+                                        <b>
+                                            Doc.No.
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="15%" align="center">
+                                    <span>
+                                        <b>
+                                            Reference
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Cost
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Rate
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            In-Qty
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Out-Qty
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Balance
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span>
+                                        <b>
+                                            Balance(Amt)
+                                        </b>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="10"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="10%" align="center">
+                                    <t t-if="data['doc_date']">
+                                        <span t-esc="data['doc_date']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['picking_type']">
+                                        <span t-esc="data['picking_type']"/>
+                                    </t>
+                                </td>
+                                <td width="5%" align="center">
+                                    <t t-if="data['doc_no']">
+                                        <span t-esc="data['doc_no']"/>
+                                    </t>
+                                </td>
+                                <td width="15%" align="center">
+                                    <t t-if="data['reference']">
+                                        <span t-esc="data['reference']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['cost']">
+                                        <span t-esc="data['cost']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['rate']">
+                                        <span t-esc="data['rate']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['in_qty']">
+                                        <span t-esc="data['in_qty']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['out_qty']">
+                                        <span t-esc="data['out_qty']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['balance']">
+                                        <span t-esc="data['balance']"/>
+                                    </t>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['balance_amt']">
+                                        <span t-esc="data['balance_amt']"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'amount'">
+                            <tr width="100%">
+                                <td colspan="6" width="60%"/>
+                                <td colspan="4" width="40%" style="border-bottom: 1px solid black;"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="10" width="100%"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td colspan="6" width="60%"/>
+                                <td width="10%" align="center">
+                                    <span t-esc="data['total_in_qty']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span t-esc="data['total_out_qty']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <!--                                    <span t-esc="data['total_in_qty']"/>-->
+                                </td>
+                                <td width="10%" align="center">
+                                    <!--                                    <span t-esc="data['total_in_qty']"/>-->
+                                </td>
+                            </tr>
+                        </t>
+                        <tr width="100%">
+                            <td colspan="10" width="100%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td colspan="10" width="100%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td colspan="10" width="100%"/>
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

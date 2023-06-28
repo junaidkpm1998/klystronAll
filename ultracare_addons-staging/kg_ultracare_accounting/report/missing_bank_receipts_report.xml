@@ -1,0 +1,72 @@
+<odoo>
+    <data>
+        <template id="missing_bank_rec_tem_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>Missing Bank Receipts(from
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                <span><![CDATA[&nbsp;]]></span>to
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>)
+                            </b>
+                        </center>
+                    </div>
+                </div>
+                <table class='table table-borderless table-condensed table-hover'>
+                    <tr width="100%">
+                        <td width="100%%" align="left" style="font-size:13px;">
+                            <span>
+                                <b>
+                                    <u>
+                                        MISSING Nos.
+                                    </u>
+                                </b>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

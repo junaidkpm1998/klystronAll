@@ -1,0 +1,339 @@
+<odoo>
+    <data>
+        <template id="customer_analysis_report_template">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <style>
+                        .table-borderless td,
+                        .table-borderless th {
+                        border: 0;
+                        }
+                    </style>
+                    <div class="header">
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td width="75%" align="left">
+                                    <b>
+                                        <span t-esc="company_id"/>
+                                    </b>
+                                </td>
+                                <td width="25%" colspan="3"/>
+                            </tr>
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="75%" align="left">
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </td>
+                                <td width="5%" align="left">
+                                    <span>
+                                        <b>
+                                            Page
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="15%" align="right">
+                                    <span>
+                                        <b>
+                                            Page
+                                            <span class="page"/>
+                                            of
+                                            <span class="topage"/>
+                                        </b>
+                                    </span>
+                                </td>
+                                <td width="5%"/>
+                            </tr>
+                        </table>
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <center style="font-size:10;">
+                                <b>CUSTOMER ANALYSIS</b>
+                            </center>
+                        </div>
+                        <table class='table table-borderless table-condensed table-hover'>
+                            <tr width="100%">
+                                <td style="font-size:13px;">
+                                    <span>
+                                        Sort by Customer, Date Between:
+                                    </span>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        and
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                        <thead>
+                            <tr width="100%" style="font-size:12">
+                                <td align="left" width="15%">
+                                    <b>Item Code</b>
+                                </td>
+                                <td align="center" width="5%">
+                                    <b>Rate</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Jan</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Feb</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Mar</b>
+                                </td>
+                                <td align="center" width="7%">
+                                    <b>Apr</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>May</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Jun</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Jul</b>
+                                </td>
+                                <td align="center" width="7%">
+                                    <b>Aug</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Sep</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Oct</b>
+                                </td>
+                                <td align="center" width="6%">
+                                    <b>Nov</b>
+                                </td>
+                                <td align="center" width="7%">
+                                    <b>Dec</b>
+                                </td>
+                                <td align="center" width="5%">
+                                    <b>Total</b>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid black;;;width:100%">
+                                <td style="border-bottom: 1px solid black;" colspan="15"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="15"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="15"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="15"/>
+                            </tr>
+                        </thead>
+                        <t t-foreach="datas" t-as="data">
+                            <t t-if="data['type'] == 'customer'">
+                                <tr width="100%">
+                                    <td style="font-size:13" align="left" width="15%">
+                                        <t t-if="data['customer_code']!='FALSE'">
+                                            <b>
+                                                <span t-esc="data['customer_code']"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td style="font-size:13" align="left" colspan="6" width="85%">
+                                        <t t-if="data['customer_name']!='FALSE'">
+                                            <b>
+                                                <span t-esc="data['customer_name']"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'data'">
+                                <tr width="100%" style="font-size:12">
+                                    <td align="left" width="15%">
+                                        <t t-if="data['item_code']!='FALSE'">
+                                            <span t-esc="data['item_code']"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="5%">
+                                        <t t-if="data['subtotal']">
+                                            <span t-esc="'{:,.2f}'.format(data['subtotal'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['jan_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['jan_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['feb_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['feb_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['mar_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['mar_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="7%">
+                                        <t t-if="data['apr_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['apr_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['may_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['may_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['jun_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['jun_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['jul_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['jul_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="7%">
+                                        <t t-if="data['aug_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['aug_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['sep_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['sep_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['oct_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['oct_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="6%">
+                                        <t t-if="data['nov_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['nov_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="7%">
+                                        <t t-if="data['dec_qty']">
+                                            <span t-esc="'{:,.2f}'.format(data['dec_qty'])"/>
+                                        </t>
+                                    </td>
+                                    <td align="center" width="5%">
+                                        <t t-if="data['total']">
+                                            <span t-esc="'{:,.2f}'.format(data['total'])"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'amount'">
+                                <tr width="100%" style="font-size:12">
+                                    <td width="15" align="center"/>
+                                    <td width="5%" align="center"/>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_jan']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_jan'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_feb']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_feb'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_mar']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_mar'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="7%" align="center">
+                                        <t t-if="data['total_apr']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_apr'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_may']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_may'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_jun']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_jun'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_jul']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_jul'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="7%" align="center">
+                                        <t t-if="data['total_aug']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_aug'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_sep']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_sep'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_oct']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_oct'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%" align="center">
+                                        <t t-if="data['total_nov']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_nov'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="7%" align="center">
+                                        <t t-if="data['total_dec']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_dec'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="5%" align="center">
+                                        <t t-if="data['total_qty']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_qty'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <record id="project_xlsx_report_inherit" model="ir.ui.view">
+        <field name="name">project.project.form.inherited</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='601']" position="before">
+                <button name="xlsx_print" string="print XLSX" class="oe_highlight" type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

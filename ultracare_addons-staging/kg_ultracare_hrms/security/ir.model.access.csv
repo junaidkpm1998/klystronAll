@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kg_ultracare_hrms_consol_attend,kg_ultracare_hrms.consol_attend,model_consol_attend,base.group_user,1,1,1,1
+access_leave_salary_form,kg_ultracare_hrms.leave_salary_form,model_leave_salary_form,,1,1,1,1
+access_kg_payslip_report_wizard,kg_payslip_report_wizard,model_kg_payslip_report_wizard,,1,1,1,1
+access_kg_hr_shift,kg_hr_shift,model_hr_shift,,1,1,1,1

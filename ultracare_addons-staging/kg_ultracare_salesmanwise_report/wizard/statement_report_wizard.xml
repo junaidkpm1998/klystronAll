@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="salesman_statement_report_action" model="ir.actions.act_window">
+            <field name="name">Statement of A/C</field>
+            <field name="res_model">kg.salesman.statement.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem id="menu_salesman_statement_report"
+                  name="Statement of A/C"
+                  action="salesman_statement_report_action"
+                  parent="sale.menu_sale_report"/>
+
+        <record id="salesman_statement_report_wizard_view" model="ir.ui.view">
+            <field name="name">Statement of A/C Wizard</field>
+            <field name="model">kg.salesman.statement.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                            <field name="account_type" required="1"/>
+                        </group>
+                        <group name="main_info">
+                            <field name="date_from" invisible="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_statement_report"
+                                string="Print Report"
+                                type="object"
+                        />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

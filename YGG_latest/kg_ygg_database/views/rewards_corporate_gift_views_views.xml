@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rewards_corporate_gift_tree" model="ir.ui.view">
+            <field name="name">rewards.corporate.gift.tree</field>
+            <field name="model">rewards.corporate.gift</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Gift Table">
+                    <field name="corporate_id"/>
+                    <field name="reference_id"/>
+                    <field name="brand_id"/>
+                    <field name="amount_in_aed"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="rewards_corporate_gift_form" model="ir.ui.view">
+            <field name="name">rewards.corporate.gift.form</field>
+            <field name="model">rewards.corporate.gift</field>
+            <field name="arch" type="xml">
+                <form string="Gift Table">
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button class="oe_stat_button" type="object" name="view_invoice"
+                                    icon="fa-list" string="Invoice">
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                 <field name="corporate_id"/>
+                                <field name="reference_id"/>
+                    <field name="brand_id"/>
+                    <field name="amount_in_aed"/>
+                            </group>
+
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_rewards_corporate_gift" model="ir.actions.act_window">
+            <field name="name">Rewards Gift table</field>
+            <field name="res_model">rewards.corporate.gift</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_create_gift_invoice" model="ir.actions.server">
+            <field name="name">Create Invoice</field>
+            <field name="model_id" ref="model_rewards_corporate_gift"/>
+            <field name="binding_model_id" ref="model_rewards_corporate_gift"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_create_invoice()
+            </field>
+        </record>
+
+        <record id="action_create_payment" model="ir.actions.server">
+            <field name="name">Create Payment</field>
+            <field name="model_id" ref="model_ygg_topup"/>
+            <field name="binding_model_id" ref="model_ygg_topup"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_create_payment()
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

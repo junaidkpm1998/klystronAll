@@ -1,0 +1,15 @@
+<odoo>
+    <record id="hr_expense_form_inherited" model="ir.ui.view">
+        <field name="name">hr.expense.custom.form.inherited</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="bill_reference"/>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="after">
+                <field name="expense_account"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

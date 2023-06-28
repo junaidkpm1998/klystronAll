@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="hr_employee_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.kg.ultracare</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//notebook/page[@name='internal_notes']" position='after'>-->
+                <xpath expr="//notebook/page[@name='personal_information']" position="after">
+                    <page name="attachment" string="Attachments">
+                        <group>
+                            <field name="attachment">
+                                <tree editable="bottom">
+                                    <field name="document_name" string="Document Name" required="1"/>
+                                    <field name="doc_attachment_partner" widget="many2many_binary"
+                                           string="Attachments"/>
+                                    <field name="expiry" required="0"/>
+                                    <field name="override_doc" widget="boolean_toggle"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

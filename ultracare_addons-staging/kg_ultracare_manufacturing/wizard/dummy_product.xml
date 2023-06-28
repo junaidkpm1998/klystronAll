@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="dummy_products_form">
+            <field name="name">Dummy Products</field>
+            <field name="model">product.wise.dummy</field>
+            <field name="arch" type="xml">
+                <form string="Abnormal Wastage">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id" invisible="1"/>
+                                <field name="production_plan_id" invisible="1"/>
+                                <field name="shift_line_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Dummy Products">
+                                <field name="dummy_line_ids" create="0">
+                                    <tree string="Products" editable="bottom">
+                                        <field name="dummy_product_id" force_save="1" readonly="1"/>
+                                        <field name="actual_product_id" force_save="1" readonly="0"
+                                               domain="[('is_dummy_prod', '!=', True)]"/>
+                                        <field name="production_plan_id" force_save="1" invisible="1"/>
+                                        <field name="dummy_line_id" force_save="1" invisible="1"/>
+                                        <field name="shift_line_id" force_save="1" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="action_add_actual_products" string="Add Actual Products" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="dummy_wise_action_wizards" model="ir.actions.act_window">
+            <field name="name">Dummy Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.wise.dummy</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dummy_products_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

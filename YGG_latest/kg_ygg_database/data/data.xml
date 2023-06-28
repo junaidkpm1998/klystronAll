@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cron_database_configure" model="ir.cron">
+        <field name="name">Check YGG Database Configure </field>
+        <field name="model_id" ref="model_ygg_config"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_db_configure()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>hours</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <record id="seq_ygg_orders_order" model="ir.sequence">
+            <field name="name">YGG Sales Order</field>
+            <field name="code">ygg.orders.order</field>
+            <field name="prefix">YSO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+    </record>
+</odoo>

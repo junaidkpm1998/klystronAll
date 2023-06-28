@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <record id="res_partner_crm" model="ir.ui.view">
+            <field name="name">Customer Inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="customer_rank" invisible="1"/>
+                    <field name="customer_code" readonly="1"
+                           attrs="{'invisible': ['|',('is_customer','=',False),('customer_rank', '==', 0)]}"/>
+                    <field name="is_customer" invisible="1"/>
+                    <field name="temporary_sequence" readonly="1"
+                           attrs="{'invisible': ['|',('is_customer','=',True),('customer_rank', '==', 0)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field name="state_id" class="o_address_state" placeholder="State"
+                           options="{'no_open': True, 'no_quick_create': True}"
+                           context="{'default_country_id': country_id}" required="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="replace">
+                    <field name="country_id" placeholder="Country" class="o_address_country"
+                           options='{"no_open": True, "no_create": True}' required="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street2']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="kg_inherit_partner_list_view" model="ir.ui.view">
+            <field name="name">Customer List View Inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="total_due"/>
+                    <field name="signup_expiration" widget="date"/>
+                    <field name="calendar_last_notif_ack" widget="date"/>
+                    <field name="last_time_entries_checked" widget="date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="kg_inherit_open_action_followup_button" model="ir.ui.view">
+            <field name="name">Followup Button Inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account_followup.res_partner_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div/button[@name='open_action_followup']" position="attributes">
+                    <attribute name="groups">sales_team.group_sale_salesman</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

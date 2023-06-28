@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_partner_attachment,partner.attachments,model_partner_attachments,,1,1,1,1
+access_hr_employee_attachment,access_hr_employee_attachment,model_hr_attachments,,1,1,1,1
+
+

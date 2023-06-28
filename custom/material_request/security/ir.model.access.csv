@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_material_request,access_material_request,model_material_request,base.group_user,1,1,1,1
+access_multiple_products,access_multiple_products,model_multiple_products,base.group_user,1,1,1,1
+access_request_material_wizard,access_request_material_wizard,model_request_material_wizard,base.group_user,1,1,1,1

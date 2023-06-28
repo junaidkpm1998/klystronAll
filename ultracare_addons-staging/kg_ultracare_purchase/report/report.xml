@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <record id="purchase_order_report" model="ir.actions.report">
+            <field name="name">Purchase Order</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_order_report_template</field>
+            <field name="report_file">kg_ultracare_purchase.purchase_order_report_template</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_purchase_register_report_wizard_pdf" model="ir.actions.report">
+            <field name="name">Purchase Register Line PDF</field>
+            <field name="model">purchase.register.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_register_report_wizard</field>
+            <field name="report_file">kg_ultracare_purchase.purchase_register_report_wizard_pdf</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_register_report_wizard"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_purchase_analysis_report" model="ir.actions.report">
+            <field name="name">Purchase Analysis</field>
+            <field name="model">purchase.analysis.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Purchase Analysis Report'</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_analysis_report_template</field>
+            <field name="report_file">kg_ultracare_purchase.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="pending_purchase_order_action_new" model="ir.actions.report">
+            <field name="name">Pending Purchase Line PDF</field>
+            <field name="model">pending.purchase.report.wizard.new</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.pending_purchase_report_pdf</field>
+            <field name="report_file">kg_ultracare_purchase.purchase_register_report_wizard_pdf</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_pending_purchase_report_wizard_new"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="report_purchase_bill_register_wizard_pdf_new" model="ir.actions.report">
+            <field name="name">Purchase Bill Register PDF</field>
+            <field name="model">purchase.bill.register.wizard.new</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_bill_register_wizard</field>
+            <field name="report_file">kg_ultracare_purchase.purchase_bill_register_wizard</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_bill_register_wizard_new"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="purchase_order_detailed_action" model="ir.actions.report">
+            <field name="name">Purchase Order - Detailed</field>
+            <field name="model">purchase.order.detailed.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_order_detailed_report_pdf</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_order_detailed_report_wizard"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="purchase_analysis_detailed_action" model="ir.actions.report">
+            <field name="name">Purchase Analysis - Detailed</field>
+            <field name="model">purchase.analysis.detailed.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_analysis_detailed</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_analysis_detailed_wizard"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="purchase_return_action" model="ir.actions.report">
+            <field name="name">Purchase Return - Detailed</field>
+            <field name="model">purchase.return.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_purchase.purchase_return_report</field>
+            <field name="binding_model_id" ref="kg_ultracare_purchase.model_purchase_return_wizard"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

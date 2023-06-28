@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_category_property_form" model="ir.ui.view">
+        <field name="name">partner.over.credit.limit.form.inherit</field>
+        <field name="model">res.partner</field>
+        <!--        <field name="type">form</field>-->
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_limit" position="replace">
+                <field name="credit_limit" invisible="1"/>
+            </field>
+            <!--            <group name="fiscal_information" position="before">-->
+            <!--                <group>-->
+            <!--                    <field name="user_group_check" force_save="1" invisible="1"/>-->
+            <!--                    <field name="credit_limit"/>-->
+            <!--                    <field name="remaining_credit" invisible="1"/>-->
+            <!--                    <field name="warning_percentage" attrs="{'readonly': [('user_group_check', '=', True)]}"/>-->
+            <!--                    <field name="warning_limit" attrs="{'readonly': [('user_group_check', '=', True)]}"/>-->
+            <!--                    <field name="over_credit" attrs="{'readonly': [('user_group_check', '=', True)]}"/>-->
+            <!--                </group>-->
+            <!--            </group>-->
+            <xpath expr="//group[@name='purchase']" position="inside">
+                <field name="user_group_check" force_save="1" invisible="1"/>
+                <field name="vendor_credit_limit" attrs="{'readonly': [('user_group_check', '=', True)]}"/>
+            </xpath>
+            <!--            <xpath expr="//page[@name='accounting']/group[@name='credit_limits']" position="replace">-->
+            <!--            </xpath>-->
+            <!--            <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="inside">-->
+
+
+            <xpath expr="//group[@name='fiscal_information']" position="replace">
+                <field name="user_group_check" force_save="1" invisible="1"/>
+                <group string="Fiscal Information" name="fiscal_information" priority="5"
+                       groups="account.group_account_invoice,account.group_account_readonly">
+                    <group string="Credit Limits" name="credit_limits"
+                           groups="account.group_account_invoice,account.group_account_readonly"
+                           attrs="{'invisible': [('show_credit_limit', '=', False)]}">
+                        <field name="credit"/>
+                        <label for="use_partner_credit_limit"/>
+                        <div class="o_row">
+                            <field name="use_partner_credit_limit"/>
+                            <field name="credit_limit" class="oe_inline"
+                                   attrs="{'invisible': [('use_partner_credit_limit', '=', False)]}"/>
+                        </div>
+
+                        <field name="user_group_check" force_save="1" invisible="1"/>
+                        <field name="property_account_position_id"/>
+                        <!--                    <label for="credit_limit"/>-->
+                        <field name="credit_limit" attrs="{'readonly': [('user_group_check', '=', True)]}" force_save="1" invisible="1"/>
+                        <!--                <field name="vendor_credit_limit" attrs="{'readonly': [('user_group_check', '=', True)]}"/>-->
+                        <field name="remaining_credit" invisible="1"/>
+                        <field name="warning_percentage" attrs="{'readonly': [('user_group_check', '=', True)]}"/>
+
+                        <!--                <field name="days_date" />-->
+                        <field name="warning_limit"/>
+                        <field name="check_credit_kg" invisible="0"/>
+                        <field name="over_credit" attrs="{'readonly': [('user_group_check', '=', True)]}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

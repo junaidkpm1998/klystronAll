@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record model="crm.stage" id="stage_lead_potential">
+            <field name="name">Potential</field>
+        </record>
+        <record model="crm.stage" id="stage_lead_hot">
+            <field name="name">Hot</field>
+        </record>
+        <record model="crm.stage" id="stage_lead_cloased">
+            <field name="name">Closed</field>
+        </record>
+        <record model="crm.stage" id="stage_lead_lost">
+            <field name="name">Lost</field>
+            <field name="active">False</field>
+        </record>
+          <record model="crm.stage" id="stage_lead_restore">
+            <field name="name">Restore</field>
+            <field name="active">False</field>
+        </record>
+    </data>
+</odoo>

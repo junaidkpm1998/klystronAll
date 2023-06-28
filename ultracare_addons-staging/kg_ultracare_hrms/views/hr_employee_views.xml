@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="hr_employee_form_ot_eligible" model="ir.ui.view">
+            <field name="name">hr.ot.eligible</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="company_country_code" position="after">
+                    <field name="probation_completion_date" force_save="1"/>
+                </field>
+                <field name="coach_id" position="after">
+                    <field name="staff_type" force_save="1"/>
+                    <field name="ot_eligible" force_save="1" attrs="{'invisible': [('staff_type','!=','labour')]}"/>
+                    <field name="shift_type" force_save="1" attrs="{'invisible': [('staff_type','!=','labour')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

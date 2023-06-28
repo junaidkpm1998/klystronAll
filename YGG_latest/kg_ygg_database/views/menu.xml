@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="ygg_menu" name="YGG"
+                  action="action_ygg_config" sequence="50"/>
+        <menuitem id="ygg_orders" name="Orders" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_orders_order" sequence="1"/>
+        <menuitem id="menu_legacy" name="Legacy" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_orders_order" sequence="2"/>
+        <menuitem id="menu_rewards" name="Rewards" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_orders_order" sequence="3"/>
+
+        <menuitem id="ygg_topups" name="TopUps" parent="kg_ygg_database.menu_rewards"
+                  action="action_ygg_topup" sequence="2"/>
+        <menuitem id="action_ygg_payment" name="Corporate Payment" parent="kg_ygg_database.menu_legacy"
+                  action="action_ygg_payment_table" sequence="2"/>
+        <menuitem id="ygg_transaction" name="Checkout Transaction" parent="kg_ygg_database.menu_rewards"
+                  action="action_ygg_transaction" sequence="2"/>
+        <menuitem id="corporate_gift_table" name="Corporate Gift" parent="kg_ygg_database.menu_rewards"
+                  action="action_rewards_corporate_gift" sequence="4"/>
+        <menuitem id="ygg_commission_configuration" name="Commission" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_commission_conf" sequence="100"/>
+        <menuitem id="ygg_configuration" name="Configuration" parent="kg_ygg_database.ygg_menu"
+                  action="action_ygg_table" sequence="100"/>
+
+        <menuitem name="Settings" id="menu_settings_conf_ygg"
+              parent="ygg_configuration" action="action_booking_config_settings" sequence="1"/>
+
+        <menuitem id="ygg_config" name="Configure Database" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_config" sequence="2"/>
+
+        <menuitem id="ygg_table" name="YGG Table" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_table" sequence="3"/>
+
+        <menuitem id="ygg_currency" name="Currency" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_currency" sequence="4"/>
+
+        <menuitem id="ygg_country" name="Country" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_country" sequence="5"/>
+
+        <menuitem id="ygg_content_type" name="Content Type" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_content_type" sequence="6"/>
+
+        <menuitem id="ygg_business_level_category" name="Business Level Category" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_business_level_category" sequence="7"/>
+
+        <menuitem id="ygg_business_level_subcategory" name="Business Level SubCategory" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_business_level_subcategory" sequence="8"/>
+
+        <menuitem id="ygg_corporate_category" name="Corporate Category" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_corporate_category" sequence="9"/>
+        <menuitem id="ygg_gift_table" name="Gift Tables" parent="kg_ygg_database.menu_legacy"
+                  action="action_ygg_gift_table" sequence="10"/>
+
+        <menuitem id="ygg_brand_commission" name="Brand Commission" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_brand_commission" sequence="11"/>
+        <menuitem id="ygg_corporate_region" name="Corporate Region" parent="kg_ygg_database.ygg_configuration"
+                  action="action_ygg_corporate_region" sequence="12"/>
+
+
+        <record id="action_brand_product" model="ir.actions.act_window">
+            <field name="name">Brand Products</field>
+            <field name="res_model">product.product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_brand','=', True)]</field>
+            <field name="context">{
+                    'default_is_brand': True,
+            }
+            </field>
+        </record>
+
+        <menuitem id="ygg_brand_products" name="Brand Products" parent="kg_ygg_database.ygg_configuration"
+                  action="action_brand_product" sequence="13"/>
+
+    </data>
+</odoo>

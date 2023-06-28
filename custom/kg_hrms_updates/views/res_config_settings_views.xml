@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_employee" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.employee.document</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='hr']//div[@name='employees_setting_container']//div[@id='presence_control_setting']"
+                       position="inside">
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Salary Heads</span>
+                        <div class="content-group">
+                            <div class="d-flex">
+                                <field name="salary_head_ids" widget="many2many_tags"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+

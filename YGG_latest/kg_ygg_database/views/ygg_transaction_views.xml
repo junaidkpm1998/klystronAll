@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_transaction_tree" model="ir.ui.view">
+            <field name="name">ygg.transaction.tree</field>
+            <field name="model">ygg.transaction</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Transaction">
+                    <field name="customer_name"/>
+                    <field name="customer_email"/>
+                    <field name="currency" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="created_on"/>
+                    <field name="modified_on"/>
+                    <field name="amount"/>
+                    <field name="response_summary"/>
+                    <field name="payment_method"/>
+                    <field name="payment_scheme"/>
+                    <field name="card_bin"/>
+                    <field name="card_last4"/>
+                    <field name="object_id"/>
+                    <field name="content_type_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_transaction_form" model="ir.ui.view">
+            <field name="name">ygg.transaction.form</field>
+            <field name="model">ygg.transaction</field>
+            <field name="arch" type="xml">
+                <form string="Checkout Transactions">
+                    <header>
+                        <!--                        <button name="run_manually" type="object" string="Connect" class="oe_highlight"/>-->
+                        <field name="status" widget="statusbar" statusbar_visible="pending,completed"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_name"/>
+                                <field name="customer_email"/>
+                                <field name="currency_id"/>
+                                <field name="currency" invisible="1"/>
+                                <field name="created_on"/>
+                                <field name="modified_on"/>
+                                <field name="amount"/>
+                                <field name="response_summary"/>
+                            </group>
+                            <group>
+                                <field name="payment_method"/>
+                                <field name="payment_scheme"/>
+                                <field name="card_bin"/>
+                                <field name="card_last4"/>
+                                <field name="object_id"/>
+                                <field name="content_type_id"/>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="db_name" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_transaction" model="ir.actions.act_window">
+            <field name="name">Checkout Transactions</field>
+            <field name="res_model">ygg.transaction</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

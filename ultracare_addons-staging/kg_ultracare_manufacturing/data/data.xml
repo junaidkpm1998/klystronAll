@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="sales_forecast_sequence" model="ir.sequence">
+            <field name="name">sales.forecast.sequence</field>
+            <field name="code">sales_forecast.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">SF</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="production_planning_sequence" model="ir.sequence">
+            <field name="name">production.planning.sequence</field>
+            <field name="code">production.planning.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">PP</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="seq_kg_prod_transfer" model="ir.sequence">
+            <field name="name">kg.product.transfer</field>
+            <field name="code">kg.product.transfer</field>
+            <field name="prefix">PT-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_sales_forecast" model="ir.sequence">
+            <field name="name">sales.forecast</field>
+            <field name="code">kg.sales.forecast</field>
+            <field name="prefix">SF/</field>
+            <field name="padding">4</field>
+        </record>
+        <record id="seq_manufacturing_lot" model="ir.sequence">
+            <field name="name">manufacturing.lot</field>
+            <field name="code">manufacturing.lot</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="company_id"  eval="False"/>
+        </record>
+        <record id="stock_location_normal_wastage_wh" model="stock.location">
+            <field name="name">Normal Wastage</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">inventory</field>
+            <field name="company_id"></field>
+            <field name="active" eval="True"/>
+        </record>
+        <record id="stock_location_abnormal_wastage_wh" model="stock.location">
+            <field name="name">Abnormal Wastage</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+            <field name="usage">inventory</field>
+            <field name="company_id"></field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

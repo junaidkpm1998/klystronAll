@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+        <record id="kg_event_event_views_inherit" model="ir.ui.view">
+            <field name="name">kg.event.event</field>
+            <field name="model">event.event</field>
+            <field name="inherit_id" ref="event.view_event_form"/>
+            <field name="arch" type="xml">
+                <field name="date_begin" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_end" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_event_registration_views_inherit" model="ir.ui.view">
+            <field name="name">kg.event.registration</field>
+            <field name="model">event.registration</field>
+            <field name="inherit_id" ref="event.view_event_registration_form"/>
+            <field name="arch" type="xml">
+                <field name="date_closed" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="create_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_event_mail_views_inherit" model="ir.ui.view">
+            <field name="name">kg.event.mail</field>
+            <field name="model">event.mail</field>
+            <field name="inherit_id" ref="event.view_event_mail_form"/>
+            <field name="arch" type="xml">
+                <field name="scheduled_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_event_mail_views_inherit_tree" model="ir.ui.view">
+            <field name="name">kg.event.mail.tree</field>
+            <field name="model">event.mail</field>
+            <field name="inherit_id" ref="event.view_event_mail_tree"/>
+            <field name="arch" type="xml">
+                <field name="scheduled_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

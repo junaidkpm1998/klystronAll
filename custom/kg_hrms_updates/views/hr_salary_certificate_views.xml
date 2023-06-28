@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="hr_salary_certificate_form_view" model="ir.ui.view">
+        <field name="name">hr.salary.certificate.form</field>
+        <field name="model">hr.salary.certificate</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="create_request" string="Confirm" type="object" class="btn-primary" states="draft"/>
+                    <button name="print_salary" string="Print" type="object" states="confirm"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="department_id"/>
+                            <field name="employee_type"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="requested_date"/>
+                            <field name="last_working_date"/>
+                            <field name="employee_print_count" invisible="1"/>
+                            <field name="user_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="hr_salary_certificate_tree">
+        <field name="name">hr.salary.certificate.tree</field>
+        <field name="model">hr.salary.certificate</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="salary_certificate_rule" model="ir.rule">
+        <field name="name">Salary certificate</field>
+        <field name="model_id" ref="model_hr_salary_certificate"/>
+        <field name="domain_force">[('create_uid','=',user.id)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="hr_salary_certificate" model="ir.actions.act_window">
+        <field name="name">Salary Certificate</field>
+        <field name="res_model">hr.salary.certificate</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="hr_salary_certificate_menu" name="Salary Certificate" parent="hr.menu_hr_root"
+              action="hr_salary_certificate"/>
+
+</odoo>

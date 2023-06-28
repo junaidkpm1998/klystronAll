@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_travel_management" model="ir.actions.act_window">
+        <field name="name">Travel Management</field>
+        <field name="res_model">travel.management</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '!=', 'expired')]</field>
+    </record>
+    <record id="travel_management_search" model="ir.ui.view">
+        <field name="name">travel.management.search</field>
+        <field name="model">travel.management</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <filter string="Confirmed" name="todo" domain="[('state','=','confirm')]"/>
+                <filter string="Expired" name="todo" domain="[('state','=','expired')]"/>
+                <filter string="Bus" name="todo" domain="[('service_id','=','bus')]"/>
+                <filter string="Train" name="todo" domain="[('service_id','=','train')]"/>
+                <filter string="Flight" name="todo" domain="[('service_id','=','flight')]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Destination location" name="dest_location_id"
+                            context="{'group_by': 'dest_location_id'}"/>
+                    <filter string="Date" name="date" context="{'group_by': 'date'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="travel" model="ir.ui.view">
+        <field name="name">travel.management.tree</field>
+        <field name="model">travel.management</field>
+        <field name="arch" type="xml">
+            <tree string="tree" default_order="date">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="service_id"/>
+                <field name="date" string="Date"/>
+                <field name="source_location_id" string="Source location"/>
+                <field name="dest_location_id" string="Destination location"/>
+            </tree>
+        </field>
+    </record>
+    <record id="travel2" model="ir.ui.view">
+        <field name="name">travel.management.form</field>
+        <field name="model">travel.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button string="Confirm" type="object" name="to_confirm" class="oe_highlight"
+                            attrs="{'invisible': [('state','!=','draft')]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="customer_id" string="Customer"/>
+                        <field name="no_passengers" string="no: passengers"/>
+                        <field name="service_id" string="Service" options="{'no_create': True}"/>
+                        <field name="booking_date" string="Booking date"/>
+                        <field name="expiration_date" attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <field name="source_location_id" string="Source location"/>
+                        <field name="dest_location_id" string="Destination location"/>
+                        <field name="date" string="Date"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <data>
+        <record id="seq_travel_management" model="ir.sequence">
+            <field name="name">Travel Management</field>
+            <field name="code">travel.management</field>
+            <field name="prefix">TM</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

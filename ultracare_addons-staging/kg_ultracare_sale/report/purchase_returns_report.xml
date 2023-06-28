@@ -1,0 +1,384 @@
+<odoo>
+    <data>
+        <template id="purchase_returns_debit_note">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="header">
+                            <table class='table table-borderless table-condensed table-hover'
+                                   style='width:100%;margin:5pt;'>
+                                <tr>
+                                    <td width="60%">
+                                        <img t-if='doc.company_id.logo' t-att-src='image_data_uri(doc.company_id.logo)'
+                                             alt='Logo'/>
+                                    </td>
+                                    <td style='width:40%'>
+                                        <b>
+                                            <span t-field='doc.company_id.name' style="color: #00BFFF;font-size:30"/>
+                                        </b>
+                                        <br/>
+                                        <t t-if='doc.company_id.city'>
+                                            <span t-field='doc.company_id.city' style='font-size:13'/>,
+                                        </t>
+                                        <t t-if='doc.company_id.state_id.name'>
+                                            <span t-field='doc.company_id.state_id.name' style='font-size:13'/>,
+                                        </t>
+                                        <t t-if='doc.company_id.country_id.name'>
+                                            <span t-field='doc.company_id.country_id.name' style='font-size:13'/>
+                                        </t>
+                                        <t t-if='doc.company_id.phone'>
+                                            <br/>
+                                            Tel.
+                                            <span t-field='doc.company_id.phone'/>|
+                                        </t>
+                                        <t t-if='doc.company_id.mobile'>
+                                            Fax.
+                                            <span t-field='doc.company_id.mobile'/>
+                                        </t>
+                                        <br/>
+                                        <t t-if='doc.company_id.zip'>
+                                            PO Box:
+                                            <span t-field='doc.company_id.zip'/>|
+                                        </t>
+                                        <t t-if='doc.company_id.website'>
+                                            <span t-field='doc.company_id.website'/>
+                                        </t>
+                                        <br/>
+                                        <t t-if='doc.company_id.vat'>
+                                            TRN:
+                                            <span t-field='doc.company_id.vat'/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <center style="font-size:20">
+                                    <h5>
+                                        <b>TAX DEBIT NOTE (PUR. RETURN)</b>
+                                    </h5>
+                                </center>
+                            </table>
+                        </div>
+                        <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;border-bottom: 1px solid black;border-top: 1px solid black;'>
+                            <tr>
+                                <td style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;"
+                                    colspan="2">
+                                    <span>
+                                        <b>
+                                            Supplier Code
+                                        </b>
+                                    </span>
+                                </td>
+                                <td
+                                        style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.partner_id.customer_code"/>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            Voucher No
+                                        </b>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            :
+                                        </b>
+                                    </span>
+                                </td>
+                                <td style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;"
+                                    colspan="2">
+                                    <span>
+                                        <b>
+                                            Supplier Name
+                                        </b>
+                                    </span>
+                                </td>
+                                <td
+                                        style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            Date
+                                        </b>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            :
+                                        </b>
+                                    </span>
+                                </td>
+                                <td style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;"
+                                    colspan="2">
+                                    <span>
+                                        <b>
+                                            Supplier Address
+                                        </b>
+                                    </span>
+                                </td>
+                                <td
+                                        style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <t t-if="doc.partner_id.street">
+                                        <span t-field="doc.partner_id.street" style="font-size:13"/>,
+                                    </t>
+                                    <t t-if="doc.partner_id.street2">
+                                        <span t-field="doc.partner_id.street2" style="font-size:13"/>,
+                                    </t>
+                                    <t t-if="doc.partner_id.city">
+                                        <span t-field="doc.partner_id.city" style="font-size:13"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="doc.partner_id.state_id.name">
+                                        <span t-field="doc.partner_id.state_id.name" style="font-size:13"/>,
+                                    </t>
+                                    <t t-if="doc.partner_id.country_id.name">
+                                        <span t-field="doc.partner_id.country_id.name" style="font-size:13"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            Inv Ref #
+                                        </b>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            :
+                                        </b>
+                                    </span>
+                                </td>
+                                <td style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                   <span t-field="doc.ref"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span>
+                                        <b>
+                                            Supplier TRN No
+                                        </b>
+                                    </span>
+                                </td>
+                                <td colspan="2"
+                                    style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.partner_id.vat"/>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            Page No
+                                        </b>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        <b>
+                                            :
+                                        </b>
+                                    </span>
+                                </td>
+                                <td style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span class="page"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;"
+                                    colspan="2">
+                                    <span>
+                                        <b>
+                                            Tel :
+                                        </b>
+                                    </span>
+                                </td>
+                                <td
+                                        style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span t-field="doc.partner_id.phone"/>
+                                </td>
+                                <td>
+                                    <span>
+                                    </span>
+                                </td>
+                                <td>
+                                </td>
+                                <td style="border-right:1px solid #484848;padding-right:5px;vertical-align: middle;">
+                                    <span></span>
+                                </td>
+                            </tr>
+                            <tr style="border:1px solid black;border-collapse:collapse;height:5mm;">
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Sl #</b>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Item Code</b>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Description</b>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Quantity</b>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Unit Price</b>
+                                </td>
+                                <td align="center"
+                                    style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <b>Amount</b>
+                                </td>
+                            </tr>
+                            <t t-set='j' t-value='1'/>
+                            <t t-foreach='doc.invoice_line_ids' t-as='line'>
+                                <tr>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <span t-esc='j'/>
+                                        <t t-set='j' t-value='j+1'/>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <span t-field='line.product_id.default_code'/>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <t t-if="doc.description == 'description'">
+                                            <span t-field="line.name"/>
+                                        </t>
+                                        <t t-if="doc.description == 'alternate_des'">
+                                            <span t-field="line.alternate_description"/>
+                                        </t>
+                                        <t t-if="doc.description == 'invoice_des'">
+                                            <span t-field="line.invoice_description"/>
+                                        </t>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <span t-field='line.quantity'/>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <span t-field='line.price_unit'/>
+                                    </td>
+                                    <td align="center"
+                                        style="border:1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                        <span t-esc="'{:,.2f}'.format(line.price_subtotal)"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="len(doc.invoice_line_ids)&lt;25">
+                                <tr t-foreach="range(25-len(doc.invoice_line_ids))" t-as="k"
+                                    style="height: 20px">
+                                    <td style="border-right:1px solid #484848;border-left:1px solid #484848;text-align:left;padding:5px"/>
+                                    <td style="border-right:1px solid #484848;text-align:left;padding:5px"/>
+                                    <td style="border-right:1px solid #484848;text-align:left;padding:5px"/>
+                                    <td style="border-right:1px solid #484848;text-align:left;padding:5px"/>
+                                    <td style="border-right:1px solid #484848;text-align:left;padding:5px"/>
+                                    <td style="border-right:1px solid #484848;text-align:left;padding:5px"/>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="5" align="right"
+                                    style="border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span>
+                                        <b>
+                                            Item Total
+                                        </b>
+                                    </span>
+                                </td>
+                                <td align="center"
+                                    style="border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span t-esc="'{:,.2f}'.format(doc.amount_untaxed)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" align="right"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span>
+                                        <b>
+                                            Discount
+                                        </b>
+                                    </span>
+                                </td>
+                                <td align="center"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <!--                                        <span t-field="doc.amount_untaxed"/>-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" align="right"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span>
+                                        <b>
+                                            VAT
+                                        </b>
+                                    </span>
+                                </td>
+                                <td align="center"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span t-esc="'{:,.2f}'.format(doc.amount_tax)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" align="right"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848;border-bottom: 1px solid black;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span>
+                                        <b>
+                                            Grand Total
+                                        </b>
+                                    </span>
+                                </td>
+                                <td align="center"
+                                    style="border-right:1px solid #484848;border-bottom: 1px solid black;border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 10pt;">
+                                    <span t-esc="'{:,.2f}'.format(doc.amount_total)"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="left"
+                                    style="border-left:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 8pt;">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                        <b>
+                                            RECEIVER SIGNATURE
+                                        </b>
+                                    </span>
+                                </td>
+                                <td align="left" colspan="3"
+                                    style="border-right:1px solid #484848;border-left:1px solid #484848border-bottom:1px solid #484848;padding-right:5px;vertical-align: middle;font-size: 13pt;">
+                                    <span>
+                                        <br/>
+                                        <br/>
+                                        <b>
+                                            For
+                                            <span t-field="doc.company_id.name"/>
+                                        </b>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

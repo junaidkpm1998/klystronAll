@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_book_details" model="ir.actions.act_window">
+        <field name="name">Book Details</field>
+        <field name="res_model">book.details</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="book_details_search" model="ir.ui.view">
+        <field name="name">book.details.search</field>
+        <field name="model">book.details</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="serial_number"/>
+                <field name="isbn"/>
+                <filter string="Is Available" name="todo" domain="[('is_available','=','True')]"/>
+                <group expand="0" string="Category">
+                    <filter string="Category" name="category"
+                            context="{'group_by': 'category'}"/>
+                    <filter string="Publisher" name="publisher" context="{'group_by': 'publisher'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_book_details_tree" model="ir.ui.view">
+        <field name="name">book.detail.tree</field>
+        <field name="model">book.details</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="isbn"/>
+                <field name="serial_number"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="action_book_details_form" model="ir.ui.view">
+        <field name="name">book.detail.form</field>
+        <field name="model">book.details</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="image"/>
+                            <field name="author_ids" widget="many2many_tags"/>
+                            <field name="category"/>
+                            <field name="isbn"/>
+                            <field name="publisher"/>
+                            <field name="serial_number"/>
+                            <field name="published_date"/>
+                        </group>
+                        <group>
+                            <field name="is_available"/>
+                            <field name="partner_id"/>
+                            <field name="current_user_id"/>
+                            <field name="book_price"/>
+                            <field name="inv_ref"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page string="Extra info" name="extra_info">
+                            <field name="extra_info"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+</odoo>

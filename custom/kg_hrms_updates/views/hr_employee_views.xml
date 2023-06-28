@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_employee_from_inherited">
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']"
+                   position="after">
+                <field name="designation_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='public']/div[@id='o_work_employee_container']/div[@id='o_work_employee_main']/group[@name='managers']"
+                   position="after">
+                <group name="promotion" string="Promotion">
+                    <group>
+                        <field name="is_promoted"/>
+                    </group>
+                    <group>
+                        <field name="is_transfer"/>
+                    </group>
+                </group>
+            </xpath>
+            <field name="birthday"
+                   position="after">
+                <field name="age"/>
+                <field name="blood_group"/>
+            </field>
+            <field name="passport_id" position="after">
+                <field name="passport_issue"/>
+                <field name="passport_expiry_date"/>
+                <field name="insurance_no"/>
+                <field name="insurance_issue_date"/>
+                <field name="insurance_expiry_date"/>
+                <field name="contract_expiry_date"/>
+                <field name="residency_no"/>
+                <field name="manpower_reg_no"/>
+                <!--                <field name="dependents"/>-->
+                <field name="attachment_ids" widget="many2many_binary"/>
+            </field>
+            <field name="address_home_id" position="after">
+                   position="after">
+                <field name="local_address"/>
+            </field>
+
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="name" placeholder="First Name"/>
+                <field name="last_name" placeholder="Last Name"/>
+                <field name="initials" placeholder="Initial"/>
+
+            </xpath>
+            <xpath expr="//field[@name='job_title']" position="before">
+                <field name="nick_name" placeholder="Sur Name"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='bank_account_id']" position="after">
+                <field name="bank_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='hr_settings']/group/group/field[@name='employee_type']"
+                   position="after">
+                <field name="employee_no"/>
+                <field name="experience"/>
+                <field name="employee_status"/>
+                <field name="date_of_joining"/>
+                <field name="year_of_employment"/>
+                <field name="resign_termination_retirement_date"/>
+                <field name="grade_id"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='hr_settings']/group" position="inside">
+                <group name="vehicle" string="Vehicle">
+                        <field name="vehicle_id"/>
+                        <field name="travel_ticket_type"/>
+                        <field name="no_of_tickets_per_year"/>
+
+                </group>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='hr_settings']" position="after">
+                <page name="add_info" string="Add info">
+                    <field name="additional_remarks" string="Note" placeholder="Type an internal note"/>
+                </page>
+            </xpath>
+            <xpath expr="//notebook/page[@name='add_info']" position="before">
+                <page name="employee_dependents" string="Employee Dependents">
+                    <field name="dependents_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="relationship"/>
+                            <field name="dob"/>
+                            <field name="blood_group"/>
+                            <field name="gender"/>
+                            <field name="occupation"/>
+                            <field name="phone"/>
+                            <field name="passport_no"/>
+                        </tree>
+                        <form string="Add Dependents" name="add_dependents">
+                            <sheet string="Add Dependents">
+                                <group>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="relationship"/>
+                                        <field name="dob"/>
+                                        <field name="blood_group"/>
+                                        <field name="gender"/>
+                                        <field name="occupation"/>
+                                        <field name="phone"/>
+                                        <field name="passport_no"/>
+                                        <field name="nationality"/>
+                                        <field name="passport_issue_date"/>
+                                    </group>
+                                    <group>
+                                        <field name="passport_expiry_date"/>
+                                        <field name="visa_issue_date"/>
+                                        <field name="visa_expiry_date"/>
+                                        <field name="resident_card_issue_date"/>
+                                        <field name="resident_card_expiry_date"/>
+                                        <field name="insurance_no"/>
+                                        <field name="insurance_issue_date"/>
+                                        <field name="insurance_expiry_date"/>
+                                        <field name="currency_id" invisible="1"/>
+                                        <field name="education_allowance" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <field name="frequency_of_education_allowance"/>
+                                        <field name="document_ids" widget="many2many_binary"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

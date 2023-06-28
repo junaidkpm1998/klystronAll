@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="manpower_request_menu"
+                  name="Manpower Request"
+                  parent="hr_recruitment.menu_hr_recruitment_root"
+                  action="action_manpower_request_menu"/>
+        <menuitem id="recruitment_grades_menu"
+                  name="Grades"
+                  parent="hr_recruitment.menu_hr_recruitment_config_jobs"
+                  action="action_recruitment_grades_menu"/>
+    </data>
+</odoo>

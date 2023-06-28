@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sub_crm,sub.crm,model_sub_crm,,1,1,1,1
+access_score_card_detail,score_card_detail,model_score_card_detail,,1,1,1,1
+access_product_user,sale.order,model_sale_order,stock.group_stock_user,1,1,1,1
+access_sales_report_wizard,sales_report_wizard,model_sales_report_wizard,,1,1,1,1
+access_customer_analysis_report_wizard,customer_analysis_report_wizard,model_customer_analysis_report_wizard,,1,1,1,1
+access_sale_analysis_report_wizard,sale_analysis_report_wizard,model_sale_analysis_report_wizard,,1,1,1,1
+access_sales_details_report_wizard,sales_details_report_wizard,model_sales_details_report_wizard,,1,1,1,1
+access_sales_return_form,sales.return.form,model_sales_return_form,base.group_user,1,1,1,1
+access_sales_return_form_line,sales.return.form.line,model_sales_return_form_line,base.group_user,1,1,1,1
+access_sales_return_reason_form,sales.return.reason.form,model_sales_return_reason_code,base.group_user,1,1,1,1
+access_profitability_analysis_report_wizard,profitability_analysis_report_wizard,model_profitability_analysis_report_wizard,,1,1,1,1
+access_sales_register_report_wizard,sales_register_report_wizard,model_sales_register_report_wizard,,1,1,1,1
+access_sales_location,sales_location,model_sale_location,,1,1,1,1
+access_sales_destination_location,sales_destination_location,model_sale_destination_location,,1,1,1,1
+

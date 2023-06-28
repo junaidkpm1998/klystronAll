@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="quotation_into_invoice_server_action" model="ir.actions.server">
+            <field name="name">Convert Into Invoice</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = model.kg_action_convert_invoice()</field>
+        </record>
+
+        <record id="action_view_sale_advance_payment_inv" model="ir.actions.act_window">
+        <field name="name">Create invoices</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.advance.payment.inv</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sale_order_form_inherit_id" model="ir.ui.view">
+            <field name="name">Sale Order Inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button type="object" string="Print Report" name="print_sale_report"/>
+                </xpath>
+                <xpath expr="//field[@name='client_order_ref']" position="after">
+                    <field name="lang"/>
+                </xpath>
+                <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                    <field name="sale_type" widget="selection"
+                           attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                    <field name="b2c_type"
+                           attrs="{'readonly': [('state','!=', 'draft')],'invisible':[('sale_type','!=', 'b2c')]}"/>
+                    <field name="corporate_category"
+                           attrs="{'readonly': [('state','!=', 'draft')],'invisible':[('sale_type','!=', 'b2b')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="partner_currency_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_kg_sale_order_form" model="ir.ui.view">
+            <field name="name">kg.sale.order.form</field>
+            <field name="model">kg.sale.order</field>
+            <field name="arch" type="xml">
+                <form string="Sale Order">
+                    <header>
+                        <button name="action_draft" states="cancel"
+                                string="Reset" type="object"/>
+                        <button name="action_confirm" states="draft"
+                                string="Confirm" type="object"/>
+                        <button name="action_cancel" states="draft,sale"
+                                string="Cancel" type="object"/>
+                        <button name="action_done" states="sale"
+                                string="Done" type="object"/>
+                        <field
+                                name="state"
+                                widget="statusbar"
+                                statusbar_visible="draft,sale,done"
+                                statusbar_colors='{"approved":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <div class="oe_edit_only">
+                            <label for="name" class="oe_inline"/>
+                        </div>
+                        <h1>
+                            <field
+                                    name="name"
+                                    class="oe_inline" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="reference"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="sale_type" widget="selection"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="b2c_type"
+                                       attrs="{'readonly': [('state','!=', 'draft')],'invisible':[('sale_type','!=', 'b2c')]}"/>
+                                <field name="corporate_category"
+                                       attrs="{'readonly': [('state','!=', 'draft')],'invisible':[('sale_type','!=', 'b2b')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="date_order"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="validity_date"
+                                       attrs="{'readonly': [('state','!=', 'draft')]}"/>
+                                <field name="payment_term_id"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Quotation Details">
+                                <field name="order_line">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="partner_id"/>
+                                        <field name="currency_id"/>
+                                        <field name="vendor_id"/>
+                                        <field name="country_id"/>
+                                        <field name="maf"/>
+                                        <field name="activity"/>
+                                        <field name="promotion_program"/>
+                                        <field name="tax_id" invisible="1"/>
+                                        <field name="price_total"/>
+                                    </tree>
+                                </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group colspan="4">
+                                        <field name="note" class="oe-bordered-editor" nolabel="1"
+                                               placeholder="Terms and conditions..."/>
+                                    </group>
+                                    <group class="oe_subtotal_footer oe_right" colspan="2">
+                                        <div class="oe_subtotal_footer_separator oe_inline">
+                                            <label for="total_amount"/>
+                                        </div>
+                                        <field
+                                                name="total_amount"
+                                                nolabel="1"
+                                                class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                    <div class="oe_clear"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_purchase_request_tree" model="ir.ui.view">
+            <field name="name">kg.sale.order.tree</field>
+            <field name="model">kg.sale.order</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_order" optional="show"/>
+                    <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                    <field name="company_id" widget="selection" optional="hide"/>
+                    <field name="sale_type" optional="show"/>
+                    <field name="total_amount" optional="show"/>
+                    <field name="state" widget="badge"
+                           decoration-success="state in ('done', 'approved')"
+                           decoration-muted="state == 'draft'"
+                           decoration-danger="state == 'rejected'"
+                    />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_kg_sale_orders" model="ir.actions.act_window">
+            <field name="name">Coupon Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.sale.order</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new quotation, the first step of a new sale!
+                </p>
+                <p>
+                    Once the quotation is confirmed, it becomes a sales order.
+                    <br/>
+                    You will be able to create an invoice and collect the payment.
+                </p>
+            </field>
+        </record>
+
+
+        <!-- Top menu item -->
+        <menuitem id="kg_sale_menu_root"
+                  name="KG Sales"
+                  web_icon="kg_ygg_sales,static/description/sale_logo.png"
+                  sequence="30"/>
+
+        <menuitem id="kg_sale_order_menus"
+                  name="Orders"
+                  parent="kg_sale_menu_root"
+                  sequence="2"/>
+        <menuitem id="kg_sale_config_menu"
+                  name="Configuration"
+                  parent="kg_sale_menu_root"
+                  sequence="30"/>
+
+        <menuitem id="kg_menu_sale_quotation"
+                  name="Coupon Orders"
+                  action="action_kg_sale_orders"
+                  parent="sale.sale_order_menu"
+                  sequence="2"/>
+
+    </data>
+</odoo>

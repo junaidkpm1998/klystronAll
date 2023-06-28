@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record id="res_users_crm" model="ir.ui.view">
+            <field name="name">Users Salesman Code Inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='security']" position="after">
+                    <page string="Other Info">
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="sale_man_code"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="company_inherit_view_bank_details" model="ir.ui.view">
+            <field name="name">res.company.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Bank Details">
+                        <group>
+                            <group>
+                                <field name="account_number"/>
+                                <field name="bank"/>
+                                <field name="branch"/>
+                            </group>
+                            <group>
+                                <field name="beneficiary"/>
+                                <field name="iban_no"/>
+                                <field name="swift_code"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

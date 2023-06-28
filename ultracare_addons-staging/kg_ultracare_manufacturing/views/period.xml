@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="kg_period_preview">
+            <field name="name">kg.period.ultracare</field>
+            <field name="model">kg.period</field>
+            <field name="arch" type="xml">
+                <tree string="Period Tree">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="period_form">
+            <field name="name">period.ultracare.form</field>
+            <field name="model">kg.period</field>
+            <field name="arch" type="xml">
+                <form string="Period Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date_from"/>
+                            </group>
+                            <group>
+                                <field name="date_to"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+         <record id="kg_period_menu_action" model="ir.actions.act_window">
+            <field name="name">Period</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.period</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The First Period</p>
+            </field>
+        </record>
+        <menuitem id="kg_period" parent="mrp.menu_mrp_configuration" name="Period"
+                  action="kg_period_menu_action"/>
+    </data>
+</odoo>

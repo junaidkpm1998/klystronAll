@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">res.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='property_account_payable_id']" position="after">
+                    <field name="selling_rate"/>
+                    <field name="buying_rate"/>
+                    <field name="unique_id"/>
+                    <field name="corporate_region_id"/>
+                    <field name="business_level_categ_id"/>
+                    <field name="business_level_subcateg_id"/>
+                    <field name="corporate_categ_id"/>
+                    <field name="topup_account_id"/>
+                    <field name="currency_id" invisible="1"/>
+                </xpath>
+                <page name="sales_purchases" position="after">
+                    <page string="Order Details">
+                        <field name="order_table_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="partner_id" invisible="1"/>
+                                <field name="unique_id"/>
+                                <field name="order_date"/>
+                                <field name="order_ref"/>
+                                <field name="gift_type"/>
+                                <field name="coupon_no"/>
+                                <field name="coupon_value"/>
+                                <field name="status"/>
+                                <field name="region"/>
+                                <field name="sales_region"/>
+                                <field name="currency_rate"/>
+                                <field name="currency_id"/>
+                                <field name="payment_status"/>
+                            </tree>
+                        </field>
+                    </page>
+<!--                    <page string="Payment Details">-->
+<!--                        <field name="payment_table_ids" nolabel="1">-->
+<!--                            <tree editable="bottom">-->
+<!--                                <field name="partner_id" invisible="1"/>-->
+<!--                                <field name="unique_id"/>-->
+<!--                                <field name="payment_date"/>-->
+<!--                                <field name="order_ref"/>-->
+<!--                                <field name="gift_type"/>-->
+<!--                                <field name="gift_id"/>-->
+<!--                                <field name="coupon_value"/>-->
+<!--                                <field name="point_redeem"/>-->
+<!--                                <field name="status"/>-->
+<!--                                <field name="gateway_fees"/>-->
+<!--                                <field name="currency_rate"/>-->
+<!--                                <field name="currency_id"/>-->
+<!--                                <field name="payment_status"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>

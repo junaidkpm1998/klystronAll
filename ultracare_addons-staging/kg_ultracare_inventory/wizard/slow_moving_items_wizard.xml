@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="slow_moving_item_menu_action" model="ir.actions.act_window">
+            <field name="name">Slow Moving Items</field>
+            <field name="res_model">slow.moving.item.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_slow_moving_item_id"
+                  name="Slow Moving Items"
+                  action="slow_moving_item_menu_action"
+                  parent="kg_ultracare_inventory.menu_reporting_config_inventory"/>
+
+        <record id="slow_moving_item_wizard_view" model="ir.ui.view">
+            <field name="name">Slow Moving Item Wizard</field>
+            <field name="model">slow.moving.item.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                            <field name="less_sales_qty" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_slow_moving_item"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

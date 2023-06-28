@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="automatic_so_wizard_view" model="ir.ui.view">
+        <field name="name">automatic.po.wizard.form</field>
+        <field name="model">automaticpo.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Automatic wizard">
+                <group>
+                    <group position="left">
+                        <field name="customer_id"/>
+                        <field name="quantity"/>
+                        <field name="product_id"/>
+                    </group>
+                    <group position="right">
+                        <field name="price"/>
+                        <field name="total_price"/>
+
+                    </group>
+                </group>
+                <group>
+                    <footer>
+                        <button name="automatic_po_confirm" string="Confirm" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+
+                    </footer>
+
+                </group>
+            </form>
+        </field>
+    </record>
+
+</odoo>

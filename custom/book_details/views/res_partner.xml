@@ -1,0 +1,32 @@
+<odoo>
+    <record id="res_partner_book_owner" model="ir.ui.view">
+        <field name="name">res.partner.book.field.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="book_owner" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="need_invoice" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="before">
+                <field name="need_dn" optional="show"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="need_invoice_button" type="object" string="invoice" class="oe_highlight"
+                            attrs="{'invisible': [('need_invoice','!=',True)]}"/>
+                    <button name="need_dn_button" type="object" string="Delivery" class="oe_highlight"
+                            attrs="{'invisible': [('need_dn','!=',True)]}"/>
+                </header>
+
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_sale_order']" position="before">
+                <button name="show_reservation" type="object" string="Reservation" class="oe_highlight"
+                        icon="far fa-address-card"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

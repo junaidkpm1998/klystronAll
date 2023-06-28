@@ -1,0 +1,210 @@
+<odoo>
+    <data>
+        <template id="ac_aging_analysis_tem">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right"/>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>AGING ANALYSIS (Receivables)</b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td>
+                                <span>
+                                    As On:
+                                </span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span>
+                                    <span t-esc="data['date_from']"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;border-bottom:1px solid #484848;border-top:1px solid #484848;border-right:1px solid #484848;border-left:1px solid #484848;">
+                    <thead>
+                        <tr width="100%" style="font-size:10;">
+                            <td width="7%" style="border-right:1px solid #484848;" align="center">
+                                <span>
+                                    <b>Date</b>
+                                </span>
+                            </td>
+                            <td width="7%" style="border-right:1px solid #484848;" align="center">
+                                <span>
+                                    <b>Type</b>
+                                </span>
+                            </td>
+                            <td width="7%" style="border-right:1px solid #484848;" align="center">
+                                <span>
+                                    <b>DocNo.</b>
+                                </span>
+                            </td>
+                            <td width="7%" style="border-right:1px solid #484848;" align="center">
+                                <span>
+                                    <b>Ref No.</b>
+                                </span>
+                            </td>
+                            <td width="7%" style="border-right:1px solid #484848;" align="center">
+                                <span>
+                                    <b>Ref Date</b>
+                                </span>
+                            </td>
+                            <td width="28%" colspan="4" align="center"
+                                style="border-right:1px solid #484848;border-bottom:1px solid #484848;">
+                                <span>
+                                    <b>
+                                        INVOICE AGING
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <b>
+                                    <span>
+                                        Paid Amt
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <b>
+                                    <span>
+                                        Balance
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <b>
+                                    <span>
+                                        Cum Balance
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="7%" align="center">
+                                <b>
+                                    <span>
+                                        PDC Amt
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                        <tr width="100%" style="font-size:10;border-bottom:1px solid #484848;">
+                            <td width="7%" style="border-right:1px solid #484848;"/>
+                            <td width="7%" style="border-right:1px solid #484848;"/>
+                            <td width="7%" style="border-right:1px solid #484848;"/>
+                            <td width="7%" style="border-right:1px solid #484848;"/>
+                            <td width="7%" style="border-right:1px solid #484848;"/>
+                            <t t-foreach="range(int(data['0']['range'])-1, -1, -1)" t-as="heading_item">
+                                <td class="text-right" style="border-right:1px solid #484848;" align="center">
+                                    <t t-set="value" t-value="data[str(heading_item)]['name']"/>
+                                    <b>
+                                        <span t-esc="value"/>
+                                    </b>
+                                </td>
+                            </t>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <span>
+                                    <b>
+                                        <span t-esc="currency_id"/>
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <span>
+                                    <b>
+                                        <span t-esc="currency_id"/>
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <span>
+                                    <b>
+                                        <span t-esc="currency_id"/>
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                <span>
+                                    <b>
+                                        <span t-esc="currency_id"/>
+                                    </b>
+                                </span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_partner_lines" t-as="partner">
+                            <tr width="100%" style="font-size:10;">
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                </td>
+                                <t t-foreach="range(int(partner['range_count'])-1, -1, -1)" t-as="data_item">
+                                    <td class="text-right" style="border-right:1px solid #484848;" align="center">
+                                        <t t-set="value" t-value="partner[str(data_item)]"/>
+                                        <span t-esc="'%.2f'% value"/>
+                                    </td>
+                                </t>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                    <span t-esc="'%.2f'% partner['paid_ttl_amt']"/>
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                    <span t-esc="'%.2f'% partner['total']"/>
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+
+                                </td>
+                                <td width="7%" align="center" style="border-right:1px solid #484848;">
+                                    <span t-esc="'%.2f'% partner['pdc_ttl_amt']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+            </t>
+        </template>
+    </data>
+</odoo>

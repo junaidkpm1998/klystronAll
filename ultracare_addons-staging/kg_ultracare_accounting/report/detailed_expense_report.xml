@@ -1,0 +1,278 @@
+<odoo>
+    <data>
+        <template id="detailed_expense_tem_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%" align="left" style="font-size:13px;">
+                                <span>Date</span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left">
+                                <span>
+                                    Page
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    Page
+                                    <span><![CDATA[&nbsp;]]></span>
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left"/>
+                            <td width="5%"/>
+                            <td width="15%" align="left">
+                                <!--                                <span>-->
+                                <!--                                    Page-->
+                                <!--                                    <span><![CDATA[&nbsp;]]></span>-->
+                                <!--                                    Page-->
+                                <!--                                    <span><![CDATA[&nbsp;]]></span>-->
+                                <!--                                    <span class="page"/>-->
+                                <!--                                    of-->
+                                <!--                                    <span class="topage"/>-->
+                                <!--                                </span>-->
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%%" align="center" colspan="4">
+                                <u>
+                                    <b>Detailed Expense Report From
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        To
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </b>
+                                </u>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr style="border-top: 1px solid black;;;width:100%">
+                            <td style="border-top: 1px solid black;" colspan="6"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;" align="center">
+                            <td width="15%">
+                                <b>Date</b>
+                            </td>
+                            <td width="15%">
+                                <b>Code</b>
+                            </td>
+                            <td width="20%">
+                                <b>Account Name</b>
+                            </td>
+                            <td width="30%">
+                                <b>Description</b>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%">
+                                <b>Amount</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;;;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="15%" align="center">
+                                <span t-esc="data['date']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                            </td>
+                            <td width="15%" align="center">
+                                <span t-esc="data['code']"/>
+                            </td>
+                            <td width="20%" align="center">
+                                <span t-esc="data['account_name']"/>
+                            </td>
+                            <td width="30%" align="center">
+                                <span t-esc="data['description']"/>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%" align="center">
+                                <span t-esc="'{:,.2f}'.format(data['amount'])"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="80%" colspan="4" align="right">
+                                <b>
+                                    <span>
+                                        Expense Head Total
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="80%" colspan="4" align="right">
+                                <b>
+                                    <span>
+                                        Expense Group Total
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="80%" colspan="4" align="right">
+                                <b>
+                                    <span>
+                                        Grand Total
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                            <td width="15%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="85%" colspan="5"/>
+                            <td style="border-bottom: 1px solid black;" width="15%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

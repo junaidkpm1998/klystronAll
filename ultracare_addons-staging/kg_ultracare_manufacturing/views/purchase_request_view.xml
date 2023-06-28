@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_kg_purchase_req_tree" model="ir.ui.view">
+            <field name="name">kg.purchase.req.tree</field>
+            <field name="model">kg.purchase.req</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Requisition" create="true">
+                    <field name="kg_sf_id" string="Forecast No" readonly="1" optional="hide"/>
+                    <field name="production_planning" string="Production planning No" readonly="1"/>
+                    <field name="kg_product" readonly="1"/>
+                    <field name="kg_product_uom" readonly="1" optional="hide"/>
+                    <field name="kg_date" readonly="1" string="Created Date" invisible="1"/>
+                    <field name="required_date" invisible="1"/>
+                    <field name="kg_qty" readonly="1"/>
+                    <field name="notes" invisible="1"/>
+                    <field name="rfq_id" string="Purchase Agreement"/>
+                    <field name="kg_available_qty"/>
+                    <field name="purchasing_qty"/>
+                    <button name="action_open_po" string="Open PR" type="object"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_kg_purchase_req_form" model="ir.ui.view">
+            <field name="name">kg.purchase.req</field>
+            <field name="model">kg.purchase.req</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Requisition" create="true">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,pa_created"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="kg_product" required="1"/>
+                                <field name="kg_product_uom"/>
+                                <field name="rfq_id" readonly="1" force_save="1"/>
+                            </group>
+                            <group>
+                                <field name="kg_date"/>
+                                <field name="required_date"/>
+                                <field name="kg_qty"/>
+                                <field name="location_id"/>
+                            </group>
+                        </group>
+                        <field name="notes"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_kg_purchase_req" model="ir.actions.act_window">
+            <field name="name">Purchase Requisition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.purchase.req</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+        <menuitem action="action_view_kg_purchase_req" id="menu_purchase_rfq_kg"
+                  parent="purchase.menu_procurement_management"/>
+    </data>
+</odoo>

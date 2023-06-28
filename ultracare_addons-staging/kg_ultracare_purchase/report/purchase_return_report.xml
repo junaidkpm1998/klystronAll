@@ -1,0 +1,150 @@
+<odoo>
+    <data>
+        <template id="purchase_return_report">
+            <t t-call="web.html_container">
+                <style>.table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <span>P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state"><span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="25%" align="right">
+                                <span>PageNo.
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:15px;">
+                            <b>
+                                PURCHASE RETURN
+                            </b>
+                        </center>
+                    </div>
+                    <table class='table table-borderless'>
+                        <tr width="100%" style="font-size:12px;">
+                            <td>
+                                <b>
+                                    <span>Date From :
+                                    </span>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        To
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table class='table table-bordered'>
+                    <thead>
+                        <tr width="100%" style="font-size:17px;">
+                            <td width="20%" style="border-bottom: 1px solid black;">
+                                Item Code
+                            </td>
+                            <td width="20%" style="border-bottom: 1px solid black;">
+                                Description
+                            </td>
+                            <td width="10%" style="border-bottom: 1px solid black;">
+                                Job
+                            </td>
+                            <td width="10%" style="border-bottom: 1px solid black;">
+                                Unit
+                            </td>
+                            <td width="10%" style="border-bottom: 1px solid black;">
+                                Qty
+                            </td>
+                            <td width="20%" style="border-bottom: 1px solid black;">
+                                Rate
+                            </td>
+                            <td width="10%" style="border-bottom: 1px solid black;">
+                                Amount
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom: 1px solid black;">
+                                Bill NO
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Date
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Ref.No
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Party
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Currency
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Amount
+                            </td>
+                            <td style="border-bottom: 1px solid black;">
+                                Amount DHS
+                            </td>
+                        </tr>
+                    </thead>
+
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="row mb4" align="right">
+                    <div class="col-4">
+                        <tr>
+                            <td align="right">
+                                Item Total :
+<!--                                <span t-esc="currency_id"/>-->
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="col-4">
+                        <tr>
+                            <td align="right">
+                                Addictions/Deductions :
+<!--                                <span t-esc="amount"/>-->
+                            </td>
+                        </tr>
+                    </div>
+                    <div class="col-4">
+                        <tr>
+                            <b>
+                                <td align="right">
+                                    Net Amount :
+<!--                                    <span t-esc="amount"/>-->
+                                </td>
+                            </b>
+                        </tr>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

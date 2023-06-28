@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <template id="pdc_checklist_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="left"/>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>PDC CHECK LIST From
+                                <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                To
+                                <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>( Sort By :
+                                All )
+                            </b>
+                        </center>
+                    </div>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="20%" align="left">
+                                <b>Trno</b>
+                            </td>
+                            <td width="10%" align="center">
+                                <b>Date</b>
+                            </td>
+                            <td width="30%" colspan="2" align="center">
+                                <b>Cheque No &amp; Date</b>
+                            </td>
+                            <td width="30%" align="center">
+                                <b>Description</b>
+                            </td>
+                            <td width="10%" align="center">
+                                <b>Amount</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="6"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <t t-if="data['type'] == 'data'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="20%" align="left">
+                                    <span t-esc="data['trno']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span t-esc="data['date']" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="20%" align="center">
+                                    <span t-esc="data['cheque_no']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <span t-esc="data['cheque_date']"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </td>
+                                <td width="30%" align="center">
+                                    <span t-esc="data['description']"/>
+                                </td>
+                                <td width="10%" align="center">
+                                    <t t-if="data['amount']">
+                                        <span t-esc="'{:,.2f}'.format(data['amount'])"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'amount'">
+                            <tr width="100%" style="font-size:13px;">
+                                <td width="90%" align="left" colspan="5"/>
+                                <td width="10%" align="center">
+                                    <b>
+                                        <span t-esc="'{:,.2f}'.format(data['sum_amount'])"/>
+                                    </b>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

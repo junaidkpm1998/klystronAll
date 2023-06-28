@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="material_requisition_form" model="ir.ui.view">
+        <field name="name">material.requisition.form</field>
+        <field name="model">material.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Material Requisition" class="material Requistion">
+
+                <header>
+                    <button name="action_confirm" class="oe_highlight" states="draft" string="Confirm" type="object"/>
+                    <button name="action_approve" groups="stock.group_stock_manager" class="oe_highlight" states="done"
+                            string="Approve" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,approve,close" readonly="1"/>
+                    <button name="action_close" groups="mrp.group_mrp_user" class="oe_highlight" states="approve"
+                            string="Close" type="object"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="transfer_counts" invisible="1"/>
+                        <button name="view_picking" attrs="{'invisible': [('transfer_counts', '=', 0)]}"
+                                class="oe_stat_button" icon="fa-arrows-v" type="object" help="List view of operations">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Transfer</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title pr-0" name="title">
+                        <h1 class="d-flex flex-row justify-content-between">
+                            <field name="name" class="text-truncate" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="source_location_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="dest_location_id" string="Destination Location"
+                                   attrs="{'readonly':[('state','!=','draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="requisition_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="user_id" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Material Requisition" name="material_requisition">
+                            <field name="requisition_line_ids" attrs="{'readonly':[('state','!=','draft')]}">
+                                <tree string="Material Requisition" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="uom_id" string="Unit of Measure"/>
+                                    <field name="qty_requested" string="Requested Qty"/>
+                                    <field name="qty_received" string="Received Qty"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="material_requisition_tree" model="ir.ui.view">
+        <field name="name">material.requisition.tree</field>
+        <field name="model">material.requisition</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <tree string="Material Requisition">
+                <field name="name"/>
+                <field name="source_location_id"/>
+                <field name="dest_location_id"/>
+                <field name="requisition_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="material_requisition_action" model="ir.actions.act_window">
+        <field name="name">Material Requisition Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">material.requisition</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                There is no material requisition to show. Let's create one!
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="material_requisitions_menu" name="Material Requesition" sequence="20"
+              parent="mrp.menu_mrp_manufacturing"
+              action="material_requisition_action" groups="mrp.group_mrp_user"/>
+
+    <record id="stock_picking_destination_inherit" model="ir.ui.view">
+        <field name="name">stoc.picking.destination.kg.ultracare</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="backorder_id" position="after">
+                <field name="destination"/>
+                <field name="invoice_document" readonly="1" force_save="1"/>
+                <field name="is_validate" invisible="1"/>
+                <field name="is_invoice" invisible="1"/>
+            </field>
+            <xpath expr="//button[@name='button_validate']" position="after">
+                <button name="kg_create_invoice" string="Create Invoice" type="object" class="oe_highlight"
+                        attrs="{'invisible':['|',('is_validate','=',False),('is_invoice','=',True)]}"/>
+            </xpath>
+            <xpath expr="//page[@name='operations']/button[@name='action_put_in_pack']" position="replace">
+                <button class="oe_highlight" name="action_put_in_pack" type="object" string="Put in Pack"
+                        data-hotkey="shift+g" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='detailed_operations']/button[@name='action_put_in_pack']" position="replace">
+                <button class="oe_highlight" name="action_put_in_pack" type="object" string="Put in Pack"
+                        data-hotkey="shift+g" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

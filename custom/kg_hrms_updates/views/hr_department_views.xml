@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_department_from_inherited">
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="model">hr.department</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='company_id']" position="after">
+                <field name="promoted_employee_count"/>
+                <field name="employee_transfer"/>
+                <field name="omani_expat_ratio"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

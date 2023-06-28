@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="stock_picking_ultracare_do_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.do.grn.kg.ultracare</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_document']" position="after">
+                    <field name="do_grn_description"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_open_multiple_delivery_order_validation"
+                model="ir.actions.act_window">
+            <field name="name">Delivery Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('state','=','assigned'),('picking_type_id.sequence_code','=', 'OUT')]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Transfers
+                </p>
+            </field>
+        </record>
+        <record id="action_kg_validate_transfer" model="ir.actions.server">
+            <field name="name">Validate Multiple</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_validate_picking()</field>
+        </record>
+        <menuitem id="menu_stock_picking_inventory_ultracare"
+                  action="action_open_multiple_delivery_order_validation" parent="sale.sale_menu_root"
+                  name="Multi Delivery Order" sequence="10" groups="kg_ultracare_inventory.inventory_confirm_grp"/>
+    </data>
+</odoo>

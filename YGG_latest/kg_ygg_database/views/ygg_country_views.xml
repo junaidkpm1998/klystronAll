@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_country_tree" model="ir.ui.view">
+            <field name="name">ygg.country.tree</field>
+            <field name="model">ygg.country</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Country">
+                    <field name="name"/>
+                    <field name="iso_code"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_country_form" model="ir.ui.view">
+            <field name="name">ygg.country.form</field>
+            <field name="model">ygg.country</field>
+            <field name="arch" type="xml">
+                <form string="Country">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="iso_code"/>
+                            </group>
+                            <group>
+                                <field name="country_id"/>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="db_name" invisible="1"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_country" model="ir.actions.act_window">
+            <field name="name">Country</field>
+            <field name="res_model">ygg.country</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

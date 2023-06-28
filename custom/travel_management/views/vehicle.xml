@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_travel_management_vehicle" model="ir.actions.act_window">
+        <field name="name">Travel Management Vehicle</field>
+        <field name="res_model">tm.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    <record id="view_name_calendar" model="ir.ui.view">-->
+    <!--        <field name="name">Vehicle Calendar</field>-->
+    <!--        <field name="model">tm.vehicle</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <calendar string="Calendar View" date_start="date_field_name" date_stop="date_field_name">-->
+    <!--                <field name="field_1"/>-->
+    <!--                <field name="field_2"/>-->
+    <!--                &lt;!&ndash; Add more fields as needed &ndash;&gt;-->
+    <!--            </calendar>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+
+    <record id="travel_vehicle_tree_view" model="ir.ui.view">
+        <field name="name">tm.vehicle.tree</field>
+        <field name="model">tm.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="reg_no"/>
+                <field name="no_seat"/>
+                <field name="vehicle_types"/>
+            </tree>
+        </field>
+    </record>
+    <record id="travel_vehicle_form_view" model="ir.ui.view">
+        <field name="name">tm.vehicle.form</field>
+        <field name="model">tm.vehicle</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <b>
+                            <field name="name"/>
+                        </b>
+                    </group>
+                    <group>
+
+                        <field name="reg_no"/>
+                        <field name="no_seat"/>
+                        <field name="vehicle_types"/>
+                        <field name="facilities" widget="many2many_tags"/>
+
+                    </group>
+                    <notebook>
+                        <page string="Vehicle Charges" name="vehicle_charges">
+                            <field name="vehicle_charges" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="service"/>
+                                    <field name="quantity"/>
+                                    <field name="unit"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

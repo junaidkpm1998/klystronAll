@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_division_master_view" model="ir.actions.act_window">
+        <field name="name">Division Master</field>
+        <field name="res_model">division.master</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_division_master_tree" model="ir.ui.view">
+        <field name="name">division.master.tree</field>
+        <field name="model">division.master</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="head_title"/>
+                <field name="division"/>
+                <field name="role"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_division_master_form" model="ir.ui.view">
+        <field name="name">division.master.form</field>
+        <field name="model">division.master</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="head_title"/>
+                            <field name="role"/>
+                            <field name="division"/>
+                        </group>
+                        <group>
+                            <field name="department" widget="many2many_tags"/>
+                            <field name="department_code"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <menuitem id="division_master_menu"
+              name="Division Master"
+              parent="hr.menu_config_employee"
+              action="action_division_master_view"
+              sequence="9"/>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_applicant_from_inherited">
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="model">hr.applicant</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_cc']" position="after">
+                <field name="gender"/>
+                <field name="martial_status"/>
+                <field name="nationality_id"/>
+                <field name="certificate" widget="binary"/>
+                <field name="experience"/>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="after">
+                <field name="attachment_ids" widget="many2many_binary"/>
+                <field name="remarks"/>
+            </xpath>
+            <xpath expr="//field[@name='availability']" position="after">
+                <field name="manpower_requisition_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

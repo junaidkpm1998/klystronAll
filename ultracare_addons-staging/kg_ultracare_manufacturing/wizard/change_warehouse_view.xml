@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data>
+      <record id="change_warehouse_view" model="ir.ui.view">
+         <field name="name">change.warehouse.wizard.form</field>
+         <field name="model">change.warehouse.wizard</field>
+         <field name="arch" type="xml">
+            <form string="Change Warehouse">
+               <group>
+                  <group>
+                     <field name="warehouse_id"  required="1" />
+                  </group>
+                  <group>
+]                  </group>
+               </group>
+               <footer>
+                  <button string="Change" name="change_warehouse"  class="oe_highlight"  type="object"/>
+                  or
+                  <button special="cancel" string="Cancel" type="object"/>
+                </footer>
+            </form>
+         </field>
+      </record>
+      <record id="action_change_warehouse_wizard" model="ir.actions.act_window">
+         <field name="name">Change Warehouse</field>
+         <field name="res_model">change.warehouse.wizard</field>
+         <field name="view_mode">form</field>
+         <field name="view_id" ref="change_warehouse_view"/>
+         <field name="target">new</field>
+      </record>
+   </data>
+</odoo>

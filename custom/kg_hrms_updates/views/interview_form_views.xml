@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_employee_interview_form" model="ir.actions.act_window">
+        <field name="name">Employee Interview Form</field>
+        <field name="res_model">interview.form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="action_employee_interview_tree_view" model="ir.ui.view">
+        <field name="name">interview.form.tree</field>
+        <field name="model">interview.form</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="interview_form"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_employee_interview_form_view" model="ir.ui.view">
+        <field name="name">interview.form.form</field>
+        <field name="model">interview.form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="interview_form"/>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>

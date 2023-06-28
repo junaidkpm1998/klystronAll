@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="production_planning_confirmation_email" model="mail.template">
+            <field name="name">Production Planning Confirmation</field>
+            <field name="model_id" ref="kg_ultracare_manufacturing.model_production_planning"/>
+            <field name="email_from">{{object.create_uid.company_id.email}}</field>
+            <field name="email_to">{{object.create_uid.email}}</field>
+            <field name="subject">{{object.create_uid.company_id.name}} Production Planning (Ref {{object.name}})
+            </field>
+            <field name="description">Sent to Salesperson on Production Planning confirmation</field>
+            <field name="body_html" type="html">
+                <div style="line-height: 28px;">
+                    Hello,
+                    <b>
+                        <t t-out="object.create_uid.name"/>
+                    </b>
+                    <br/>
+                    <span>
+                        Your Production Planning for
+                        <span t-out="object.name"/>
+                        is successfully completed.
+                    </span>
+                    <br/>
+                    <span>
+                        Do not hesitate to contact us if you have any questions.
+                    </span>
+                    <div>Thanks,</div>
+                    <span>---</span>
+                    <br/>
+                    <span t-out="object.create_uid.company_id.name"/>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

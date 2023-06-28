@@ -1,0 +1,250 @@
+<odoo>
+    <data>
+        <record id="sub_crm_action" model="ir.actions.act_window">
+            <field name="name">Sub Stages</field>
+            <field name="res_model">sub.crm</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="crm_sub_stage_menu"
+                  name="Sub Stages"
+                  parent="crm.menu_crm_config_lead" action="sub_crm_action"/>
+
+        <record model="ir.ui.view" id="sub_crm_tree">
+            <field name="name">Sub Stages Tree</field>
+            <field name="model">sub.crm</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="full_stage"/>
+                    <field name="default_substage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="sub_crm_form">
+            <field name="name">Sub Stages Form</field>
+            <field name="model">sub.crm</field>
+            <field name="arch" type="xml">
+                <form string="Stage">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="e.g. Sub-Stages"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="parent_pipeline"/>
+                                <field name="full_stage" readonly="1"/>
+                                <field name="is_won_substage"/>
+                            </group>
+                            <group>
+                                <field name="default_substage"/>
+                                <field name="folder_in_pipeline_substage"/>
+                            </group>
+                        </group>
+                        <separator string="Requirements"/>
+                        <field name="requirements_substage" nolabel="1"
+                               placeholder="Give your team the requirements to move an opportunity to this sub-stage."/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="subtage_lead" model="ir.ui.view">
+            <field name="name">SubStage Lead</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="substage_id" domain="[('parent_pipeline','=',stage_id)]"/>
+                </xpath>
+                <xpath expr="//field[@name='lead_properties']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="closed_date_new" widget="date"/>
+                    <field name="date_action_last" widget="date"/>
+                    <field name="date_last_stage_update" widget="date"/>
+                    <field name="lead_stage" invisible="1"/>
+                    <field name="is_lost" invisible="1"/>
+                    <field name="checklist_stage" invisible="1" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//page[@name='lead']" position="after">
+                    <page string="Checklist">
+                        <field name="checklist" placeholder="Add a Checklist..."/>
+                    </page>
+                    <page string="Score Card Details">
+                        <field name="score_card_line_ids" options="{'no_create': True}">
+                            <tree create="0">
+                                <field name="crm_id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="days"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <field name="date_closed" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_open" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_conversion" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="check_list_lead" model="ir.ui.view">
+            <field name="name">Check List Lead</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <separator/>
+                    <field name="checklist" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_tree" model="ir.ui.view">
+            <field name="name">CRM Lead Tree</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='contact_name']" position="before">
+                    <field name="partner_name"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="kg_crm_lead_activity_search_view" model="ir.ui.view">
+            <field name="name">KG CRM Lead Activity Search View</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='lost']" position="after">
+                    <filter string="Today's Activities" name="activities_today"
+                            domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_action_today_activities" model="ir.actions.act_window">
+            <field name="name">Today's Activities</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">tree,kanban,graph,pivot,calendar,form,activity</field>
+            <field name="view_id" ref="crm.crm_lead_view_list_activities"/>
+            <field name="domain">[('activity_ids','!=',False)]</field>
+            <field name="search_view_id" ref="crm.view_crm_case_my_activities_filter"/>
+            <field name="context">{'default_type': 'opportunity',
+                'search_default_activities_today': 1}
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Looks like nothing is planned.
+                </p>
+                <p>
+                    Schedule activities to keep track of everything you have to do.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="todays_activities_menu"
+                  name="Today's Activities"
+                  parent="crm.crm_menu_sales" action="crm_lead_action_today_activities" sequence="2"/>
+
+        <record id="crm_probaility_hide" model="ir.ui.view">
+            <field name="name">CRM Lead Probability Inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]/h2" position="replace">
+                    <h2 class="o_row g-0 align-items-end">
+                        <div class="col" attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <label for="expected_revenue" class="oe_edit_only"/>
+                            <div class="o_row">
+                                <field name="company_currency" invisible="1"/>
+                                <field name="expected_revenue" class="oe_inline" widget='monetary'
+                                       options="{'currency_field': 'company_currency'}"/>
+                                <span class="oe_grey p-2" groups="crm.group_use_recurring_revenues">+</span>
+                                <span class="oe_grey p-2" groups="!crm.group_use_recurring_revenues" invisible="1">at
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col" invisible="1"
+                             groups="crm.group_use_recurring_revenues">
+                            <div class="o_row">
+                                <field name="recurring_revenue" class="pe-2 oe_inline" widget="monetary"
+                                       options="{'currency_field': 'company_currency'}"/>
+                            </div>
+                        </div>
+                        <div class="col" invisible="1"
+                             groups="crm.group_use_recurring_revenues">
+                            <div class="o_row">
+                                <field name="recurring_plan" class="oe_inline" placeholder="E.g. Monthly"
+                                       attrs="{'required': [('recurring_revenue', '!=', 0)]}"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <span class="oe_grey p-2">at</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="oe_edit_only d-flex align-items-center" invisible="1">
+                                <label for="probability"/>
+                                <button class="btn btn-link" name="action_set_automated_probability" type="object"
+                                        attrs="{'invisible': [('is_automated_probability', '=', True)]}">
+                                    <i class="fa fa-gear" role="img" title="Switch to automatic probability"
+                                       aria-label="Switch to automatic probability"/>
+                                </button>
+                                <small class="oe_grey h6 mb0"
+                                       attrs="{'invisible': [('is_automated_probability', '=', True)]}">
+                                    <field class="mb0" name="automated_probability" force_save="1"/>
+                                    %
+                                </small>
+                            </div>
+                            <div id="probability" class="o_row d-flex" invisible="1">
+                                <field name="is_automated_probability" invisible="1"/>
+                                <field name="probability" widget="float" class="oe_inline"/>
+                                <span class="oe_grey">%</span>
+                            </div>
+                        </div>
+                    </h2>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="kg_calendar_event_inherit" model="ir.ui.view">
+            <field name="name">kg.calendar.event.inherit</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <field name="start" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="stop" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_knowledge_article_inherit" model="ir.ui.view">
+            <field name="name">kg.knowledge.article.inherit</field>
+            <field name="model">knowledge.article</field>
+            <field name="inherit_id" ref="knowledge.knowledge_article_view_form"/>
+            <field name="arch" type="xml">
+                <field name="last_edition_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

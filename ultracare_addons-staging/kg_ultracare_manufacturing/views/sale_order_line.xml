@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="kg_sales_order_line" model="ir.ui.view">
+            <field name="name">kg.sale.order.line</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet" position="before">
+                    <header>
+                        <button name="action_create_sf"
+                                class="oe_highlight"
+                                string="Create Sales Forecast"
+                                type="object"/>
+                        <button class="oe_stat_button" type="object" name="action_open_sales_forecast"
+                                icon="fa-book" string="Sales Forecast"/>
+                    </header>
+                </xpath>
+
+
+            </field>
+        </record>
+        <record id="action_kg_sales_forecast_create" model="ir.actions.server">
+            <field name="name">Create Sales Forecast</field>
+            <field name="model_id" ref="sale.model_sale_order_line"/>
+            <field name="binding_model_id" ref="sale.model_sale_order_line"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_create_sf()</field>
+        </record>
+        <record id="action_sales_order_line_manufacturing"
+                model="ir.actions.act_window">
+            <field name="name">Sales Order Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('state','=','sale'),('kg_sf_line','=',False)]
+            </field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Sales Order Line
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_sale_order_line_manufacturing"
+                  action="action_sales_order_line_manufacturing" parent="sale.sale_menu_root"
+                  name="Sale Order Line" sequence="10"/>
+        <record id="sale_order_line_expected_date" model="ir.ui.view">
+            <field name="name">Sales Order Line Expected Date</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="field[@name='name']" position="after">
+                    <field name="expected_delivery"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

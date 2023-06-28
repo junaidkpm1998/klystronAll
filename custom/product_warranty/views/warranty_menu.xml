@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--        main menu-->
+        <menuitem id="menu_root" name="Product Warranty">
+            <menuitem id="product_warranty_configuration_menu" name="Configuration">
+                <menuitem id="model_menu_action" action="product_warranty_action"/>
+            </menuitem>
+        </menuitem>
+        <menuitem id="product_warranty_report"
+                  name="Product Warranty Report" parent="product_warranty_configuration_menu"
+                  action="product_warranty_wizard"/>
+
+    </data>
+</odoo>

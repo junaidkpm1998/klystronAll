@@ -1,0 +1,317 @@
+<odoo>
+    <data>
+        <template id="profitability_analysis_report_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    <b>
+                                        P.O. BOX :
+                                    </b>
+                                </span>
+                                <b>
+                                    <span t-esc="company_zip"/>
+                                </b>
+                                <t t-if="company_state">
+                                    <b>
+                                        <span t-esc="company_state"/>,
+                                    </b>
+                                </t>
+                                <t t-if="company_country">
+                                    <b>
+                                        <span t-esc="company_country"/>
+                                    </b>
+                                </t>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td>
+                                <span style="font-size:20px;">
+                                    <b>
+                                        Profitability Report
+                                    </b>
+                                </span>
+                                <span><![CDATA[&nbsp;]]><![CDATA[&nbsp;]]></span>
+                                <span style="font-size:13px;color:#800000;">Group by ...</span>
+                                <b>
+                                    <span style="font-size:14px;color:#993399;">Party,Group,Category ,*InvoiceDate
+                                        Between*:
+                                    </span>
+
+                                    <span style="font-size:14px;color:#993399;">
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        and
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%">
+                            <td style="font-size:10" align="center" width="15%"/>
+                            <td style="font-size:10" align="center" width="2%"/>
+                            <td style="font-size:10" align="center" width="25%"/>
+                            <td style="font-size:10" align="center" width="10%">
+                                <b>Inv. Qty</b>
+                            </td>
+                            <td style="font-size:10" align="center" width="2%"/>
+                            <td style="font-size:10" align="center" width="10%">
+                                <b>Inv Amount</b>
+                            </td>
+                            <td style="font-size:10" align="center" width="2%"/>
+                            <td style="font-size:10" align="center" width="10%">
+                                <b>Cost of sale</b>
+                            </td>
+                            <td style="font-size:10" align="center" width="2%"/>
+                            <td style="font-size:10" align="center" width="10%">
+                                <b>Profit</b>
+                            </td>
+                            <td style="font-size:10" align="center" width="2%"/>
+                            <td style="font-size:10" align="center" width="10%">
+                                <b>Profit %</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="12"/>
+                        </tr>
+                        <tr width="100%">
+                            <td colspan="12" width="100%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td colspan="12" width="100%"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <t t-if="data['type'] == 'customer'">
+                            <tr width="100%">
+                                <td style="font-size:13;background-color:#bfbfbf;" align="center" width="15%">
+                                    <t t-if="data['customer_code'] != 'FALSE'">
+                                        <span t-esc="data['customer_code']" style="color:#800000;"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10;"
+                                    align="center" width="2%"/>
+                                <td align="center" width="25%" style="font-size:13;background-color:#bfbfbf;">
+                                    <t t-if="data['customer_name'] != 'FALSE'">
+                                        <b>
+                                            <span t-esc="data['customer_name']" style="color:#800000;"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td style="font-size:13;" align="center" width="58%" colspan="9"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                        </t>
+                        <t t-if="data['type'] == 'data'">
+                            <t t-if="data['product_group']!= 'FALSE'">
+                                <tr width="100%">
+                                    <td style="font-size:13;background-color:#001a66;" align="center" width="15%">
+                                        <t t-if="data['product_group_code'] != 'FALSE'">
+                                            <span t-esc="data['product_group_code']"/>
+                                        </t>
+                                    </td>
+                                    <td style="font-size:10" align="center" width="2%"/>
+                                    <td style="font-size:13;background-color:#001a66;" align="center" width="25%">
+                                        <t t-if="data['product_group'] != 'FALSE'">
+                                            <span t-esc="data['product_group']"/>
+                                        </t>
+                                    </td>
+                                    <td style="font-size:13" align="center" width="58%" colspan="9"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+
+                            </t>
+                            <t t-if="data['product_category']!= 'FALSE'">
+                                <tr width="100%">
+                                    <td style="font-size:13;background-color:#001a66;" align="left" width="15%">
+                                        <t t-if="data['product_category_code'] != 'FALSE'">
+                                            <span t-esc="data['product_category_code']" style="color:ffffff"/>
+                                        </t>
+                                    </td>
+                                    <td style="font-size:10" align="left" width="2%"/>
+                                    <td style="font-size:13;background-color:#001a66;" align="left" width="25%">
+                                        <t t-if="data['product_category'] != 'FALSE'">
+                                            <span t-esc="data['product_category']" style="color:ffffff"/>
+                                        </t>
+                                    </td>
+                                    <td style="font-size:13" align="center" width="58%" colspan="9"/>
+                                </tr>
+
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                                <tr width="100%">
+                                    <td colspan="12"/>
+                                </tr>
+                            </t>
+                            <tr width="100%">
+                                <td style="font-size:13;" align="left" width="15%">
+                                    <t t-if="data['product_code'] != 'FALSE'">
+                                        <span t-esc="data['product_code']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10" align="left" width="2%"/>
+                                <td style="font-size:13;" align="left" width="25%">
+                                    <t t-if="data['product_name'] != 'FALSE'">
+                                        <span t-esc="data['product_name']"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:13;" align="center" width="10%">
+                                    <t t-if="data['quantity']">
+                                        <span t-esc="'%.2f'%(data['quantity'])"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;" align="center" width="10%">
+                                    <t t-if="data['amount']">
+                                        <span t-esc="'%.2f'%(data['amount'])"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;" align="center" width="10%">
+                                    <t t-if="data['sale_amount']">
+                                        <span t-esc="'%.2f'%(data['sale_amount'])"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10" align="center" width="2%"/>
+                                <td style="font-size:13;" align="center" width="10%">
+                                    <t t-if="data['profit']">
+                                        <span t-esc="'%.2f'%(data['profit'])"/>
+                                    </t>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;" align="center" width="10%">
+                                    <t t-if="data['profit_percent']">
+                                        <span t-esc="'%.2f'%(data['profit_percent'])"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                            <tr width="100%">
+                                <td colspan="12"/>
+                            </tr>
+                        </t>
+
+                        <t t-if="data['type'] == 'amount'">
+                            <tr width="100%" style="font-size:13">
+                                <td style="font-size:13;" align="left" width="15%"/>
+                                <td style="font-size:10" align="left" width="2%"/>
+                                <td style="font-size:13;" align="left" width="25%"/>
+                                <td style="font-size:13;background-color:#001a66;" align="center" width="10%">
+                                    <span t-esc="'%.2f'%(data['sum_quantity'])" style="color:ffffff"/>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;background-color:#001a66;" align="center" width="10%">
+                                    <span t-esc="'%.2f'%(data['sum_amount'])" style="color:ffffff"/>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;background-color:#001a66;" align="center" width="10%">
+                                    <span t-esc="'%.2f'%(data['sum_sale_amount'])" style="color:ffffff"/>
+                                </td>
+                                <td style="font-size:10" align="center" width="2%"/>
+                                <td style="font-size:13;background-color:#001a66;" align="center" width="10%">
+                                    <span t-esc="'%.2f'%(data['sum_profit'])" style="color:ffffff"/>
+                                </td>
+                                <td style="font-size:10;" align="center" width="2%"/>
+                                <td style="font-size:13;background-color:#001a66;" align="center" width="10%">
+                                    <span t-esc="'%.2f'%(data['sum_profit_percent'])" style="color:ffffff"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="request_material_wizard_form_view" model="ir.ui.view">
+        <field name="name">request.material.wizard.form</field>
+        <field name="model">request.material.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Test">
+                <group class="oe_title">
+                    <field name="customer_ids" widget="many2many_tags"/>
+                </group>
+                <group>
+                    <footer>
+                        <button name="create_po" string="Submit" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="request_material_wizard_view" model="ir.actions.act_window">
+        <field name="name">Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">request.material.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

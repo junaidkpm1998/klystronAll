@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.module.category" id="product_warranty_access">
+        <field name="name">Product Warranty</field>
+        <field name="description">Product Warranty Security Groups</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="product_user_access" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="product_warranty_access"/>
+    </record>
+    <record id="product_manager_access" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="product_warranty_access"/>
+    </record>
+</odoo>
+
+
+<!--access_warranty_model,access_warranty_model,model_warranty_model,product_warranty.product_manager_access,1,1,1,1-->
+<!--access_warranty_model,access_warranty_model,model_warranty_model,product_warranty.product_user_access,1,1,1,1-->

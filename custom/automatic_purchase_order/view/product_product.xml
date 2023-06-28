@@ -1,0 +1,12 @@
+<odoo>
+    <record id="automatic_sale_order_view" model="ir.ui.view">
+        <field name="name">automatic.sale.order.form.inherited</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_label_layout']" position="before">
+                <button name="automatic_purchase_order" string="Automatic PO" class="oe_highlight" type="object"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

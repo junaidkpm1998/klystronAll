@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="hr_attendance_form_inherited">
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="model">hr.attendance</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='worked_hours']" position="after">
+                <field name="state"/>
+                <button name="btn_validate" string="Validate" type="object" icon="fa-check" groups='hr_contract.group_hr_contract_employee_manager' states="not_validate"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

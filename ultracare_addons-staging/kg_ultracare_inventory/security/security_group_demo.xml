@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <record id="inventory_confirm_grp" model="res.groups">
+            <field name="name">Inventory Confirm</field>
+            <field name="comment">This is a new group created for Inventory Confirm</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+</odoo>

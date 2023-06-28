@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="approval_notification_mail_template" model="mail.template">
+			<field name="name">Material Requisition Approved</field>
+			<field name="subject">Material Requisition Approved</field>
+			<field name="model_id" ref="kg_material_requisition.model_material_requisition"/>
+			<field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

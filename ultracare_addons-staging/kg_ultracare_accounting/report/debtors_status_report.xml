@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+        <template id="debtors_report_template_id">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        P.O. BOX :
+                                    </span>
+                                    <span t-esc="company_zip"/>
+                                    <t t-if="company_state">
+                                        <span t-esc="company_state"/>,
+                                    </t>
+                                    <t t-if="company_country">
+                                        <span t-esc="company_country"/>
+                                    </t>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <u>
+                                <b>DEBTORS STATUS REPORT AS ON
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </b>
+                            </u>
+                        </center>
+                    </div>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%" style="font-size:13px">
+                            <td width="20%" align="left">
+                                <b>A/C Description</b>
+                            </td>
+                            <td width="40%" align="center"/>
+                            <td width="20%" align="center">
+                                <b>Cr.Limit</b>
+                            </td>
+                            <td width="20%" align="center">
+                                <b>Ledger Balance</b>
+                            </td>
+                        </tr>
+                        <tr style="width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="4" width="100%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%" style="font-size:15px;background-color:#bfbfbf;">
+                            <td colspan="3" width="80%" align="left">
+                                <b>
+                                    SUNDRY DEBTORS
+                                </b>
+                            </td>
+                            <td width="20%" align="center">
+                                <span t-esc="total_due_amount"/>
+                            </td>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <tr width="100%" style="font-size:13px" align="center">
+                            <td width="20%" align="left">
+                                <span t-esc="data['customer_code']"/>
+                            </td>
+                            <td width="40%" align="left">
+                                <span t-esc="data['customer_name']"/>
+                            </td>
+                            <td width="20%">
+                                <span t-esc="'{:,.2f}'.format(data['credit_limit'])"/>
+                            </td>
+                            <td width="20%">
+                                <span t-esc="'{:,.2f}'.format(data['ledger_balance'])"/>
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <div class="footer">
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td width="80%"/>
+                            <td width="20%" align="right">
+                                <span class="page"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

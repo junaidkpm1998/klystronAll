@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="kg_edit_in_mrp_bom" model="ir.ui.view">
+            <field name="name">kg.mrpbom</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id"
+                   ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/sheet" position="before">
+                        <button name="bom_created" type="object" string="BOM Created" class="btn-primary"
+                                invisible="1"/>
+                    </xpath>
+                    <field name="code" position="after">
+                        <field name="inner_outer_pack_conf"/>
+                        <field name="outer_pack_uom"/>
+                        <field name="weight"/>
+                    </field>
+                    <xpath expr="//field[@name='product_tmpl_id']" position="attributes">
+                        <attribute name="domain">[('kg_internal_type','=','finish')]</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_id']" position="attributes">
+                        <attribute name="domain">[('kg_internal_type','=','raw')]</attribute>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='bom_line_ids']" position="before">
+                        <group>
+                            <button name="update_product_master" type="object" string="Update"/>
+                        </group>
+                    </xpath>
+                    <xpath expr="/form/sheet/notebook/page/field[@name='bom_line_ids']" position="after">
+                        <group>
+                            <field name="already_bom_created_product_ids" invisible="1"/>
+                        </group>
+                    </xpath>
+                    <field name="product_tmpl_id" position="replace">
+                        <field name="product_tmpl_id" context="{'default_type': 'product'}"
+                               domain="[('is_it_bom_created','=',False),('kg_internal_type','=','finish')]"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="open_material_req_count_id" model="ir.actions.act_window">
+            <field name="domain">[('kg_mrp_id', '=', active_id)]</field>
+            <field name="name">Material Requistion</field>
+            <field name="res_model">kg.mat.req</field>
+            <field name="context">{'default_kg_mrp_id': active_id}</field>
+        </record>
+        <record id="kg_edit_in_production_inherit" model="ir.ui.view">
+            <field name="name">Production</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_generate_serial']" position="replace">
+                    <button name="action_generate_serial" type="object"
+                            class="btn btn-primary fa fa-plus-square-o"
+                            aria-label="Creates a new serial/lot number"
+                            title="Creates a new serial/lot number" role="img" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='lot_producing_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="create_mr" type="object" string="Create M.R"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button name="open_abnormal_wastage" type="object" string="Abnormal Wastage"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm']" position="after">
+                    <button class="oe_stat_button" type="action"
+                            name="%(open_material_req_count_id)d" icon="fa-book" string="M.R">
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="date_finished" widget="date" invisible="1"/>
+                    <field name="date_start" widget="date" invisible="1"/>
+                    <field name="kg_shift_id"/>
+                    <field name="shift_master_id" invisible="1"/>
+                    <field name="production_planning_id" readonly="1" force_save="1"/>
+                    <field name="sales_forecast_id"/>
+                    <field name="kg_lot_producing_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='miscellaneous']" position="after">
+                    <page id="abnormal_wastage" string="Abnormal Wastage">
+                        <field name="abnormal_wastage_id">
+                            <tree delete="false" edit="false" create="false" no_open="true">
+                                <field name="product_id" force_save="1"/>
+                                <field name="qty" force_save="1"/>
+                                <field name="waste_qty" force_save="1"/>
+                                <field name="uom_id" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='date_planned_start']" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='delay_alert_date']" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='date_planned_finished']" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['&amp;','&amp;','&amp;','&amp;','&amp;',('state',
+                        '!=','draft'),('state', '!=','confirmed'),('state', '!=','progress'),('state',
+                        '!=','to_close'),('state', '!=','done'),('state', '!=','cancel')]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/tree//field[@name='quantity_done']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': ['&amp;','&amp;','&amp;','&amp;','&amp;',('parent.state',
+                        '!=','draft'),('parent.state', '!=','confirmed'),('parent.state',
+                        '!=','progress'),('parent.state',
+                        '!=','to_close'),('parent.state', '!=','done'),('parent.state', '!=','cancel')]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/tree//field[@name='location_id']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': ['&amp;','&amp;','&amp;','&amp;','&amp;',('parent.state',
+                        '!=','draft'),('parent.state', '!=','confirmed'),('parent.state',
+                        '!=','progress'),('parent.state',
+                        '!=','to_close'),('parent.state', '!=','done'),('parent.state', '!=','cancel')]}
+                    </attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/tree//field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.state', '=','done')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/tree//field[@name='normal_wastage']"
+                       position="attributes">
+                    <attribute name="attrs">{'readonly': [('parent.state', '=','done')]}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_raw_ids']/tree//field[@name='quantity_done']"
+                       position="after">
+                    <field name="final_qty" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

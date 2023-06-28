@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_kg_mat_req_tree" model="ir.ui.view">
+            <field name="name">kg.mat.req.tree</field>
+            <field name="model">kg.mat.req</field>
+            <field name="arch" type="xml">
+                <tree string="Material Requistion">
+                    <field name="kg_raised_by"/>
+                    <field name="create_date"/>
+                    <field name="kg_assign_to"/>
+                    <field name="kg_availability_date"/>
+                    <field name="kg_state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_kg_mat_req_form" model="ir.ui.view">
+            <field name="name">kg.mat.req.form</field>
+            <field name="model">kg.mat.req</field>
+            <field name="arch" type="xml">
+                <form string="Material Requistion">
+                    <header>
+                        <button name="create_picking_id" type="object"
+                                string="Create Picking"/>
+                        <button name="done" type="object" string="Completed"
+                                attrs="{'invisible':[('kg_state','!=','ack')]}"/>
+                        <button name="production_ack" type="object"
+                                string="Ack By Production"
+                                attrs="{'invisible':[('kg_state','!=','release')]}"/>
+                        <button name="release" type="object" string="Release"
+                                attrs="{'invisible':[('kg_state','!=','draft')]}"/>
+                        <field name="kg_state" widget="statusbar"
+                               statusbar_visible="draft,release,ack,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="object"
+                                    name="open_rfq" icon="fa-book" string="RFQ">
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="kg_raised_by" readonly="1"/>
+                                <field name="kg_availability_date" readonly="0"/>
+                                <field name="picking_id" readonly="0"/>
+                            </group>
+                            <group>
+                                <field name="kg_mrp_id"/>
+                                <field name="kg_assign_to"/>
+                                <field name="kg_production_ack_by" readonly="1"/>
+
+                            </group>
+
+                        </group>
+
+                        <group>
+
+                            <field name="kg_desc"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Lines">
+                                <field name="kg_mat_req_lines">
+                                    <tree editable="bottom">
+                                        <field name="kg_product" required="1"/>
+                                        <field name="kg_req_date" required="1"/>
+                                        <field name="kg_uom"/>
+                                        <field name="kg_qty"/>
+                                        <!-- <field name="kg_unit" /> <field name="kg_total" /> -->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_kg_mat_req" model="ir.actions.act_window">
+            <field name="name">Material Requistion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">kg.mat.req</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new Material Requistion.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_action_kg_mat_req"
+                  parent="mrp.menu_mrp_root" name="Material Requistions From" sequence="3"/>
+
+        <record id="kg_maintenance_requests_inherit" model="ir.ui.view">
+            <field name="name">kg.maintenance.request.inherit</field>
+            <field name="model">maintenance.request</field>
+            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+            <field name="arch" type="xml">
+                <field name="schedule_date" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="kg_stock_scrap_inherit" model="ir.ui.view">
+            <field name="name">kg.stock.scrap.inherit</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="arch" type="xml">
+                <field name="date_done" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

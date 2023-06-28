@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="shift_master_tree">
+            <field name="name">Shift</field>
+            <field name="model">shift.master</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Tree">
+                    <field name="name"/>
+                    <field name="start_time"/>
+                    <field name="end_time"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="shift_master_form">
+            <field name="name">shift.master.form</field>
+            <field name="model">shift.master</field>
+            <field name="arch" type="xml">
+                <form string="Shift Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" modifiers="{'required': true}"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="start_time" modifiers="{}"/>
+                                    <field name="start_am_pm" nolabel="1" modifiers="{'required': true}"/>
+                                </group>
+                                <group>
+                                    <field name="end_time" modifiers="{}"/>
+                                    <field name="end_am_pm" nolabel="1" modifiers="{'required': true}"/>
+                                </group>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="percentage_threshold" modifiers="{}"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <field name="kg_note" modifiers="{}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="shift_master_menu_action" model="ir.actions.act_window">
+            <field name="name">Shift Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shift.master</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Shift Master</p>
+            </field>
+        </record>
+        <menuitem id="shift_master" parent="mrp.menu_mrp_configuration" name="Shift"
+                  action="shift_master_menu_action"/>
+        <menuitem id="menu_action_maint4"
+                  parent="mrp.menu_mrp_root"
+                  name="Maintenance Requests" sequence="4"/>
+        <menuitem
+                id="menu_m_request_formProd"
+                name="Maintenance Requests"
+                parent="menu_action_maint4"
+                action="maintenance.hr_equipment_request_action"
+                sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <record id="res_partner_book_owner" model="ir.ui.view">
+        <field name="name">res.partner.customer.due.amount.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="accounting" position="inside">
+                <group>
+                <field name="flag" optional="show"/>
+                <field name="warning_amount"  attrs="{'invisible': [('flag','!=',True)]}"/>
+                <field name="blocking_stage" attrs="{'invisible': [('flag','!=', True)]}"/>
+
+                </group>
+
+            </page>
+
+        </field>
+    </record>
+</odoo>

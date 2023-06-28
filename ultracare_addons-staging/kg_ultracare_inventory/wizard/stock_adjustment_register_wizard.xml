@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="stock_adjustment_register_menu_action" model="ir.actions.act_window">
+            <field name="name">Stock Adjustment Register</field>
+            <field name="res_model">stock.adjustment.register.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_stock_adjustment_register_id"
+                  name="Stock Adjustment Register"
+                  action="stock_adjustment_register_menu_action"
+                  parent="kg_ultracare_inventory.menu_reporting_config_inventory"/>
+
+        <record id="stock_adjustment_register_wizard_view" model="ir.ui.view">
+            <field name="name">Stock Adjustment Register Wizard</field>
+            <field name="model">stock.adjustment.register.report.wizard</field>
+            <field name="arch" type="xml">
+                <form name="Report Options">
+                    <group>
+                        <group name="main_info">
+                            <field name="date_from" required="1"/>
+                        </group>
+                        <group name="date_to">
+                            <field name="date_to" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button
+                                name="button_stock_adjustment_register"
+                                string="Print Report"
+                                type="object"/>
+
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

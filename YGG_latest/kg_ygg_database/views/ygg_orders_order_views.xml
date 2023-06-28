@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ygg_orders_order_tree" model="ir.ui.view">
+            <field name="name">ygg.table.tree</field>
+            <field name="model">ygg.orders.order</field>
+            <field name="arch" type="xml">
+                <tree string="YGG Sales Order" decoration-success="status =='invoice'">
+                    <field name="name"/>
+                    <field name="customer_id"/>
+                    <field name="currency_id"/>
+                    <field name="country_id"/>
+                    <field name="created_on"/>
+                    <field name="modified_on"/>
+<!--                    <field name="product_id"/>-->
+                    <field name="amount"/>
+                    <field name="amount_payable"/>
+                    <field name="credit_consumed"/>
+                    <field name="service_fee"/>
+                    <field name="vat_fee"/>
+                    <field name="payment_status"/>
+                    <field name="status"/>
+<!--                    <field name="inv_status"/>-->
+                </tree>
+            </field>
+        </record>
+        <record id="ygg_orders_order_form" model="ir.ui.view">
+            <field name="name">ygg.orders.order.form</field>
+            <field name="model">ygg.orders.order</field>
+            <field name="arch" type="xml">
+                <form string="Sale Orders">
+                    <header>
+                        <!--  <button name="run_manually" type="object" string="Connect" class="oe_highlight"/>-->
+                        <field name="status" widget="statusbar" statusbar_visible="pending,completed"/>
+
+                    </header>
+                    <sheet>
+                        <div name="button_box" position="inside">
+                            <button class="oe_stat_button" type="object" name="view_sale"
+                                    icon="fa-list" string="SO">
+                            </button>
+                            <button class="oe_stat_button" type="object" name="view_payment"
+                                    icon="fa-list" string="Payment">
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('payment_status', '!=', 'paid')]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="customer_id"/>
+                                <field name="currency_id"/>
+                                <field name="country_id"/>
+                                <field name="created_on"/>
+                                <field name="modified_on"/>
+<!--                                <field name="product_id"/>-->
+                                <field name="sale_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="amount"/>
+                                <field name="amount_payable"/>
+                                <field name="credit_consumed"/>
+                                <field name="service_fee"/>
+                                <field name="vat_fee"/>
+                                <field name="ygg_record_id" invisible="1"/>
+                                <field name="db_name" invisible="1"/>
+                                <field name="payment_status" invisible="1"/>
+                                <field name="commission_entry_id" invisible="0"/>
+                            </group>
+
+                        </group>
+                        <notebook>
+                            <page name="Orderline">
+                                <field name="order_lines">
+                                    <tree editable="bottom">
+                                        <field name="order_id" invisible="1"/>
+                                        <field name="product_id"/>
+                                        <field name="product_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="sub_total" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_ygg_orders_order" model="ir.actions.act_window">
+            <field name="name">YGG Sales Order</field>
+            <field name="res_model">ygg.orders.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_create_order_invoice" model="ir.actions.server">
+            <field name="name">Create Invoice</field>
+            <field name="model_id" ref="model_ygg_orders_order"/>
+            <field name="binding_model_id" ref="model_ygg_orders_order"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.action_create_invoice()
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

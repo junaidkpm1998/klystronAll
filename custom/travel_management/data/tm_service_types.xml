@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record model="tm.service.types" id="bank_ing">
+            <field name="name">Tour Package</field>
+            <field name="expiry_period">10</field>
+        </record>
+
+
+    </data>
+</odoo>

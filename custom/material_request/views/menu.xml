@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <menuitem id="material_request_menu"
+                  name="Material Request"
+                  sequence="1"
+                  action="action_material_request_menu"/>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.module.category" id="book_details_management_access">
+        <field name="name">Book Details</field>
+        <field name="description">Book Details Security Groups</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="tm_user_access" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="book_details_management_access"/>
+    </record>
+    <record id="tm_manager_access" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="book_details_management_access"/>
+    </record>
+</odoo>
+
+
+        <!--access_warranty_model,access_warranty_model,model_warranty_model,product_warranty.product_manager_access,1,1,1,1-->
+        <!--access_warranty_model,access_warranty_model,model_warranty_model,product_warranty.product_user_access,1,1,1,1-->

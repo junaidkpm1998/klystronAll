@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="hr_salary_rule_overtime" model="hr.salary.rule">
+            <field name="code">OVT</field>
+            <field name="name">Overtime Amount</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id">2</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = inputs.OVERTIME</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.OVERTIME.amount</field>
+            <field name="sequence" eval="6"/>
+        </record>
+        <record id="input_overtime" model="hr.payslip.input.type">
+            <field name="name">Overtime</field>
+            <field name="code">OVERTIME</field>
+        </record>
+        <record id="input_leave_salary" model="hr.payslip.input.type">
+            <field name="name">Leave Salary</field>
+            <field name="code">LEAVE/SALARY</field>
+        </record>
+        <record id="work_entry_type_overtime" model="hr.work.entry.type">
+            <field name="name">OverTime</field>
+            <field name="color">0</field>
+            <field name="code">OVERTIME001</field>
+        </record>
+    </data>
+</odoo>

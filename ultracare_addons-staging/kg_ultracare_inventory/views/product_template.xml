@@ -1,0 +1,251 @@
+<odoo>
+    <data>
+        <record id="product_template_inherit" model="ir.ui.view">
+            <field name="name">product.template.kg.ultracare</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_open_material_consumption"
+                            icon="fa-edit" string="Stationary Consumption">
+                    </button>
+                </div>
+                <xpath expr="//div[@name='options']" position="after">
+                    <group>
+                        <group>
+                            <field name="kg_internal_type"/>
+                        </group>
+                    </group>
+                </xpath>
+                <search string="Archived Gratuity Configuration">
+                    <filter string="Archived" name="inactive" domain="[('kg_internal_type','=','raw')]"/>
+                    <separator/>
+                </search>
+                <filter string="Report Type" name="default_code" domain="[('kg_internal_type','=','raw')]"/>
+                <xpath expr="//field[@name='uom_po_id']" position="after">
+                    <!--                    <field name="alt_desc"/>-->
+                    <field name="alternate_description"/>
+                    <field name="invoice_description"/>
+                    <field name="kg_reordering_value"/>
+                    <field name="ply"/>
+                    <field name="thickness"/>
+                    <field name="reel_width"/>
+                    <field name="brand_id"/>
+                    <field name="kg_group_id"/>
+                    <field name="sub_group_id"/>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="division_code"/>
+                    <field name="sup_part_no"/>
+                    <field name="gsm"/>
+                    <field name="sheet_size"/>
+                    <field name="sheet_length"/>
+                    <field name="origin_country"/>
+                    <field name="kg_pack" invisible="1"/>
+                    <field name="stationary_consumed_qty" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="raw_material" string="Raw Material"
+                          attrs="{'invisible': [('kg_internal_type', '!=', 'finish')]}">
+                        <field name="raw_material_ids" widget="section_and_note_one2many">
+                            <tree string="Raw Material" editable="bottom">
+                                <field name="material_tmpl_id" invisible="1"/>
+                                <field name="product_id"/>
+                            </tree>
+                        </field>
+
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="attributes">
+                    <attribute name="string">SKU</attribute>
+                </xpath>
+                <xpath expr="//page[@name='general_information']" position="after">
+                    <page name="specifications" string="Specifications"
+                          attrs="{'invisible': [('kg_internal_type', '!=', 'finish')]}">
+                        <group>
+                            <group>
+                                <field name="kg_cus_code"/>
+                                <field name="inner_outer_pack_conf"/>
+                                <field name="outer_pack_uom"/>
+                                <field name="kg_lbl"/>
+                                <field name="kg_emb"/>
+                                <field name="kg_ply"/>
+                                <field name="kg_width"/>
+                                <field name="rm_width"/>
+                                <field name="product_length"/>
+                                <field name="kg_length"/>
+                                <field name="tissue_per_pack"/>
+                                <field name="tissue_per_uom"/>
+                                <field name="tn_cut_length"/>
+                                <field name="sch_shift_hours"/>
+                                <field name="kg_trrt"/>
+                                <field name="kg_cph"/>
+                            </group>
+                            <group>
+                                <field name="kg_sku_type"/>
+                                <field name="tr_bale_qty"/>
+                                <field name="outer_packing_conf"/>
+                                <field name="core_size_ply"/>
+                                <field name="kg_hndl"/>
+                                <field name="kg_lam"/>
+                                <field name="weight_roll"/>
+                                <field name="price_per_pirce"/>
+                                <field name="defined_weight"/>
+                                <field name="tr_weight_roll"/>
+                                <field name="kg_perf"/>
+                                <field name="kg_gsm"/>
+                                <field name="kg_dia"/>
+                                <field name="tn_sheets_pack"/>
+                                <field name="tn_weight"/>
+                                <field name="tn_weight_uom"/>
+                                <field name="kg_sht"/>
+                                <field name="pulls_count"/>
+                                <field name="tr_sheet_count"/>
+                                <field name="no_of_rolls_log"/>
+                                <field name="no_of_clips_log"/>
+                                <field name="kg_sleeve"/>
+                                <field name="kg_print"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="tn_actual_speed"/>
+                            <field name="tn_prod_packs"/>
+                            <field name="eff_speed"/>
+                            <field name="eff_pulls_minute"/>
+                            <field name="eff_prod"/>
+                            <field name="eff_speed_rolls"/>
+                            <field name="pack_per_min"/>
+                            <field name="effic"/>
+                            <field name="eff_output_car_shift"/>
+                            <field name="eff_output_caton"/>
+                            <field name="eff_output_car_month"/>
+                            <field name="eff_ton_per_month"/>
+                            <field name="pack_mach_speed"/>
+                        </group>
+                    </page>
+                    <page name="specifications_1" string="Specifications"
+                          attrs="{'invisible': [('kg_internal_type', '!=', 'spare')]}">
+                        <group>
+                            <group>
+                                <field name="spare_cc"/>
+                                <field name="size_dim"/>
+                                <field name="brand_make"/>
+                                <field name="spare_item_code"/>
+                                <field name="spare_stat"/>
+                            </group>
+                            <group>
+                                <field name="spare_type"/>
+                                <field name="model_no"/>
+                                <field name="spare_cat"/>
+                                <field name="spare_min_stk"/>
+                                <field name="spare_loc"/>
+                                <field name="spare_rop"/>
+                                <field name="spare_count_value"/>
+                            </group>
+                        </group>
+                        <label for="spare_remarks"/>
+                        <field name="spare_remarks"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_product_inherit" model="ir.ui.view">
+            <field name="name">product.product.kg.ultracare</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="object" name="action_open_material_consumption_product"
+                            icon="fa-edit" string="Stationary Consumption">
+                    </button>
+                </div>
+                <xpath expr="//field[@name='uom_po_id']" position="after">
+                    <!--                    <field name="alt_desc"/>-->
+                    <field name="alternate_description"/>
+                    <field name="invoice_description"/>
+                    <field name="ply"/>
+                    <field name="thickness"/>
+                    <field name="reel_width"/>
+                    <field name="brand_id"/>
+                    <field name="kg_group_id"/>
+                    <field name="sub_group_id"/>
+                </xpath>
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="division_code"/>
+                    <field name="sup_part_no"/>
+                    <field name="gsm"/>
+                    <field name="sheet_size"/>
+                    <field name="sheet_length"/>
+                    <field name="origin_country"/>
+                    <field name="stationary_consumed_qty" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="finished_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Finished Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','finish')]</field>
+            <field name="context">{'default_kg_internal_type': 'finish'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Finished Products</p>
+            </field>
+        </record>
+        <record id="spare_parts_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Spare Parts Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','spare')]</field>
+            <field name="context">{'default_kg_internal_type': 'spare'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Spare Parts Products</p>
+            </field>
+        </record>
+        <record id="raw_material_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Raw Material Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','raw')]</field>
+            <field name="context">{'default_kg_internal_type': 'raw'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Raw Material Products</p>
+            </field>
+        </record>
+        <record id="service_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Service Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','service')]</field>
+            <field name="context">{'default_kg_internal_type': 'service'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Service Products</p>
+            </field>
+        </record>
+        <record id="miscellaneous_product_menu_action" model="ir.actions.act_window">
+            <field name="name">Miscellaneous Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('kg_internal_type','=','misc')]</field>
+            <field name="context">{'default_kg_internal_type': 'misc'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The Miscellaneous Products</p>
+            </field>
+        </record>
+        <menuitem id="finished_products" parent="stock.menu_product_variant_config_stock" name="Finished Products"
+                  action="finished_product_menu_action"/>
+        <menuitem id="spare_parts_products" parent="stock.menu_product_variant_config_stock" name="Spare Parts Products"
+                  action="spare_parts_product_menu_action"/>
+        <menuitem id="raw_material_products" parent="stock.menu_product_variant_config_stock"
+                  name="Raw Material Products"
+                  action="raw_material_product_menu_action"/>
+        <menuitem id="service_products" parent="stock.menu_product_variant_config_stock" name="Service Products"
+                  action="service_product_menu_action"/>
+        <menuitem id="misc_products" parent="stock.menu_product_variant_config_stock" name="Miscellaneous Products"
+                  action="miscellaneous_product_menu_action"/>
+    </data>
+</odoo>

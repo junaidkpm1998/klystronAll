@@ -1,0 +1,177 @@
+<odoo>
+    <data>
+        <template id="unpaid_invoice_report_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="8%" align="left">
+                                <b>
+                                    <span>
+                                        Page :
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="12%" align="left">
+                                <b>
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <div class="oe_structure"/>
+                    <div class="row">
+                        <center style="font-size:13">
+                            <b>UNPAID INVOICE</b>
+                        </center>
+                    </div>
+                    <table class="table table-borderless table-condensed table-hover">
+                        <tr width="100%">
+                            <td style="font-size:13px">
+                                <span>As on</span>
+                                <span>
+                                    <![CDATA[ &nbsp; ]]>
+                                </span>
+                                <span>
+                                    <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%" style="font-size:13px">
+                            <td width="10%" align="center"/>
+                            <td width="15%" align="left">
+                                <b>Type</b>
+                            </td>
+                            <td width="15%" align="center">
+                                <b>DocNo.</b>
+                            </td>
+                            <td width="15%" align="center">
+                                <b>Date</b>
+                            </td>
+                            <td width="15%" align="center">
+                                <b>Div</b>
+                            </td>
+                            <td width="15%" align="right">
+                                <b>Inv. Amt</b>
+                            </td>
+                            <td width="15%" align="center"/>
+                        </tr>
+                        <tr style="width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="6" width="85%"/>
+                            <td width="15%"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                            <t t-if="data['type'] == 'customer'">
+                                <tr width="100%">
+                                    <td width="10%" align="left" style="font-size:13px">
+                                        <t t-if="data['customer_code'] != 'FALSE'">
+                                            <b>
+                                                <span t-esc="data['customer_code']"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="90%" align="left" colspan="6">
+                                        <t t-if="data['customer_name'] != 'FALSE'">
+                                            <b>
+                                                <span t-esc="data['customer_name']"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'data'">
+                                <tr width="100%" style="font-size:13px;">
+                                    <td width="10%" align="center"/>
+                                    <td width="15%" align="left">
+                                        <t t-if="data['account_type']">
+                                            <span t-esc="data['account_type']"/>
+                                        </t>
+                                    </td>
+                                    <td width="15%" align="left">
+                                        <t t-if="data['doc_no']">
+                                            <span t-esc="data['doc_no']"/>
+                                        </t>
+                                    </td>
+                                    <td width="15%" align="center">
+                                        <t t-if="data['date']">
+                                            <span t-esc="data['date']"/>
+                                        </t>
+                                    </td>
+                                    <td width="15%" align="center"/>
+                                    <td width="15%" align="right">
+                                        <t t-if="data['invoice_amount']">
+                                           <span t-esc="'{:,.2f}'.format(data['invoice_amount'])"/>
+                                        </t>
+                                    </td>
+                                    <td width="15%" align="center">
+                                        <t t-if="data['due_date']">
+                                            <span t-esc="data['due_date']"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'amount'">
+                                <tr width="100%" style="font-size:13px;">
+                                    <td colspan="4" align="right" width="55%">
+                                        <span>
+                                            <b>
+                                                A/c Total
+                                            </b>
+                                        </span>
+                                    </td>
+                                    <td width="15%"/>
+                                    <td width="15%" align="right">
+                                        <t t-if="data['total_invoice_amount']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['total_invoice_amount'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="15%"/>
+                                </tr>
+                            </t>
+                        </table>
+                    </t>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record id="action_payroll_comparison_report" model="ir.actions.report">
+            <field name="name">Payroll Comparison Report</field>
+            <field name="model">kg.payroll.comparison.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Payroll Comparison Report'</field>
+            <field name="report_name">kg_hrms.payroll_comparison_report_tem_id</field>
+            <field name="report_file">kg_hrms.payroll_comparison_report_tem_id</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

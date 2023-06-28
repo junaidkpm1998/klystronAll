@@ -1,0 +1,25 @@
+<odoo>
+    <record id="hr_job_custom_form_inherited" model="ir.ui.view">
+        <field name="name">hr.job.custom.form.inherited</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='interviewer_ids']" position="after">
+                <field name="interview_form_id" string="Interview Form"/>
+            </xpath>
+            <xpath expr="//page[@name='job_description_page']" position="after">
+                <page string="Pay Scale" name="pay_scale">
+                    <field name="pas_scale_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="type"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" widget='monetary' sum="Total"
+                                   options="{'currency_field': 'currency_id'}"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

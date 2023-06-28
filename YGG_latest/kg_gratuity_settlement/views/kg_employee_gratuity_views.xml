@@ -1,0 +1,136 @@
+<odoo>
+    <data>
+
+        <record id="emp_grat_menu_action" model="ir.actions.act_window">
+            <field name="name">Gratuity Settlement</field>
+            <field name="res_model">kg.employee.gratuity</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem id="menu_emp_grat"
+                  name="Gratuity Settlement"
+                  action="emp_grat_menu_action" sequence="75"
+                  parent="hr_work_entry_contract_enterprise.menu_hr_payroll_root"/>
+
+        <record id="kg_employee_gratuity_tree" model="ir.ui.view">
+            <field name="name">kg.hr.gratuity.tree</field>
+            <field name="model">kg.employee.gratuity</field>
+            <field name="arch" type="xml">
+                <tree string="kg Employee Gratuity" default_order="name desc">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="employee_joining_date"/>
+                    <field name="employee_gratuity_years"/>
+                    <field name="employee_wage_amount" widget="monetary"/>
+                    <field name="employee_gratuity_amount" widget="monetary"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="kg_employee_gratuity_form" model="ir.ui.view">
+            <field name="name">kg.hr.gratuity.form</field>
+            <field name="model">kg.employee.gratuity</field>
+            <field name="arch" type="xml">
+                <form string="Employee Gratuity">
+                    <header>
+                        <button name="submit_request" string="Submit" type="object" class="btn-primary"
+                                attrs="{'invisible' : [('state', '!=', 'draft')]}"/>
+                        <button name="approved_request" string="Approve" type="object" class="btn-primary"
+                                attrs="{'invisible' : [('state', '!=', 'submit')]}"
+                                groups="account.group_account_manager"/>
+                        <button name="cancel_request" string="Cancel" type="object" class="btn-primary"
+                                attrs="{'invisible' : [('state', 'in', ['draft','approve','cancel'])]}"
+                                groups="account.group_account_manager"/>
+                        <button name="set_to_draft" string="Set to draft" type="object" class="btn-primary"
+                                attrs="{'invisible' : [('state', 'in', ['draft','approve','submit'])]}"
+                                groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>
+                    </header>
+                    <sheet>
+                        <widget name="web_ribbon" text="Approved" bg_color="bg-success"
+                                attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <widget name="web_ribbon" text="Canceled" bg_color="bg-danger"
+                                attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                        <div class="oe_title">
+                            <h2>
+                                <field name="name" readonly="1"/>
+                            </h2>
+                            <label for="employee_id" string="Employee Name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="employee_id" string="Employee Name" placeholder="Employee"
+                                       attrs="{'readonly':[('state','!=','draft')]}" required="True"/>
+                            </h1>
+                            <label for="gratuity_country"/>
+                            <div class="o_row" name="gratuity_country">
+                                <field name="gratuity_country" required="1"/>
+                            </div>
+                        </div>
+                        <group col="2" colspan="6">
+                            <group/>
+                            <group/>
+                            <group string="Employee Details">
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="contract_id" force_save="1" required="1" readonly="1"/>
+                                <field name="employee_joining_date" force_save="1" required="1" readonly="1"/>
+                                <label for="employee_wage_amount" string="Wage"/>
+                                <div class="o_row" name="employee_wage_amount">
+                                    <field name="employee_wage_amount" widget="monetary" nolabel="1" force_save="1"/>
+                                </div>
+                                <label for="employee_basic_salary" string="Basic Salary"/>
+                                <div class="o_row" name="employee_basic_salary">
+                                    <field name="employee_basic_salary" widget="monetary" nolabel="1" force_save="1"/>
+                                </div>
+                                <field name="one_day_basic_salary" force_save="1" readonly="1"/>
+                                <field name="last_working_date" force_save="1" required="1"/>
+                            </group>
+                            <group string="Employee Working Details">
+                                <label for="total_working_years"/>
+                                <div name="total_working_years">
+                                    <field name="total_working_years" force_save="1"/>
+                                    <span>years</span>
+                                </div>
+                                <label for="total_working_days"/>
+                                <div name="total_working_days">
+                                    <field name="total_working_days" force_save="1"/>
+                                    <span>days</span>
+                                </div>
+                                <label for="employee_gratuity_years"/>
+                                <div name="employee_gratuity_years">
+                                    <field name="employee_gratuity_years" force_save="1"/>
+                                    <span>years</span>
+                                </div>
+                                <label for="employee_gratuity_days"/>
+                                <div name="employee_gratuity_days">
+                                    <field name="employee_gratuity_days" force_save="1"/>
+                                    <span>days</span>
+                                </div>
+                            </group>
+                            <group string="Amount">
+                                <field name="employee_gratuity_amount" widget="monetary" force_save="1"/>
+                            </group>
+                            <group string="Account Details">
+                                <field string="Journal" name="hr_gratuity_journal" required="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field string="Credit Account" name="hr_gratuity_credit_account" required="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field string="Debit Account" name="hr_gratuity_debit_account" required="1"
+                                       attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

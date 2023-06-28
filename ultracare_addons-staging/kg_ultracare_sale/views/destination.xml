@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="destination_action" model="ir.actions.act_window">
+            <field name="name">Destination</field>
+            <field name="res_model">kg.destination</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="destination_menu"
+                  name="Destination"
+                  parent="sale.sale_order_menu" action="destination_action" sequence="41"/>
+
+        <record model="ir.ui.view" id="destination_tree">
+            <field name="name">Destination Tree</field>
+            <field name="model">kg.destination</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="user_name"/>
+                    <field name="company_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="destination_form">
+            <field name="name">destination Form</field>
+            <field name="model">kg.destination</field>
+            <field name="arch" type="xml">
+                <form string="Stage">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="user_name"/>
+                                <field name="company_name"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

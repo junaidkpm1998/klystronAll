@@ -1,0 +1,135 @@
+<odoo>
+    <data>
+        <template id="slow_moving_item_report_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <span>
+                                    P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state">
+                                    <span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="5%" align="left">
+                                <b>
+                                    <span>
+                                        Page
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="15%" align="right">
+                                <b>
+                                    <span>
+                                        Page
+                                        <span class="page"/>
+                                        of
+                                        <span class="topage"/>
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%" style="font-size:13px;">
+                            <td>
+                                <span>
+                                    Period From
+                                </span>
+                                <span><![CDATA[&nbsp;]]></span>
+                                <span>
+                                    <span t-esc="from_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    <span><![CDATA[&nbsp;]]></span>To
+                                    <span t-esc="to_date"
+                                          t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%">
+                            <td style="font-size:13" align="left" width="20%">
+                                <b>Item Code</b>
+                            </td>
+                            <td style="font-size:13" align="left" width="40%">
+                                <b>Description</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="20%">
+                                <b>Target</b>
+                            </td>
+                            <td style="font-size:13" align="center" width="20%">
+                                <b>Sales</b>
+                            </td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="100%" colspan="4"/>
+                        </tr>
+                    </thead>
+                    <t t-foreach="datas" t-as="data">
+                        <tr width="100%" style="font-size:13" align="center">
+                            <td width="20%" align="left">
+                                <span t-esc="data['item_code']"/>
+                            </td>
+                            <td width="40%" align="left">
+                                <span t-esc="data['description']"/>
+                            </td>
+                            <td width="20%">
+
+                            </td>
+                            <td width="20%">
+                                <!--                                <span t-esc="data['sales']"/>-->
+                            </td>
+                        </tr>
+                    </t>
+                </table>
+                <div class="footer">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr style="border-bottom: 1px solid black;width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="3" width="100%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td style="font-size:10;" align="left" width="35%" colspan="2">
+                                <span>
+                                    <b>
+                                        Run Date :<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                    </b>
+                                </span>
+                            </td>
+                            <td style="font-size:10;" align="left" width="65%"/>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

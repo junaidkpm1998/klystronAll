@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="score_card_details_form_view">
+            <field name="name">Score Card Details Form</field>
+            <field name="model">score.card.detail</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="crm_id"/>
+                                <field name="name"/>
+                                <field name="date" attrs="{'readonly':[('is_admin','!=',True)]}"/>
+                                <field name="days" attrs="{'readonly':[('is_admin','!=',True)]}"/>
+                                <field name="partner_id"/>
+                                <field name="user_id"/>
+                                <field name="stage_id"/>
+                                <field name="is_admin"/>
+                                <field name="lead_create_date" widget="date" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_score_card_pivot" model="ir.ui.view">
+            <field name="name">pivot</field>
+            <field name="model">score.card.detail</field>
+            <field name="arch" type="xml">
+                <pivot string="Score Card Details">
+                    <field name="crm_id" type="row"/>
+                    <field name="name" type="col"/>
+                    <field name="days" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_log_services_view_search' model='ir.ui.view'>
+            <field name="name">score.card.detail.search</field>
+            <field name="model">score.card.detail</field>
+            <field name="arch" type="xml">
+                <search string="Score Card Details">
+                    <field name="crm_id" domain="[]"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="days"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Opportunity" name="groupby_crm_id" context="{'group_by': 'crm_id'}"/>
+                        <filter string="Customer" name="groupby_partner_id" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Salesperson" name="groupby_user_id" context="{'group_by': 'user_id'}"/>
+                        <filter string="Lead Creation Date" name="groupby_lead_create_date"
+                                context="{'group_by': 'lead_create_date'}"/>
+                        <filter string="Won" name="won" domain="[('is_won', '=', True)]"/>
+                        <filter string="Lost" name="lost"
+                                domain="['&amp;', ('is_lost', '=', 0), ('crm_id.active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_score_card_view_pivot" model="ir.actions.act_window">
+            <field name="name">Score Card Details</field>
+            <field name="res_model">score.card.detail</field>
+            <field name="view_mode">pivot</field>
+            <field name="context">{'search_default_groupby_crm_id': 1}</field>
+        </record>
+
+        <menuitem id="score_card_menu"
+                  name="Score Card Details"
+                  parent="crm.crm_menu_report" action="action_score_card_view_pivot" sequence="10"/>
+
+
+    </data>
+</odoo>

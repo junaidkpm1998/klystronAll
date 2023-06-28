@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="material_configuration_kg_ultracare" model="ir.ui.view">
+            <field name="name">Material Requisition</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="mrp.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='mrp']//div[hasclass('o_settings_container')]" position="after">
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" title="Material Requisition">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Material Requisition</span>
+                                <div class="content-group">
+                                    <div class="row mt16">
+                                        <label string="Source Location" for="source_location"
+                                               class="col-lg-3 o_light_label"/>
+                                        <field name="source_location"/>
+                                        <label string="Destination Location" for="dest_location"
+                                               class="col-lg-3 o_light_label"/>
+                                        <field name="dest_location"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

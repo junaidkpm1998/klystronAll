@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="delivery_note_report" model="ir.actions.report">
+            <field name="name">Delivery Note</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_sale.delivery_note_template</field>
+            <field name="report_file">kg_ultracare_sale.delivery_note_template</field>
+            <field name="binding_model_id" ref="kg_material_requisition.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="tax_invoice_report" model="ir.actions.report">
+            <field name="name">Tax Invoice</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_sale.tax_invoice_template</field>
+            <field name="report_file">kg_ultracare_sale.tax_invoice_template</field>
+            <field name="binding_model_id" ref="kg_ultracare_sale.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="delivery_tax_invoice_report" model="ir.actions.report">
+            <field name="name">Tax Invoice</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_sale.delivery_tax_invoice_template_id</field>
+            <field name="report_file">kg_ultracare_sale.delivery_tax_invoice_template_id</field>
+            <field name="binding_model_id" ref="kg_material_requisition.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="tax_credit_note_report" model="ir.actions.report">
+            <field name="name">Tax Credit Note</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_sale.sales_return_credit_note_report</field>
+            <field name="report_file">kg_ultracare_sale.sales_return_credit_note_report</field>
+            <field name="binding_model_id" ref="kg_ultracare_sale.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="tax_debit_note_report" model="ir.actions.report">
+            <field name="name">Tax Debit Note</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">kg_ultracare_sale.purchase_returns_debit_note</field>
+            <field name="report_file">kg_ultracare_sale.purchase_returns_debit_note</field>
+            <field name="binding_model_id" ref="kg_ultracare_sale.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_sales_report_statement" model="ir.actions.report">
+            <field name="name">Sales Quotation</field>
+            <field name="model">sales.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Sales Report'</field>
+            <field name="report_name">kg_ultracare_sale.sales_statement_documents</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_customer_analysis_report" model="ir.actions.report">
+            <field name="name">Customer Analysis</field>
+            <field name="model">customer.analysis.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Sales Report'</field>
+            <field name="report_name">kg_ultracare_sale.customer_analysis_report_template</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_sales_analysis_report" model="ir.actions.report">
+            <field name="name">Sales Analysis</field>
+            <field name="model">sale.analysis.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Sales Analysis Report'</field>
+            <field name="report_name">kg_ultracare_sale.sale_analysis_report_template</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_sales_details_report" model="ir.actions.report">
+            <field name="name">Sales Details</field>
+            <field name="model">sales.details.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Sales Deatils Report'</field>
+            <field name="report_name">kg_ultracare_sale.sale_details_report_template</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_profitability_analysis_report" model="ir.actions.report">
+            <field name="name">Profitability Analysis</field>
+            <field name="model">profitability.analysis.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Profitability Report'</field>
+            <field name="report_name">kg_ultracare_sale.profitability_analysis_report_template</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_sales_register_report" model="ir.actions.report">
+            <field name="name">Sales Register</field>
+            <field name="model">sales.register.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Sales Register Report'</field>
+            <field name="report_name">kg_ultracare_sale.sales_register_report_template</field>
+            <field name="report_file">kg_ultracare_sale.report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>
+

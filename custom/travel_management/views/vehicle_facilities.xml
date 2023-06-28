@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_travel_management_vehicle_facilities" model="ir.actions.act_window">
+        <field name="name">Travel Management Vehicle Facilities</field>
+        <field name="res_model">vehicle.facilities</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="travel_service_tree" model="ir.ui.view">
+        <field name="name">vehicle.facilities.tree</field>
+        <field name="model">vehicle.facilities</field>
+        <field name="arch" type="xml">
+            <tree string="tree">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!--    <record id="tm_service_types" model="ir.ui.view">-->
+    <!--        <field name="name">tm.service.types.form</field>-->
+    <!--        <field name="model">tm.service.types</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form>-->
+    <!--                <sheet>-->
+    <!--                    <group>-->
+    <!--                        <field name="name"/>-->
+    <!--                    </group>-->
+    <!--                </sheet>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+</odoo>

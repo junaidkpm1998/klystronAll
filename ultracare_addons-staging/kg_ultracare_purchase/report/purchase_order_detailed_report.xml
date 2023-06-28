@@ -1,0 +1,302 @@
+<odoo>
+    <data>
+        <template id="purchase_order_detailed_report_pdf">
+            <t t-call="web.html_container">
+                <style>.table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%"/>
+                        </tr>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <span>P.O. BOX :
+                                </span>
+                                <span t-esc="company_zip"/>
+                                <t t-if="company_state"><span t-esc="company_state"/>,
+                                </t>
+                                <t t-if="company_country">
+                                    <span t-esc="company_country"/>
+                                </t>
+                            </td>
+                            <td width="25%" align="right">
+                                <span>PageNo.
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="oe_structure">
+                        <div class="row">
+                            <center style="font-size:15px;">
+                                <b>
+                                    PURCHASE ORDER - DETAILED
+                                </b>
+                            </center>
+                        </div>
+                        <table class='table table-borderless'>
+                            <tr width="100%" style="font-size:12px;">
+                                <td>
+                                    <b>
+                                        <span>Date From :
+                                        </span>
+                                        <span>
+                                            <span t-esc="from_date"
+                                                  t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                            To
+                                            <span t-esc="to_date"
+                                                  t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        </span>
+                                    </b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <table style='border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;'>
+                    <thead>
+                        <tr width="100%" style="font-size:17px;">
+                            <td>
+                                <b>
+                                    Date
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    Doc No
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    Supplier Name
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    JOB
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    DIV
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    ITEM CODE
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    ITEM DESCRIPTION
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    UNIT
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    RATE
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    ORD.QTY
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    DISCOUNT
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    RECEIVED
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    PENDING
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    CLS.QTY
+                                </b>
+                            </td>
+                            <td>
+                                <b>
+                                    CLS.AMT
+                                </b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <t t-foreach="values" t-as="vals">
+
+                        <t t-if="vals['level'] == 1">
+                            <tr width="100%">
+                                <td>
+                                    <b>
+                                        <span t-esc="vals['partner_code']" style="color: #FF0000;"/>
+                                    </b>
+                                </td>
+                                <td></td>
+                                <td colspan="4">
+                                    <b>
+                                        <span t-esc="vals['partner']" style="color: #FF0000;padding-left:35px;"/>
+                                    </b>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </t>
+                        <t t-elif="vals['level'] == 2">
+                            <tr>
+                                <td colspan="2">
+                                    <b>
+                                        <span t-esc="vals['product_code']"/>
+                                    </b>
+                                </td>
+                                <td colspan="4">
+                                    <b>
+                                        <span t-esc="vals['product_name']" style="padding-left:45px;"/>
+                                    </b>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </t>
+
+                        <t t-elif="vals['level'] == 3">
+                            <tr>
+                                <i>
+                                    <td>
+                                        <span t-esc="vals['date']"  t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['doc_no']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['supplier_name']"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <span t-esc="vals['item_code']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['description']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['unit']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['rate']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['qty']"/>
+                                    </td>
+                                    <td>
+                                        <!--                                    <span t-esc="vals['discount']"/>-->
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['amount']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['received']"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vals['amount'] - vals['received']"/>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </i>
+                            </tr>
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <b>
+                                        <t t-esc="vals['qty_sum']"/>
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="vals['qty_sum']"/>
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="vals['amount_sum']"/>
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="vals['received_sum']"/>
+                                    </b>
+                                </td>
+                                <td>
+                                    <b>
+                                        <t t-esc="vals['pending_sum']"/>
+                                    </b>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </t>
+
+            <tr>
+                <td align="left">
+                    Currency :
+                    <span t-esc="currency_id"/>
+                </td>
+                <td align="right">
+                    Amount :
+                    <span t-esc="amount"/>
+                </td>
+
+            </tr>
+        </template>
+    </data>
+</odoo>

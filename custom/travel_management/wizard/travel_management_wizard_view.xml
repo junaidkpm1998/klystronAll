@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="travel_management_wizard_view_form" model="ir.ui.view">
+        <field name="name">travel.management.wizard.form</field>
+        <field name="model">travel.management.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Test">
+                <group class="oe_title">
+                    <field name="starting_date"/>
+                </group>
+                                <group>
+                    <footer>
+                        <button name="action_tm_pdf_report" string="PDF Report" type="object" class="oe_highlight"/>
+                        <button name="action_tm_xls_report" string="XLS Report" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+
+                    </footer>
+
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="travel_management_wizard_action" model="ir.actions.act_window">
+        <field name="name"> Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">travel.management.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

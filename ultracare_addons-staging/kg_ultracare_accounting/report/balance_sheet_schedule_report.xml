@@ -1,0 +1,186 @@
+<odoo>
+    <data>
+        <template id="balance_sheet_sche_template">
+            <t t-call="web.html_container">
+                <style>
+                    .table-borderless td,
+                    .table-borderless th {
+                    border: 0;
+                    }
+                </style>
+                <div class="header">
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span t-esc="company_id"/>
+                                </b>
+                            </td>
+                            <td width="25%" colspan="3"/>
+                        </tr>
+                        <tr width="100%" style="font-size:13px;">
+                            <td width="75%" align="left">
+                                <b>
+                                    <span>
+                                        Schedule for BALANCE SHEET
+                                    </span>
+                                </b>
+                            </td>
+                            <td width="5%" align="center"/>
+                            <td width="15%" align="right">
+                                <span>
+                                    Page
+                                    <span class="page"/>
+                                    of
+                                    <span class="topage"/>
+                                </span>
+                            </td>
+                            <td width="5%"/>
+                        </tr>
+                    </table>
+                    <table class='table table-borderless table-condensed table-hover'>
+                        <tr width="100%">
+                            <td width="100%" align="center">
+                                <b>
+                                    <span>
+                                        <span t-esc="from_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                        -
+                                        <span t-esc="to_date" t-options='{"widget": "date","format": "dd/MM/yyyy"}'/>
+                                    </span>
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table style="border-collapse:collapse;width:100%;margin:5pt;border-radius: 5px 5px 5px 5px;">
+                    <thead>
+                        <tr width="100%" style="font-size:13;">
+                            <td width="50%" align="left" colspan="2">
+                                <span>
+                                    <b>
+                                        A/C Description
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="12%" align="center">
+                                <span>
+                                    <b>
+                                        Debit
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="6%"/>
+                            <td width="12%" align="center">
+                                <span>
+                                    <b>
+                                        Credit
+                                    </b>
+                                </span>
+                            </td>
+                            <td width="20%"/>
+                        </tr>
+                        <tr style="width:100%">
+                            <td style="border-bottom: 1px solid black;" colspan="5" width="80%"/>
+                            <td width="20%"/>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="datas" t-as="data">
+                            <t t-if="data['type'] == 'account'">
+                                <tr width="100%">
+                                    <td style="font-size:13;" align="left" width="100%" colspan="6">
+                                        <t t-if="data['account_name'] != 'FALSE'">
+                                            <b>
+                                                <u>
+                                                    <span t-esc="data['account_name']"/>
+                                                </u>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'data'">
+                                <tr width="100%" style="font-size:13;">
+                                    <td align="left" width="15%">
+                                        <span t-esc="data['account_code']"/>
+                                    </td>
+                                    <td align="left" width="35%">
+                                        <span t-esc="data['account_name']"/>
+                                    </td>
+                                    <td align="center" width="12%">
+                                        <t t-if="data['debit']">
+                                            <span t-esc="'{:,.2f}'.format(data['debit'])"/>
+                                        </t>
+                                    </td>
+                                    <td width="6%"/>
+                                    <td align="center" width="12%">
+                                        <t t-if="data['credit']">
+                                            <span t-esc="'{:,.2f}'.format(data['credit'])"/>
+                                        </t>
+                                    </td>
+                                    <td width="20%"/>
+                                </tr>
+                            </t>
+                            <t t-if="data['type'] == 'amount'">
+                                <tr style="width:100%">
+                                    <td width="50%" colspan="2"/>
+                                    <t t-if="data['sum_debit']">
+                                        <td style="border-bottom: 1px solid black;" width="12%"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td width="12%"/>
+                                    </t>
+                                    <td width="6%"/>
+                                    <t t-if="data['sum_credit']">
+                                        <td style="border-bottom: 1px solid black;" width="12%"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td width="12%"/>
+                                    </t>
+                                    <td width="20%"/>
+                                </tr>
+                                <tr style="width:100%">
+                                    <td width="50%" colspan="2"/>
+                                    <t t-if="data['sum_debit']">
+                                        <td style="border-bottom: 1px solid black;" width="12%"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td width="12%"/>
+                                    </t>
+                                    <td width="6%"/>
+                                    <t t-if="data['sum_credit']">
+                                        <td style="border-bottom: 1px solid black;" width="12%"/>
+                                    </t>
+                                    <t t-else="">
+                                        <td width="12%"/>
+                                    </t>
+                                    <td width="20%"/>
+                                </tr>
+                                <tr width="100%" style="font-size:13;">
+                                    <td align="left" width="15%"/>
+                                    <td align="left" width="35%"/>
+                                    <td align="center" width="12%">
+                                        <t t-if="data['sum_debit']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['sum_debit'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="6%"/>
+                                    <td align="center" width="12%">
+                                        <t t-if="data['sum_credit']">
+                                            <b>
+                                                <span t-esc="'{:,.2f}'.format(data['sum_credit'])"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                    <td width="20%"/>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+        </template>
+    </data>
+</odoo>

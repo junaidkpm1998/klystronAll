@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_in_out_ledger_report" model="ir.actions.report">
+            <field name="name">INOUT Ledger Report</field>
+            <field name="model">inout.ledger.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'INOUT Ledger Report'</field>
+            <field name="report_name">kg_ultracare_inventory.in_out_ledger_report_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.in_out_ledger_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_opening_stock_report" model="ir.actions.report">
+            <field name="name">Opening Stock Report</field>
+            <field name="model">opening.stock.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Opening Stock Report'</field>
+            <field name="report_name">kg_ultracare_inventory.opening_stock_report_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.opening_stock_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_kg_stock_report" model="ir.actions.report">
+            <field name="name">Stock Report</field>
+            <field name="model">kg.stock.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Stock Report'</field>
+            <field name="report_name">kg_ultracare_inventory.kg_stock_report_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.kg_stock_report_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_production_goods_report" model="ir.actions.report">
+            <field name="name">Production Goods Report</field>
+            <field name="model">production.goods.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Production Goods'</field>
+            <field name="report_name">kg_ultracare_inventory.production_goods_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.production_goods_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_slow_moving_item_report" model="ir.actions.report">
+            <field name="name">Slow Moving Item Report</field>
+            <field name="model">slow.moving.item.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Slow Moving Item'</field>
+            <field name="report_name">kg_ultracare_inventory.slow_moving_item_report_template</field>
+            <field name="report_file">kg_ultracare_inventory.slow_moving_item_report_template</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_stock_adjustment_register_report" model="ir.actions.report">
+            <field name="name">Stock Adjustment Register Report</field>
+            <field name="model">stock.adjustment.register.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Stock Adjustment Register'</field>
+            <field name="report_name">kg_ultracare_inventory.stock_adjustment_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.stock_adjustment_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+        <record id="action_stock_ledger_report" model="ir.actions.report">
+            <field name="name">Stock Ledger Report</field>
+            <field name="model">stock.ledger.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="print_report_name">'Stock Ledger'</field>
+            <field name="report_name">kg_ultracare_inventory.stock_ledger_template_id</field>
+            <field name="report_file">kg_ultracare_inventory.stock_ledger_template_id</field>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
+

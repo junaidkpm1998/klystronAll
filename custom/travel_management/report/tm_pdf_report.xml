@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_pdf_report_travel_management" model="ir.actions.report">
+        <field name="name">Travel Management PDF Report</field>
+        <field name="model">travel.management.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">travel_management.pdf_report_template_travel_management</field>
+        <field name="report_file">travel_management.pdf_report_template_travel_management</field>
+        <field name="binding_model_id" ref="model_travel_management"/>
+        <field name="binding_type">report</field>
+    </record>
+    <template id="pdf_report_template_travel_management">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Travel Management  Report</h2>
+                </div>
+                <table class="table table-sm o_main_table" name="warranty">
+                    <thead>
+                        <tr>
+                            <th name="th_seq" class="text-left">
+                                <span>Seq:NO</span>
+                            </th>
+                            <th name="th_customer_name" class="text-left">
+                                <span>Customer</span>
+                            </th>
+                            <th name="th_service" class="text-left">
+                                <span>Service</span>
+                            </th>
+                            <th name="th_date" class="text-left">
+                                <span>Date and Time</span>
+                            </th>
+                            <th name="th_source_location" class="text-left">
+                                <span>Source Location</span>
+                            </th>
+                            <th name="th_dest_location" class="text-left">
+                                <span>Destination Location</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="sql_data" t-as="det">
+                            <tr>
+                                <td>
+                                    <span t-esc="det['sequence']"/>
+                                </td>
+
+                                    <td>
+                                        <span t-esc="det['customer']"/>
+                                    </td>
+                                <td>
+                                    <span t-esc="det['service']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="det['date']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="det['source_location']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="det['destination_location']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="kg_project_task_views_inherit" model="ir.ui.view">
+            <field name="name">kg.project.task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="date_assign" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="date_last_stage_update" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+         <record id="kg_project_task_inherit_datetime" model="ir.ui.view">
+            <field name="name">kg.project.task.datetime</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project_enterprise.project_task_view_form"/>
+            <field name="arch" type="xml">
+                <field name="planned_date_begin" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+                <field name="planned_date_end" position="attributes">
+                    <attribute name="widget">date</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

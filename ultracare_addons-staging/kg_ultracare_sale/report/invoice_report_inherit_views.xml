@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <template id="invoice_report_inherit" inherit_id="account.report_invoice_document" priority="18">
+            <xpath expr="//td/span[@t-field='line.name']" position="replace">
+                <t t-if="o.description == 'description'">
+                    <span t-field="line.name"/>
+                </t>
+                <t t-if="o.description == 'alternate_des'">
+                    <span t-field="line.alternate_description"/>
+                </t>
+                <t t-if="o.description == 'invoice_des'">
+                    <span t-field="line.invoice_description"/>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

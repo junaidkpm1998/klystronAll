@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="product_view_form_inherit" model="ir.ui.view">
+            <field name="name">product.form.custom.form.inherited</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='purchase_ok']" position="before">
+                    <field name="warranty" string="Has warranty"/>
+                    <label for="warranty"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_policy']" position="after">
+                    <field name="warranty" invisible="1"/>
+                    <field name="warranty_periods" string="Warranty Periods" attrs ="{'invisible': [('warranty', '!=', True)]}"/>
+                    <field name="warranty_type" attrs ="{'invisible': [('warranty', '!=', True)]}"/>
+                    <field name="stock_connection"  widget="many2many_tags"/>
+
+
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

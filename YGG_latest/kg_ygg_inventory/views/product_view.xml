@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_product_form" model="ir.ui.view">
+            <field name="name">product.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="detailed_type" position="after">
+                    <field name="inventory_category"/>
+                </field>
+                <field name="property_account_income_id" position="after">
+                    <field name="unrealised_commission_per" widget="percentage"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

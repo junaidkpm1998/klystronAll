@@ -1,0 +1,119 @@
+<odoo>
+    <data>
+        <template id="purchase_order_report_inherit" inherit_id="purchase.report_purchaseorder_document" priority="18">
+            <xpath expr="//t[@t-foreach='o.order_line']" position="replace">
+                <t t-foreach="o.order_line" t-as="line">
+                    <t t-if="line.product_qty and line.is_select">
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                           groups="account.group_show_line_subtotals_tax_excluded"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
+                           groups="account.group_show_line_subtotals_tax_included"/>
+
+                        <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                            <t t-if="not line.display_type">
+                                <td id="product">
+                                    <span t-field="line.product_id.name"/>
+                                </td>
+                                <td name="td_taxes">
+                                    <span t-esc="', '.join(map(lambda x: x.name, line.taxes_id))"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="line.date_planned" t-options="{'widget': 'date'}"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.product_qty"/>
+                                    <span t-field="line.product_uom.name" groups="uom.group_uom"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_subtotal"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </t>
+                            <t t-if="line.display_type == 'line_section'">
+                                <td colspan="99" id="section">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-if="line.display_type == 'line_note'">
+                                <td colspan="99" id="note">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <t t-if="current_section and (line_last or o.order_line[line_index+1].display_type == 'line_section')">
+                            <tr class="is-subtotal text-end">
+                                <td colspan="99" id="subtotal">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <span
+                                            t-esc="current_subtotal"
+                                            t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                    />
+                                </td>
+                            </tr>
+                        </t>
+
+                    </t>
+                </t>
+            </xpath>
+
+            <xpath expr="//div[@id='informations']" position="inside">
+                <div t-if="o.payment_term_id" class="col-3 bm-2">
+                    <strong>Payment terms:</strong>
+                    <p t-field="o.payment_term_id" class="m-0"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='informations']/div/p[@t-field='o.date_order']" position="replace">
+                <p t-field="o.date_approve" t-options="{'format': 'dd-MM-yyyy'}" class="m-0"/>
+            </xpath>
+
+            <xpath expr="//div[@id='informations']" position="after">
+                <div class="row mt-4 mb32">
+                    <div t-if="o.partner_id.vendor_code" class="col-3 bm-2">
+                        <span style="color:black;">
+                            <b>Supplier Code:</b>
+                        </span>
+                        <p t-field="o.partner_id.vendor_code" class="m-0"/>
+                    </div>
+                    <div t-if="o.finance_approve" class="col-3 bm-2">
+                        <span style="color:black;">
+                            <b>Finance Approver:</b>
+                        </span>
+                        <p t-field="o.finance_approve" class="m-0"/>
+                    </div>
+                    <div t-if="o.operation_approve" class="col-3 bm-2">
+                        <span style="color:black;">
+                            <b>Operation Approver:</b>
+                        </span>
+                        <p t-field="o.operation_approve" class="m-0"/>
+                    </div>
+                    <div t-if="o.director_approve" class="col-3 bm-2">
+                        <span style="color:black;">
+                            <b>Director Approver:</b>
+                        </span>
+                        <p t-field="o.director_approve" class="m-0"/>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div/p[@t-field='o.notes']" position="replace">
+                <div t-if="o.notes" class="col-auto col-12 mw-100 mb-2">
+                    <span>
+                        <b>Terms and Condition:</b>
+                    </span>
+                    <span t-field='o.notes'/>
+
+                </div>
+            </xpath>
+            <xpath expr="//table" position="after">
+                <span>
+                    <b>Amount Chargeable (in words):</b>
+                </span>
+                <span t-esc="o.currency_id.amount_to_text(o.amount_total)"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

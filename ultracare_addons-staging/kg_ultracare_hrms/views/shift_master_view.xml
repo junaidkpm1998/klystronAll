@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="shift_view_tree">
+            <field name="name">Shift Tree</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="name"/>
+                    <field name="employee_id" options="{'no_create': True}" attrs="{'readonly': [('state','=','confirm')]}" domain="[('staff_type','=','labour')]"/>
+                    <field name="start_date" attrs="{'readonly': [('state','=','confirm')]}"/>
+                    <field name="end_date" attrs="{'readonly': [('state','=','confirm')]}"/>
+                    <field name="shift_type" attrs="{'readonly': [('state','=','confirm')]}"/>
+                    <field name="state"/>
+                    <button name="approve" type="object" icon="fa-check" attrs="{'invisible': [('state','=','confirm')]}"/>
+                    <button name="reject" type="object" icon="fa-close" attrs="{'invisible': [('state','=','draft')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="shift_view_form">
+            <field name="name">Shift Form View</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <form string="Stage">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="approve" string="Approve" type="object"
+                                class="btn-primary" attrs="{'invisible': [('state', '=', 'confirm')]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id" attrs="{'readonly': [('state','=','confirm')]}" domain="[('staff_type','=','labour')]"/>
+                                <field name="start_date" required="1" attrs="{'readonly': [('state','=','confirm')]}"/>
+                            </group>
+                            <group>
+                                <field name="shift_type" required="1" attrs="{'readonly': [('state','=','confirm')]}"/>
+                                <field name="end_date" required="1" attrs="{'readonly': [('state','=','confirm')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id='shift_view_search' model='ir.ui.view'>
+            <field name="name">shift.search</field>
+            <field name="model">hr.shift</field>
+            <field name="arch" type="xml">
+                <search string="Shift Search">
+                    <field name="employee_id"/>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="groupby_employee_id" context="{'group_by': 'employee_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_shift_form_action" model="ir.actions.act_window">
+            <field name="name">Shift</field>
+            <field name="res_model">hr.shift</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_groupby_employee_id': 1}</field>
+        </record>
+
+        <menuitem id="hr_menu_shift"
+                  name="Shift"
+                  parent="hr.menu_hr_root"
+                  action="hr_shift_form_action" sequence="15"/>
+
+
+    </data>
+</odoo>

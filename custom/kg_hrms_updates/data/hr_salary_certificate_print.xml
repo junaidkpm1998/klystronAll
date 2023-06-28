@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="report_salary_certificate" model="ir.actions.report">
+        <field name="name">Salary Certificate</field>
+        <field name="model">hr.salary.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kg_hrms_updates.salary_certificate</field>
+        <field name="report_file">kg_hrms_updates.salary_certificate</field>
+        <field name="binding_model_id" ref="model_hr_salary_certificate"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

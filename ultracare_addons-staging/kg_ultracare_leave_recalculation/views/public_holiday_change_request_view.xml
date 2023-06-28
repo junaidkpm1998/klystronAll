@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+
+    <record id="hr_public_holiday_view_form" model="ir.ui.view">
+        <field name="name">hr.public.holiday.change.view.form</field>
+        <field name="model">hr.public.holiday.change</field>
+        <field name="priority">32</field>
+        <field name="arch" type="xml">
+            <form string="Rejoining Request">
+                <header>
+                    <button string="Submit" name="submit" states="draft" type="object" class="oe_highlight"/>
+                    <button string="Approve" name="action_confirm" states="submit" type="object" class="oe_highlight"
+                            groups="hr.group_hr_manager"/>
+                    <button string="Cancel" name="cancel" states="submit,draft" type="object" class="oe_highlight"/>
+                    <button string="Reject" name="action_reject" states="submit" type="object" class="oe_highlight"
+                            groups="hr.group_hr_manager"/>
+                    <button string="Reset to Draft" name="reset" states="reject,cancel" type="object"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="name" default_focus="1" readonly="1" force_save="1"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="public_holiday_id"/>
+                            <field name="old_date_from" force_save="1" widget="date"/>
+                            <field name="new_date_from" widget="date"/>
+                        </group>
+                        <group>
+                            <field name="user_id"/>
+                            <field name="old_date_to" force_save="1" widget="date"/>
+                            <field name="new_date_to" widget="date"/>
+                        </group>
+                    </group>
+                    <field name="note" nolabel="1" placeholder="Add a notes..."/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_public_holiday_change_view_tree" model="ir.ui.view">
+        <field name="name">hr.public.holiday.change.view.tree</field>
+        <field name="model">hr.public.holiday.change</field>
+        <field name="priority">16</field>
+        <field name="arch" type="xml">
+            <tree string="Public Holiday Change Requests">
+                <field name="name"/>
+                <field name="public_holiday_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_leave_public_holiday_change_action" model="ir.actions.act_window">
+        <field name="name">PH Change Request</field>
+        <field name="res_model">hr.public.holiday.change</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new public holiday change request
+            </p>
+        </field>
+    </record>
+
+
+
+    <menuitem
+            id="menu_open_public_holiday_change"
+            name="Public Holiday Change Request"
+            parent="hr_holidays.menu_hr_holidays_approvals"
+            action="hr_leave_public_holiday_change_action"
+            sequence="12"/>
+</odoo>
